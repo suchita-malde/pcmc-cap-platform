@@ -1,0 +1,146 @@
+[
+  {
+    "id": "rising-heat",
+    "title": "Rising Heat",
+    "currentScenario": "Temperatures in Pimpri Chinchwad are rising steadily. Over the last 50 years annual mean temperature has increased by 1°C. Summers are becoming longer and hotter, with many areas crossing 40°C.",
+    "plannedActions": [
+      "Harit Setu Initiative: shaded, safe walking and cycling networks",
+      "Waste to Wonder: theme parks made from scrap and waste materials",
+      "Rejuvenation and restoration of rivers like Indrayani, Mula, and Pawan",
+      "Develop Sponge Streets and Green Mobility Corridors",
+      "Increase nature-based approaches like urban forestry and green barriers"
+    ],
+    "citizenActions": [
+      "Plant shade trees",
+      "Protect local parks and green spaces",
+      "Stay hydrated during heatwaves",
+      "Help vulnerable people - outdoor workers, elderly, children",
+      "Reduce unnecessary electricity consumption"
+    ]
+  },
+  {
+    "id": "flooding-water-logging",
+    "title": "Flooding and Water Logging",
+    "currentScenario": "Heavy rainfall events are increasing due to climate change. Many parts of the city now face regular waterlogging and flooding during monsoons. Informal settlements are especially vulnerable.",
+    "plannedActions": [
+      "Develop resilient urban drainage system integrating stormwater management",
+      "Identify and map flooding spots, implement measures to reduce impact",
+      "Nature-positive improvements along Nalla corridors",
+      "Integrate hills and open spaces into natural drainage pathways",
+      "Develop sponge areas in at least 10 locations"
+    ],
+    "citizenActions": [
+      "Avoid waste dumps that block drains and stormwater",
+      "Keep surroundings clean",
+      "Rainwater harvesting",
+      "Participate in local flood awareness activities"
+    ]
+  },
+  {
+    "id": "solid-waste-management",
+    "title": "Solid Waste Management",
+    "currentScenario": "The city generates about 1400 tons of waste every day. Bio-degradable waste is 38% and plastic waste is 35%. By 2056 the city will generate over 8000 tons per day.",
+    "plannedActions": [
+      "Safai Mitra trainings to professionalize sanitation services",
+      "Move towards a circular economy: Reduce, Reuse, Recycle",
+      "Waste to Wealth ecosystem through low-carbon waste system",
+      "Encourage decentralised, technology-enabled waste processing"
+    ],
+    "citizenActions": [
+      "Avoid littering",
+      "Segregate waste daily",
+      "Compost kitchen waste",
+      "Reduce single-use plastic",
+      "Handover e-waste to authorized collectors"
+    ]
+  },
+  {
+    "id": "green-city-biodiversity",
+    "title": "Green City and Biodiversity",
+    "currentScenario": "Several trees such as Vad, Peepul, Umber, Chafa and Rui are found within PCMC. 50% of the city faces extreme heat and green corridors are shrinking.",
+    "plannedActions": [
+      "Increase urban green cover through tree plantation",
+      "Develop green infrastructure: parks, urban gardens, green roofs, corridors",
+      "Promote cool roofing and climate-sensitive planning",
+      "Reduce Urban Heat Island Effect through nature-based solutions"
+    ],
+    "citizenActions": [
+      "Tree plantation drives with community and senior citizens' clubs",
+      "Tree audits",
+      "Mini-nurseries through Eco Clubs",
+      "Support plantation of native species"
+    ]
+  },
+  {
+    "id": "sustainable-mobility",
+    "title": "Sustainable Mobility",
+    "currentScenario": "The city has over 19 lakh 2-wheelers and 5.4 lakh cars, while public buses are less than 2000. Safety concerns for walking and cycling persist.",
+    "plannedActions": [
+      "Hari Setu: connects new Metro lines, BRTS, and railway station",
+      "Establish Low Emission Zone (LEZ) in the entire Municipal area",
+      "22 new EV charging stations for 50,000+ electric vehicles",
+      "Pimpri Market to be vehicle-free and pedestrian-friendly zone"
+    ],
+    "citizenActions": [
+      "Cycle for short trips",
+      "Use buses and metro",
+      "Walk whenever possible",
+      "Carpool and ride sharing",
+      "Switch to electric vehicles"
+    ]
+  },
+  {
+    "id": "renewable-energy",
+    "title": "Renewable Energy & Energy Use",
+    "currentScenario": "Buildings and energy sectors contributed about 66% of PCMC's total GHG emissions in 2025. Low adoption of solar energy remains a challenge.",
+    "plannedActions": [
+      "Energy efficiency buildings with GIRHA/SVAGRIHA certification incentives",
+      "Solar installation of capacity 11,614 kWh",
+      "Waste-to-energy plant of 14MW capacity at Moshi",
+      "Plan for 100% solar powered PCMC buildings",
+      "Annual energy audit of municipal buildings from 2026"
+    ],
+    "citizenActions": [
+      "Install rooftop solar panels where possible",
+      "Use energy-efficient appliances and LED lighting",
+      "Reduce unnecessary electricity consumption",
+      "Adopt electric vehicles and clean energy solutions"
+    ]
+  },
+  {
+    "id": "water-security-conservation",
+    "title": "Water Security and Conservation",
+    "currentScenario": "Challenges include groundwater depletion, irregular rainfall, rising demand, and water wastage. Shrinking recharge areas add pressure.",
+    "plannedActions": [
+      "Increase wastewater recycling with target of 100 MLD by 2035",
+      "Improve stormwater management and flood resilience",
+      "Reduce water losses through leak detection",
+      "Promote rainwater harvesting and groundwater recharge",
+      "Restore and rejuvenate Pavana, Mula and Indrayani Rivers"
+    ],
+    "citizenActions": [
+      "Repair leaky taps",
+      "Take shorter showers or bucket baths",
+      "Install rainwater harvesting systems",
+      "Establish wastewater treatment at housing societies"
+    ]
+  },
+  {
+    "id": "clean-air-healthy-life",
+    "title": "Clean Air, Healthy Life",
+    "currentScenario": "Pollution from PM2.5 and PM10 particles often crosses safe limits, especially in winter when pollutants remain close to the ground.",
+    "plannedActions": [
+      "Implement GRAP (Graded Response Action Plan) for air pollution control",
+      "Promote cleaner fuels (PNG, LPG), EVs, and CNG",
+      "Promote shift to public transport including Metro connectivity",
+      "Enforce dust-suppression at construction sites"
+    ],
+    "citizenActions": [
+      "Walk or cycle for short trips",
+      "Use public transport",
+      "Maintain vehicles properly",
+      "Proper waste management, no burning of waste",
+      "Plant and protect trees"
+    ]
+  }
+]
