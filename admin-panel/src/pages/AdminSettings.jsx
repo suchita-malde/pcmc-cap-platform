@@ -1,4 +1,4 @@
-export default function SuggestionsInbox() {
+export default function AdminSettings() {
   return (
     <div>
       <div style={{ marginBottom: "28px" }}>
@@ -14,7 +14,7 @@ export default function SuggestionsInbox() {
             marginBottom: "10px",
           }}
         >
-          CITIZEN FEEDBACK
+          ADMINISTRATION
         </div>
 
         <h1
@@ -23,12 +23,12 @@ export default function SuggestionsInbox() {
             color: "#173b2a",
           }}
         >
-          Citizen Suggestions & Queries
+          Admin Settings & Data Management
         </h1>
 
         <p style={{ color: "#607565" }}>
-          Review suggestions and queries submitted through the citizen-facing
-          platform.
+          Manage administrative settings and prepare platform data for future
+          backend integration.
         </p>
       </div>
 
@@ -55,7 +55,7 @@ export default function SuggestionsInbox() {
             marginBottom: "16px",
           }}
         >
-          💬
+          ⚙️
         </div>
 
         <h2
@@ -64,19 +64,32 @@ export default function SuggestionsInbox() {
             color: "#173b2a",
           }}
         >
-          No submissions available
+          Data Management
         </h2>
 
         <p
           style={{
-            margin: 0,
+            marginBottom: "12px",
             color: "#607565",
             lineHeight: "1.6",
           }}
         >
-          Citizen submissions will appear here once the submission data source
-          is connected.
+          Backend, database, import, export, and other data-management
+          functions will be connected here when the backend is introduced.
         </p>
+
+        <div
+          style={{
+            padding: "14px 16px",
+            backgroundColor: "#f3f7f1",
+            border: "1px solid #d9e5d8",
+            borderRadius: "8px",
+            color: "#536456",
+            fontSize: "14px",
+          }}
+        >
+          No backend data operations are available yet.
+        </div>
       </div>
     </div>
   );

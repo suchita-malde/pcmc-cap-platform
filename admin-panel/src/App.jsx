@@ -1,58 +1,50 @@
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
+
 import Login from "./pages/Login";
 import Dashboard from "./pages/Dashboard";
-import ContentEditor from "./pages/ContentEditor";
-import DirectoryEditor from "./pages/DirectoryEditor";
 import ProgressEntry from "./pages/ProgressEntry";
 import SuggestionsInbox from "./pages/SuggestionsInbox";
+import Sectors from "./pages/Sectors";
+import SectorEdit from "./pages/SectorEdit";
+import Projects from "./pages/Projects";
+import MapData from "./pages/MapData";
+import Resources from "./pages/Resources";
+import Events from "./pages/Events";
+import AdminSettings from "./pages/AdminSettings";
+
 import AuthGuard from "./components/AuthGuard";
+import AdminLayout from "./components/AdminLayout";
 
 function App() {
   return (
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<Navigate to="/login" />} />
+
         <Route path="/login" element={<Login />} />
-        <Route
-          path="/dashboard"
-          element={
-            <AuthGuard>
-              <Dashboard />
-            </AuthGuard>
-          }
-        />
-        <Route
-          path="/content"
-          element={
-            <AuthGuard>
-              <ContentEditor />
-            </AuthGuard>
-          }
-        />
-        <Route
-          path="/directory"
-          element={
-            <AuthGuard>
-              <DirectoryEditor />
-            </AuthGuard>
-          }
-        />
-        <Route
-          path="/progress"
-          element={
-            <AuthGuard>
-              <ProgressEntry />
-            </AuthGuard>
-          }
-        />
-        <Route
-          path="/suggestions"
-          element={
-            <AuthGuard>
-              <SuggestionsInbox />
-            </AuthGuard>
-          }
-        />
+
+        <Route element={<AuthGuard />}>
+          <Route element={<AdminLayout />}>
+            <Route path="/dashboard" element={<Dashboard />} />
+
+            <Route path="/sectors" element={<Sectors />} />
+            <Route path="/sectors/:sectorId/edit" element={<SectorEdit />} />
+
+            <Route path="/projects" element={<Projects />} />
+
+            <Route path="/progress" element={<ProgressEntry />} />
+
+            <Route path="/map-data" element={<MapData />} />
+
+            <Route path="/resources" element={<Resources />} />
+
+            <Route path="/events" element={<Events />} />
+
+            <Route path="/suggestions" element={<SuggestionsInbox />} />
+
+            <Route path="/admin-settings" element={<AdminSettings />} />
+          </Route>
+        </Route>
       </Routes>
     </BrowserRouter>
   );

@@ -1,4 +1,13 @@
-export default function AuthGuard({ children }) {
-  // Placeholder — no real auth check yet, just passes through
-  return children;
+
+import { Navigate, Outlet } from "react-router-dom";
+
+export default function AuthGuard() {
+  const isAuthenticated =
+    localStorage.getItem("adminAuthenticated") === "true";
+
+  if (!isAuthenticated) {
+    return <Navigate to="/login" replace />;
+  }
+
+  return <Outlet />;
 }

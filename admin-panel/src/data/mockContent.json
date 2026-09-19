@@ -2,145 +2,143 @@
   {
     "id": "rising-heat",
     "title": "Rising Heat",
-    "currentScenario": "Temperatures in Pimpri Chinchwad are rising steadily. Over the last 50 years annual mean temperature has increased by 1°C. Summers are becoming longer and hotter, with many areas crossing 40°C.",
+    "currentScenario": "Pimpri-Chinchwad is experiencing rising temperatures and increasing heat stress, particularly in densely built-up areas with limited green cover.",
     "plannedActions": [
-      "Harit Setu Initiative: shaded, safe walking and cycling networks",
-      "Waste to Wonder: theme parks made from scrap and waste materials",
-      "Rejuvenation and restoration of rivers like Indrayani, Mula, and Pawan",
-      "Develop Sponge Streets and Green Mobility Corridors",
-      "Increase nature-based approaches like urban forestry and green barriers"
+      "Harit Setu Initiative",
+      "Waste to Wonder",
+      "River restoration",
+      "Sponge Streets and Green Mobility Corridors",
+      "Nature-based urban forestry and green barriers"
     ],
     "citizenActions": [
-      "Plant shade trees",
-      "Protect local parks and green spaces",
-      "Stay hydrated during heatwaves",
-      "Help vulnerable people - outdoor workers, elderly, children",
-      "Reduce unnecessary electricity consumption"
+      "Plant and protect trees",
+      "Use shaded and green public spaces responsibly",
+      "Follow heat-safety advisories during extreme heat"
     ]
   },
   {
     "id": "flooding-water-logging",
     "title": "Flooding and Water Logging",
-    "currentScenario": "Heavy rainfall events are increasing due to climate change. Many parts of the city now face regular waterlogging and flooding during monsoons. Informal settlements are especially vulnerable.",
+    "currentScenario": "Heavy rainfall can cause flooding and water logging in vulnerable areas of Pimpri-Chinchwad, affecting mobility, infrastructure and communities.",
     "plannedActions": [
-      "Develop resilient urban drainage system integrating stormwater management",
-      "Identify and map flooding spots, implement measures to reduce impact",
-      "Nature-positive improvements along Nalla corridors",
-      "Integrate hills and open spaces into natural drainage pathways",
-      "Develop sponge areas in at least 10 locations"
+      "Improve drainage systems",
+      "Develop flood-risk mapping",
+      "Restore and protect Nalla corridors",
+      "Protect natural drainage pathways",
+      "Create sponge areas for rainwater absorption"
     ],
     "citizenActions": [
-      "Avoid waste dumps that block drains and stormwater",
-      "Keep surroundings clean",
-      "Rainwater harvesting",
-      "Participate in local flood awareness activities"
+      "Keep drains and waterways free from waste",
+      "Avoid dumping waste in natural drainage channels",
+      "Follow local flood and heavy-rain advisories"
     ]
   },
   {
     "id": "solid-waste-management",
     "title": "Solid Waste Management",
-    "currentScenario": "The city generates about 1400 tons of waste every day. Bio-degradable waste is 38% and plastic waste is 35%. By 2056 the city will generate over 8000 tons per day.",
+    "currentScenario": "Pimpri-Chinchwad generates around 1400 tons of waste per day, with approximately 38% biodegradable waste and 35% plastic waste. Waste generation is expected to increase significantly in the future.",
     "plannedActions": [
-      "Safai Mitra trainings to professionalize sanitation services",
-      "Move towards a circular economy: Reduce, Reuse, Recycle",
-      "Waste to Wealth ecosystem through low-carbon waste system",
-      "Encourage decentralised, technology-enabled waste processing"
+      "Improve waste segregation and processing",
+      "Increase treatment of biodegradable waste",
+      "Improve plastic waste management",
+      "Develop waste-to-energy initiatives",
+      "Promote circular economy approaches"
     ],
     "citizenActions": [
-      "Avoid littering",
-      "Segregate waste daily",
-      "Compost kitchen waste",
+      "Separate wet and dry waste",
       "Reduce single-use plastic",
-      "Handover e-waste to authorized collectors"
+      "Use waste collection systems correctly",
+      "Compost organic waste where possible"
     ]
   },
   {
     "id": "green-city-biodiversity",
     "title": "Green City and Biodiversity",
-    "currentScenario": "Several trees such as Vad, Peepul, Umber, Chafa and Rui are found within PCMC. 50% of the city faces extreme heat and green corridors are shrinking.",
+    "currentScenario": "Urban development and increasing temperatures are putting pressure on trees, green spaces and biodiversity across Pimpri-Chinchwad.",
     "plannedActions": [
-      "Increase urban green cover through tree plantation",
-      "Develop green infrastructure: parks, urban gardens, green roofs, corridors",
-      "Promote cool roofing and climate-sensitive planning",
-      "Reduce Urban Heat Island Effect through nature-based solutions"
+      "Protect and increase urban tree cover",
+      "Develop connected green corridors",
+      "Restore natural habitats",
+      "Promote nature-based solutions",
+      "Strengthen biodiversity conservation"
     ],
     "citizenActions": [
-      "Tree plantation drives with community and senior citizens' clubs",
-      "Tree audits",
-      "Mini-nurseries through Eco Clubs",
-      "Support plantation of native species"
+      "Protect existing trees",
+      "Plant native species where appropriate",
+      "Keep parks and green spaces clean",
+      "Support local biodiversity"
     ]
   },
   {
     "id": "sustainable-mobility",
     "title": "Sustainable Mobility",
-    "currentScenario": "The city has over 19 lakh 2-wheelers and 5.4 lakh cars, while public buses are less than 2000. Safety concerns for walking and cycling persist.",
+    "currentScenario": "Pimpri-Chinchwad has more than 19 lakh two-wheelers and around 5.4 lakh cars, while the number of buses remains below 2000, creating challenges for sustainable urban mobility.",
     "plannedActions": [
-      "Hari Setu: connects new Metro lines, BRTS, and railway station",
-      "Establish Low Emission Zone (LEZ) in the entire Municipal area",
-      "22 new EV charging stations for 50,000+ electric vehicles",
-      "Pimpri Market to be vehicle-free and pedestrian-friendly zone"
+      "Improve public transport",
+      "Promote walking and cycling",
+      "Develop green mobility corridors",
+      "Improve connectivity between transport modes",
+      "Support cleaner mobility options"
     ],
     "citizenActions": [
-      "Cycle for short trips",
-      "Use buses and metro",
-      "Walk whenever possible",
-      "Carpool and ride sharing",
-      "Switch to electric vehicles"
+      "Use public transport when practical",
+      "Walk or cycle for suitable short trips",
+      "Consider shared mobility",
+      "Maintain vehicles properly to reduce emissions"
     ]
   },
   {
     "id": "renewable-energy",
-    "title": "Renewable Energy & Energy Use",
-    "currentScenario": "Buildings and energy sectors contributed about 66% of PCMC's total GHG emissions in 2025. Low adoption of solar energy remains a challenge.",
+    "title": "Renewable and Efficient Energy",
+    "currentScenario": "Buildings and energy use account for a major share of greenhouse gas emissions, while solar energy adoption remains an area with significant potential.",
     "plannedActions": [
-      "Energy efficiency buildings with GIRHA/SVAGRIHA certification incentives",
-      "Solar installation of capacity 11,614 kWh",
-      "Waste-to-energy plant of 14MW capacity at Moshi",
-      "Plan for 100% solar powered PCMC buildings",
-      "Annual energy audit of municipal buildings from 2026"
+      "Expand rooftop solar adoption",
+      "Install solar energy systems on PCMC buildings",
+      "Develop waste-to-energy capacity",
+      "Improve building energy efficiency",
+      "Conduct energy audits"
     ],
     "citizenActions": [
-      "Install rooftop solar panels where possible",
-      "Use energy-efficient appliances and LED lighting",
+      "Explore rooftop solar where feasible",
+      "Use energy-efficient appliances",
       "Reduce unnecessary electricity consumption",
-      "Adopt electric vehicles and clean energy solutions"
+      "Improve building energy efficiency"
     ]
   },
   {
     "id": "water-security-conservation",
     "title": "Water Security and Conservation",
-    "currentScenario": "Challenges include groundwater depletion, irregular rainfall, rising demand, and water wastage. Shrinking recharge areas add pressure.",
+    "currentScenario": "Groundwater depletion and increasing water demand create challenges for long-term water security. Water conservation and efficient reuse are important for climate resilience.",
     "plannedActions": [
-      "Increase wastewater recycling with target of 100 MLD by 2035",
-      "Improve stormwater management and flood resilience",
-      "Reduce water losses through leak detection",
-      "Promote rainwater harvesting and groundwater recharge",
-      "Restore and rejuvenate Pavana, Mula and Indrayani Rivers"
+      "Develop wastewater recycling capacity",
+      "Implement leak detection and reduction",
+      "Promote rainwater harvesting",
+      "Restore rivers and water bodies",
+      "Improve water-use efficiency"
     ],
     "citizenActions": [
-      "Repair leaky taps",
-      "Take shorter showers or bucket baths",
-      "Install rainwater harvesting systems",
-      "Establish wastewater treatment at housing societies"
+      "Conserve water at home",
+      "Use rainwater harvesting where feasible",
+      "Fix water leaks promptly",
+      "Avoid polluting rivers and water bodies"
     ]
   },
   {
     "id": "clean-air-healthy-life",
-    "title": "Clean Air, Healthy Life",
-    "currentScenario": "Pollution from PM2.5 and PM10 particles often crosses safe limits, especially in winter when pollutants remain close to the ground.",
+    "title": "Clean Air and Healthy Life",
+    "currentScenario": "PM2.5 and PM10 levels in Pimpri-Chinchwad can exceed safe limits, creating air-quality challenges for residents.",
     "plannedActions": [
-      "Implement GRAP (Graded Response Action Plan) for air pollution control",
-      "Promote cleaner fuels (PNG, LPG), EVs, and CNG",
-      "Promote shift to public transport including Metro connectivity",
-      "Enforce dust-suppression at construction sites"
+      "Implement measures under the Graded Response Action Plan",
+      "Promote cleaner fuels",
+      "Improve public transport",
+      "Strengthen dust suppression",
+      "Reduce major sources of air pollution"
     ],
     "citizenActions": [
-      "Walk or cycle for short trips",
-      "Use public transport",
-      "Maintain vehicles properly",
-      "Proper waste management, no burning of waste",
-      "Plant and protect trees"
+      "Prefer public and shared transport where practical",
+      "Avoid unnecessary vehicle idling",
+      "Follow air-quality advisories",
+      "Support cleaner and less polluting practices"
     ]
   }
 ]
