@@ -1,0 +1,98 @@
+.sector-page {
+  min-height:100vh;
+  background:#f5f8f4;
+  color:#34423a;
+}
+
+.sector-hero {
+  padding:75px 8% 65px;
+  text-align:center;
+  background:#e6f0e5;
+  border-bottom:1px solid #d5e3d3;
+}
+
+.sector-page-icon {
+  font-size:56px;
+  margin-bottom:12px;
+}
+
+.sector-hero h1 {
+  margin:0 0 16px;
+  font-size:42px;
+  color:#236b3c;
+}
+
+.sector-hero p {
+  max-width:700px;
+  margin:0 auto;
+  font-size:17px;
+  line-height:1.7;
+  color:#536158;
+}
+
+.sector-content {
+  max-width:1000px;
+  margin:0 auto;
+  padding:55px 25px 70px;
+}
+
+.sector-section {
+  background:white;
+  padding:30px 34px;
+  margin-bottom:24px;
+  border-radius:14px;
+  border:1px solid #e2e9e1;
+  box-shadow:0 3px 12px rgba(0,0,0,0.05);
+}
+
+.sector-section h2 {
+  margin:0 0 16px;
+  color:#236b3c;
+  font-size:25px;
+}
+
+.sector-section p {
+  line-height:1.75;
+  margin:0;
+  color:#4b5750;
+}
+
+.sector-section ul {
+  margin:0;
+  padding-left:24px;
+}
+
+.sector-section li {
+  margin-bottom:12px;
+  line-height:1.65;
+  color:#4b5750;
+}
+
+.sector-section li:last-child {
+  margin-bottom:0;
+}
+
+.target-placeholder {
+  margin-top:20px;
+  padding:16px 18px;
+  background:#f1f6f0;
+  border-left:4px solid #236b3c;
+  border-radius:6px;
+  color:#4b5750;
+}
+
+.back-home {
+  display:inline-block;
+  margin-top:5px;
+  color:#236b3c;
+  font-weight:600;
+  text-decoration:none;
+}
+
+.back-home:hover {
+  text-decoration:underline;
+}
+
+.sector-page > h1 {
+  text-align:center;
+}

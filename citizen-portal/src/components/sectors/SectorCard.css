@@ -1,0 +1,35 @@
+.sector-card {
+  background:white;
+  padding:25px;
+  border-radius:16px;
+  box-shadow:0 3px 12px rgba(0,0,0,0.08);
+  transition:transform 0.2s,box-shadow 0.2s;
+}
+
+.sector-card:hover {
+  transform:translateY(-5px);
+  box-shadow:0 6px 18px rgba(0,0,0,0.12);
+}
+
+.sector-icon {
+  font-size:40px;
+  margin-bottom:15px;
+}
+
+.sector-card h3 {
+  font-size:20px;
+  margin-bottom:12px;
+}
+
+.sector-card p {
+  color:#5f6b63;
+  line-height:1.5;
+  font-size:14px;
+}
+
+.sector-card a {
+  display:inline-block;
+  margin-top:12px;
+  color:#236b3c;
+  font-weight:bold;
+}
