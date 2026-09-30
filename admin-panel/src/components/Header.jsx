@@ -1,4 +1,13 @@
+import { useNavigate } from "react-router-dom";
+
 export default function Header() {
+  const navigate = useNavigate();
+
+  function handleLogout() {
+    localStorage.removeItem("adminAuthenticated");
+    navigate("/login");
+  }
+
   return (
     <header className="admin-header">
       <div>
@@ -11,10 +20,29 @@ export default function Header() {
         </p>
       </div>
 
-      <div className="admin-header-badge">
-        <span className="admin-header-dot" />
-        Admin
-      </div>
+      <button
+        type="button"
+        onClick={handleLogout}
+        style={{
+          marginLeft: "auto",
+          padding: "8px 14px",
+          border: "1px solid #DCE3DD",
+          borderRadius: "8px",
+          background: "#E8EEE3",
+          color: "#394F49",
+          fontSize: "13px",
+          fontWeight: "600",
+          cursor: "pointer",
+        }}
+        onMouseEnter={(e) => {
+          e.currentTarget.style.background = "#DCE6D6";
+        }}
+        onMouseLeave={(e) => {
+          e.currentTarget.style.background = "#E8EEE3";
+        }}
+      >
+        Logout
+      </button>
     </header>
   );
 }
