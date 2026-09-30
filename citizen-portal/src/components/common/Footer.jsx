@@ -1,52 +1,74 @@
 import "./Footer.css";
 import { Link } from "react-router-dom";
+import { translations } from "../../data/translations";
 
-export default function Footer() {
+export default function Footer({ language }) {
+  const t = translations[language];
+
   return (
     <footer className="footer">
 
-      <div className="footer-content">
+      <div className="footer-main">
 
-        <div className="footer-about">
-          <h2>PCMC Climate Action</h2>
-          <p>
-            For all, through the participation of all.
+        <div className="footer-brand">
+          <div className="footer-brand-mark">PCMC</div>
+
+          <h2>{t.homeTitle}</h2>
+
+          <p className="footer-tagline">
+            {t.footerTagline}
           </p>
-          <p>
-            Learn about climate challenges, planned actions, and how citizens
-            can contribute to a more resilient Pimpri-Chinchwad.
+
+          <p className="footer-description">
+            {t.footerDescription}
           </p>
         </div>
 
         <div className="footer-section">
-          <h3>Quick Links</h3>
+          <h3>{t.quickLinks}</h3>
 
-          <Link to="/cap-overview">CAP Overview</Link>
-          <Link to="/climate-map">Climate Map</Link>
-          <Link to="/progress">Progress</Link>
-          <Link to="/actions">Take Action</Link>
-          <Link to="/resources">Resources</Link>
-          <Link to="/get-involved">Get Involved</Link>
+          <Link to="/cap-overview">{t.capOverview}</Link>
+          <Link to="/climate-map">{t.climateMap}</Link>
+          <Link to="/progress">{t.progress}</Link>
+          <Link to="/actions">{t.takeAction}</Link>
+          <Link to="/resources">{t.resources}</Link>
+          <Link to="/get-involved">{t.getInvolved}</Link>
         </div>
 
         <div className="footer-section">
-          <h3>Climate Issues</h3>
+          <h3>{t.climateIssues}</h3>
 
-          <Link to="/sector/rising-heat">Rising Heat</Link>
-          <Link to="/sector/flooding-water-logging">Flooding</Link>
-          <Link to="/sector/solid-waste-management">Waste</Link>
-          <Link to="/sector/green-city-biodiversity">Green City</Link>
-          <Link to="/sector/sustainable-mobility">Mobility</Link>
-          <Link to="/sector/renewable-energy">Energy</Link>
-          <Link to="/sector/water-security-conservation">Water</Link>
-          <Link to="/sector/clean-air-healthy-life">Clean Air</Link>
+          <Link to="/sector/rising-heat">{t.risingHeat}</Link>
+          <Link to="/sector/flooding-water-logging">{t.flooding}</Link>
+          <Link to="/sector/solid-waste-management">{t.solidWaste}</Link>
+          <Link to="/sector/green-city-biodiversity">{t.greenCity}</Link>
+          <Link to="/sector/sustainable-mobility">
+            {t.sustainableMobility}
+          </Link>
+          <Link to="/sector/renewable-energy">
+            {t.renewableEnergy}
+          </Link>
+          <Link to="/sector/water-security-conservation">
+            {t.waterConservation}
+          </Link>
+          <Link to="/sector/clean-air-healthy-life">
+            {t.cleanAir}
+          </Link>
         </div>
 
       </div>
 
+      <div className="footer-visual">
+        <div className="footer-visual-word">
+          PCMC
+        </div>
+
+        <div className="footer-visual-line"></div>
+      </div>
+
       <div className="footer-bottom">
-        <p>© 2026 PCMC Climate Action Plan</p>
-        <p>Citizen Climate Engagement Platform</p>
+        <p>{t.footerCopyright}</p>
+        <p>{t.footerPlatform}</p>
       </div>
 
     </footer>

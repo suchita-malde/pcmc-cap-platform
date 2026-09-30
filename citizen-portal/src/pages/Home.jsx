@@ -1,4 +1,5 @@
 import "./Home.css";
+import SplitText from "../components/common/SplitText";
 import { useEffect } from "react";
 import { translations } from "../data/translations";
 
@@ -20,11 +21,32 @@ export default function Home({ language }) {
   return (
     <div className="home-page">
       <section className="hero-section">
-        <h1>{t.homeTitle}</h1>
 
-        <p>
-          {t.homeTagline}
-        </p>
+        <div className="hero-overlay"></div>
+
+        <div className="hero-content">
+
+          <SplitText
+            key={language}
+            text={t.homeTitle}
+            className="hero-title"
+            delay={45}
+            duration={1.1}
+            ease="power3.out"
+            splitType="chars"
+            from={{ opacity: 0, y: 35 }}
+            to={{ opacity: 1, y: 0 }}
+            threshold={0.1}
+            rootMargin="-80px"
+            textAlign="center"
+            tag="h1"
+          />
+
+          <p className="hero-tagline">
+            {t.homeTagline}
+          </p>
+
+        </div>
 
       </section>
 
@@ -40,6 +62,7 @@ export default function Home({ language }) {
             <SectorCard
               key={sector.id}
               sector={sector}
+              language={language}
             />
           ))}
         </div>

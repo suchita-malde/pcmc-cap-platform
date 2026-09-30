@@ -1,5 +1,5 @@
 import "./App.css";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 
 import Navbar from "./components/common/Navbar";
@@ -16,7 +16,12 @@ import GetInvolved from "./pages/GetInvolved";
 import ScrollToTop from "./components/common/ScrollToTop";
 
 function App() {
-  const [language, setLanguage] = useState("en");
+  const [language, setLanguage] = useState(
+    localStorage.getItem("language") || "en"
+  );
+  useEffect(() => {
+    localStorage.setItem("language", language);
+  }, [language]);
 
   return (
     <BrowserRouter>
@@ -32,7 +37,10 @@ function App() {
           path="/"
           element={<Home language={language} />}
         />
-        <Route path="/cap-overview" element={<CAPOverview />} />
+        <Route
+          path="/cap-overview"
+          element={<CAPOverview language={language} />}
+        />
         <Route path="/climate-map" element={<ClimateMap />} />
         <Route path="/sector/:sectorId" element={<SectorPage />} />
         <Route path="/progress" element={<ProgressTracker />} />
@@ -41,7 +49,7 @@ function App() {
         <Route path="/get-involved" element={<GetInvolved />} />
       </Routes>
 
-      <Footer />
+      <Footer language={language} />
       
     </BrowserRouter>
   );

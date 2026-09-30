@@ -1,90 +1,206 @@
 .navbar {
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-  padding:16px 30px;
-  background:white;
-  border-bottom:1px solid #e1e7e2;
-  position:sticky;
-  top:0;
-  z-index:1000;
+  width: 100%;
+  min-height: 82px;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  padding: 0 48px;
+
+  background: var(--white);
+  border-bottom: 1px solid var(--border);
+
+  position: sticky;
+  top: 0;
+  z-index: 1000;
 }
+
+/* logo */
 
 .navbar-logo {
-  font-size:20px;
-  font-weight:bold;
-  color:#236b3c;
-  white-space:nowrap;
+  font-family: var(--heading);
+  font-size: 22px;
+  font-weight: 600;
+  color: var(--dark-teal);
+
+  white-space: nowrap;
 }
+
+/* navigation */
 
 .navbar-links {
-  display:flex;
-  align-items:center;
-  gap:20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
 }
 
-.navbar-links a {
-  color:#34423a;
-  font-size:14px;
-  font-weight:600;
+.nav-link {
+  position: relative;
+
+  padding: 10px 14px;
+
+  border: none;
+  background: transparent;
+
+  font-family: var(--sans);
+  font-size: 15px;
+  font-weight: 500;
+
+  color: var(--text-light);
+
+  cursor: pointer;
+
+  transition:
+    color 0.2s ease,
+    background 0.2s ease;
 }
 
-.navbar-links a:hover {
-  color:#236b3c;
+.nav-link:hover {
+  color: var(--dark-teal);
 }
 
-.language-button {
-  border:1px solid #236b3c;
-  background:white;
-  color:#236b3c;
-  padding:7px 12px;
-  border-radius:6px;
-  cursor:pointer;
-  font-size:14px;
+/* active page */
+
+.nav-link.active {
+  color: var(--dark-teal);
 }
 
-@media (max-width:1000px) {
-  .navbar {
-    flex-wrap:wrap;
-    gap:15px;
-  }
+.nav-link.active::after {
+  content: "";
 
-  .navbar-links {
-    order:3;
-    width:100%;
-    justify-content:center;
-    flex-wrap:wrap;
-  }
+  position: absolute;
+  left: 14px;
+  right: 14px;
+  bottom: 2px;
+
+  height: 2px;
+
+  background: var(--orange);
+  border-radius: 2px;
 }
+
+/* explore button */
 
 .explore-link {
-  border:none;
-  background:none;
-  color:#34423a;
-  font-size:14px;
-  font-weight:600;
-  cursor:pointer;
-  padding:0;
+  appearance: none;
 }
 
-.explore-link:hover {
-  color:#236b3c;
+/* language toggle */
+
+.language-toggle {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+
+  padding: 7px 13px 7px 8px;
+
+  border: 1px solid rgba(11, 47, 49, 0.18);
+  border-radius: 30px;
+
+  background: var(--cream);
+
+  color: var(--dark-teal);
+
+  cursor: pointer;
+
+  transition:
+    border-color 0.2s ease,
+    background 0.2s ease,
+    transform 0.2s ease;
 }
 
-@media (max-width:700px) {
+.language-toggle:hover {
+  border-color: var(--olive-green);
+  background: var(--warm-yellow);
+}
+
+.language-toggle:active {
+  transform: scale(0.97);
+}
+
+/* little toggle switch */
+
+.toggle-track {
+  width: 38px;
+  height: 22px;
+
+  display: flex;
+  align-items: center;
+
+  padding: 2px;
+
+  background: var(--dark-teal);
+  border-radius: 20px;
+}
+
+.toggle-thumb {
+  width: 18px;
+  height: 18px;
+
+  border-radius: 50%;
+
+  background: var(--white);
+
+  transition: transform 0.25s ease;
+}
+
+.language-toggle.marathi .toggle-thumb {
+  transform: translateX(16px);
+}
+
+.language-name {
+  min-width: 48px;
+
+  font-size: 14px;
+  font-weight: 500;
+
+  text-align: center;
+}
+
+/* mobile */
+
+@media (max-width: 1000px) {
   .navbar {
-    flex-direction:column;
-    gap:15px;
-    padding:15px 20px;
+    padding: 15px 25px;
+    flex-wrap: wrap;
+    gap: 12px;
   }
 
   .navbar-links {
-    flex-wrap:wrap;
-    justify-content:center;
-    gap:12px;
+    order: 3;
+    width: 100%;
+
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+}
+
+@media (max-width: 600px) {
+  .navbar {
+    padding: 14px 18px;
   }
 
-  .language-button {
-    align-self:center;
+  .navbar-logo {
+    font-size: 19px;
+  }
+
+  .navbar-links {
+    gap: 2px;
+  }
+
+  .nav-link {
+    padding: 8px 9px;
+    font-size: 13px;
+  }
+
+  .nav-link.active::after {
+    left: 9px;
+    right: 9px;
+  }
+
+  .language-toggle {
+    padding-right: 9px;
   }
 }
