@@ -1,0 +1,107 @@
+{
+  "sector": "Air Quality",
+  "overview": "Covers ambient air quality monitoring, pollutant trends (PM2.5, PM10, NOx, CO, ozone, SO2), source apportionment, and health risk; recommends monitoring, mitigation, and awareness strategies.",
+  "current_situation": "PM2.5 and PM10 consistently exceed daily/annual permissible limits. NOx, CO, ozone breach daily standards mainly in winter. SO2 stays within acceptable limits. PCMC has prepared an NCAP City Action Plan costed at INR 172.97 crore to meet NAAQS. No PM1.0 (ultra-fine particle) monitoring exists in the network.",
+  "baseline_data": [
+    {
+      "metric": "NCAP City Action Plan cost",
+      "value": 172.97,
+      "unit": "INR crore",
+      "year": null,
+      "source_page": "295"
+    },
+    {
+      "metric": "NCAP national reduction target (revised)",
+      "value": 40,
+      "unit": "% by 2025-26 (from original 20-30% by 2024)",
+      "year": "2025-26",
+      "source_page": "295"
+    },
+    {
+      "metric": "Smart Cities Mission sensors",
+      "value": 35,
+      "unit": "count",
+      "year": null,
+      "source_page": "295"
+    }
+  ],
+  "challenges": [
+    "No comprehensive Source Apportionment Study yet - limits precision targeting of mitigation",
+    "Major pollution-contributing sectors managed in silos, not holistically",
+    "Fragmented data across CAAQMS, AAQMS, and Smart City sensors",
+    "Advanced analytics/modelling under-leveraged despite existing monitoring infrastructure",
+    "Emissions growing faster than current mitigation measures",
+    "No long-term integrated air-quality framework under NCAP institutionalised yet",
+    "No PM1.0 monitoring anywhere in the network (no national/state guideline mandates it)"
+  ],
+  "climate_risks": [],
+  "existing_initiatives": [
+    "Continuous Ambient Air Quality Monitoring Stations (CAAQMS) installed by IITM-SAFAR and MPCB",
+    "Manual Ambient Air Quality Monitoring Stations (AAQMS)",
+    "35 sensors installed under the Smart Cities Mission",
+    "Graded Response Action Plan (GRAP), 2024",
+    "ICCT & ITDP Low Emission Zone study (2023)",
+    "Safe School Zones, Global Design Cities Initiative (2025)"
+  ],
+  "strategies": [
+    {
+      "code": "AQ-1",
+      "name": "Strengthen monitoring and data systems through spatially inclusive data capture and real-time analytics.",
+      "source_page": "303"
+    },
+    {
+      "code": "AQ-2",
+      "name": "Conduct a Source Apportionment Study and revise the Clean Air Action Plan.",
+      "source_page": "303"
+    },
+    {
+      "code": "AQ-3",
+      "name": "Cut Particulate Matter concentrations by 40% in 2026, 75% in 2028, and 90% in 2030.",
+      "source_page": "304"
+    },
+    {
+      "code": "AQ-4",
+      "name": "Establish a robust capacity-building and awareness programme.",
+      "source_page": "304"
+    },
+    {
+      "code": "AQ-5",
+      "name": "Ensure community health resilience through decentralised planning and awareness.",
+      "source_page": "304"
+    }
+  ],
+  "actions": "See /data/actions/actions.json filtered by sector = 'Air Quality' (21 action records)",
+  "citizen_actions": [
+    {
+      "title": "Walk/cycle for short trips",
+      "source_page": "12"
+    },
+    {
+      "title": "Use public transport",
+      "source_page": "12"
+    },
+    {
+      "title": "Maintain vehicles properly",
+      "source_page": "12"
+    },
+    {
+      "title": "Proper waste management, no burning of waste",
+      "source_page": "12"
+    },
+    {
+      "title": "Plant and protect trees",
+      "source_page": "12"
+    },
+    {
+      "title": "Eco-friendly cremation by gas or electricity",
+      "source_page": "12"
+    }
+  ],
+  "source": {
+    "document": "PCMC Climate Action Plan 2026",
+    "pages": [
+      "295-313"
+    ],
+    "section": "20. Air Quality"
+  }
+}

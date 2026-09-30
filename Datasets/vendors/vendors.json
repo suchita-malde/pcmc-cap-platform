@@ -1,0 +1,26 @@
+{
+  "note": "NEITHER source document (Doc A or Doc B) contains any vendor, service-provider, NGO, or contact information. This is confirmed explicitly in the platform's Minutes of Meeting (separate document from an earlier session): 'the platform will simply provide the provision (admin-editable field); actual contacts to be sourced and entered separately.' No records are populated below - only the schema for later CEE/PCMC data entry.",
+  "missing_vendor_information": [
+    "Names of rooftop solar installers/vendors",
+    "Names of composting/waste-management service providers",
+    "Names of rainwater-harvesting contractors",
+    "NGO or community-organisation contacts for citizen participation",
+    "Any phone numbers, emails, addresses, or websites for service providers",
+    "Verification/accreditation status of any vendor"
+  ],
+  "schema_example": {
+    "name": "",
+    "category": "",
+    "sector": "",
+    "description": "",
+    "service": "",
+    "location": "",
+    "contact_person": null,
+    "phone": null,
+    "email": null,
+    "website": null,
+    "address": null,
+    "verification_status": "To be verified"
+  },
+  "records": []
+}

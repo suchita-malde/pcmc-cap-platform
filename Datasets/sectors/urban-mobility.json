@@ -1,0 +1,162 @@
+{
+  "sector": "Urban Mobility",
+  "overview": "Evaluation of public transport, non-motorised transport (NMT), road infrastructure, IPT/paratransit, metro rail, and personalised vehicles; reviews trends, challenges, ongoing initiatives, and provides recommendations.",
+  "current_situation": "Public transport = 9.42% of trips (vs. 40-50% URDPFI benchmark); walking 25.29%, cycling 0.80%; 67% of motorised trips are private, 33% public/IPT. 27,08,550 registered vehicles as of March 2025 (ESR); ~101 vehicles per 100 residents (RTO data). Two-wheelers = 66% of vehicles (RTO)/71% (ESR); cars 22%/20%. Vehicle registrations growing ~23%/year. ~70% of vehicles are BS-4 or older emission standard.",
+  "baseline_data": [
+    {
+      "metric": "Public transport mode share",
+      "value": 9.42,
+      "unit": "%",
+      "year": 2024,
+      "source_page": "178"
+    },
+    {
+      "metric": "Walking mode share",
+      "value": 25.29,
+      "unit": "%",
+      "year": 2024,
+      "source_page": "178"
+    },
+    {
+      "metric": "Cycling mode share",
+      "value": 0.8,
+      "unit": "%",
+      "year": 2024,
+      "source_page": "178"
+    },
+    {
+      "metric": "Total registered vehicles (ESR)",
+      "value": 2708550,
+      "unit": "vehicles",
+      "year": 2025,
+      "source_page": "180"
+    },
+    {
+      "metric": "PMPML buses per lakh population",
+      "value": 23,
+      "unit": "buses/lakh",
+      "year": null,
+      "source_page": "197"
+    },
+    {
+      "metric": "MoHUA benchmark buses per lakh population",
+      "value": 60,
+      "unit": "buses/lakh",
+      "year": null,
+      "source_page": "197"
+    },
+    {
+      "metric": "Total road network length",
+      "value": 2013.4,
+      "unit": "km",
+      "year": null,
+      "source_page": "177"
+    },
+    {
+      "metric": "Roads with footpaths",
+      "value": 747,
+      "unit": "km",
+      "year": null,
+      "source_page": "177"
+    },
+    {
+      "metric": "Dedicated cycle tracks",
+      "value": 87.04,
+      "unit": "km",
+      "year": null,
+      "source_page": "177"
+    },
+    {
+      "metric": "BRT lanes",
+      "value": 67.3,
+      "unit": "km",
+      "year": null,
+      "source_page": "178"
+    }
+  ],
+  "challenges": [
+    "Steep increase in private vehicles and vehicular pollution (46% of PM2.5 from transport per SAFAR-Pune 2020; 91% increase 2012-2019)",
+    "Low public-transport supply vs. MoHUA benchmark (23 vs. 60 buses/lakh)",
+    "Bus ridership has not exceeded pre-COVID 10.5 lakh/day level for 2-3 years",
+    "Persistent last-mile connectivity gaps",
+    "Growing traffic congestion on major corridors",
+    "Freight movement near industrial zones adds congestion and delays"
+  ],
+  "climate_risks": [],
+  "existing_initiatives": [
+    "Harit Setu - Connected Greens masterplan (2022) - connects new metro lines, BRTS, and railway station",
+    "Comprehensive Mobility Plan for PCMC (2008, 2018) and for PMR (2025)",
+    "Non-Motorised Transport Policy for Pimpri Chinchwad (2021)",
+    "Pimpri Chinchwad City Electric Vehicle Readiness Plan (2023)",
+    "ICCT & ITDP Low Emission Zone study (2023)",
+    "Road Asset Management System (RAMS) for data management",
+    "Pothole Management System for transparent, scientific repairs"
+  ],
+  "strategies": [
+    {
+      "code": "UM-1",
+      "name": "Raise public transport share (buses+metro) from 12.75% to 50% by 2050; speed shift of PT fleets to cleaner fuels.",
+      "source_page": "198"
+    },
+    {
+      "code": "UM-2",
+      "name": "Boost walking and cycling trips from 26% to 50% by 2040 by developing safe, healthy, accessible complete streets.",
+      "source_page": "198"
+    },
+    {
+      "code": "UM-3",
+      "name": "Encourage transition to clean, efficient urban freight movement while minimising citywide freight congestion (Urban Logistics Reforms).",
+      "source_page": "198"
+    },
+    {
+      "code": "UM-4",
+      "name": "Facilitate private-vehicle transitions to cleaner fuels (CNG, EV) with effective parking management.",
+      "source_page": "198"
+    },
+    {
+      "code": "UM-5",
+      "name": "Implement a phased Low Emission Zone: BS-IV/VI restrictions in Priority-1 area by 2026, citywide by 2032, low-emission-only citywide by 2040.",
+      "source_page": "198"
+    },
+    {
+      "code": "UM-6",
+      "name": "Establish a comprehensive, real-time data management system for evidence-based mobility planning.",
+      "source_page": "198"
+    },
+    {
+      "code": "UM-7",
+      "name": "Enhance institutional capacity and citizen engagement through awareness campaigns, training, events.",
+      "source_page": "198"
+    }
+  ],
+  "actions": "See /data/actions/actions.json filtered by sector = 'Urban Mobility' (28 action records)",
+  "citizen_actions": [
+    {
+      "title": "Cycle for short trips",
+      "source_page": "14"
+    },
+    {
+      "title": "Use buses and metro",
+      "source_page": "14"
+    },
+    {
+      "title": "Walk whenever possible",
+      "source_page": "14"
+    },
+    {
+      "title": "Carpool and ride sharing",
+      "source_page": "14"
+    },
+    {
+      "title": "Switch to electric vehicles",
+      "source_page": "14"
+    }
+  ],
+  "source": {
+    "document": "PCMC Climate Action Plan 2026",
+    "pages": [
+      "177-213"
+    ],
+    "section": "16. Urban Mobility"
+  }
+}

@@ -1,0 +1,127 @@
+{
+  "sector": "Energy and Buildings",
+  "overview": "Assessment of the city's stationary energy sector covering electricity and fuel consumption (LPG, PNG) across residential, commercial, industrial, and municipal buildings, plus Solar PV adoption levels.",
+  "current_situation": "51.6 million sq.m. of city-wide buildings (70% residential); ~145,000 sq.m. of municipal buildings (37% residential, 36% non-residential). 83% of building energy use is grid electricity. Residential consumers = 88% of connections, 48% of consumption; industrial 33%; commercial 13%. Municipal building electricity consumption = 44,72,053 kWh (Apr 2024-Mar 2025, ESR). PCMC solar PV installed capacity = 2,808 kW (since 2018) generating 6.07 million units/year; proposed additional 57 MW.",
+  "baseline_data": [
+    {
+      "metric": "Buildings & Energy share of city GHG emissions",
+      "value": 66,
+      "unit": "%",
+      "year": 2025,
+      "source_page": "157"
+    },
+    {
+      "metric": "Total city-wide building area",
+      "value": 51.6,
+      "unit": "million sq.m.",
+      "year": 2023,
+      "source_page": "157"
+    },
+    {
+      "metric": "Municipal building electricity consumption",
+      "value": 4472053,
+      "unit": "kWh",
+      "year": "2024-25",
+      "source_page": "159"
+    },
+    {
+      "metric": "PCMC installed rooftop solar capacity (cumulative since 2018)",
+      "value": 2808,
+      "unit": "kW",
+      "year": 2025,
+      "source_page": "161"
+    },
+    {
+      "metric": "Proposed additional municipal solar capacity",
+      "value": 57,
+      "unit": "MW",
+      "year": null,
+      "source_page": "162"
+    }
+  ],
+  "challenges": [
+    "Insufficient data on coal/fossil-fuel use in industries, commercial and residential areas",
+    "Slow grid decarbonisation - PCMC lacks large-scale municipal solar procurement, community solar, or microgrids",
+    "Limited municipal smart/solar streetlighting network",
+    "Slower renewable-energy adoption at major junctions (traffic signals not fully solar-powered)",
+    "Insufficient/uneven EV charging infrastructure",
+    "Weak ECBC (Energy Conservation Building Code) compliance",
+    "Low adoption of passive design (shading, ventilation, cool roofs)",
+    "Informal housing constraints - 7% of households (Census 2011, base 427,356 HHs) live under temporary roofing, limiting solar access",
+    "Institutional capacity limits for technical expertise, staffing, inter-departmental coordination"
+  ],
+  "climate_risks": [
+    "Rising urban heat increases cooling-energy demand (cross-referenced from Urban Heat Risk chapter, Doc A p.80-92)"
+  ],
+  "existing_initiatives": [
+    "100% LED lighting across all PCMC buildings and streetlights",
+    "Solar power systems installed at PCMC main office and all 8 regional (A-H) zone offices - 11,614 kWh generation",
+    "Waste-to-Energy plant at Moshi - 14 MW electricity generation from waste processing",
+    "50 TPD bio-methanation plant at Moshi (hotel/restaurant/canteen waste to biogas/bio-CNG)",
+    "Plastic-to-fuel plant (5 TPD, since 2010, BVG Pvt. Ltd. PPP) - 65,147 litres furnace oil produced in 2024-25",
+    "22 EV charging stations planned at key locations (PCMC HQ, Nigdi, Bhosari, Chikhali, Pimple Saudagar, metro stations)",
+    "Green Society Initiative - rates/rewards housing societies on waste segregation, composting, solar, rainwater harvesting, wastewater recycling",
+    "GRIHA and SVAGRIHA green-building rating incentive programs (premium discounts, property-tax rebates)"
+  ],
+  "strategies": [
+    {
+      "code": "BE-1",
+      "name": "Building a citywide renewable-energy ecosystem by expanding solar PV capacity, enabling greater private-sector adoption and enhancing incentives and support mechanisms.",
+      "source_page": "165"
+    },
+    {
+      "code": "BE-2",
+      "name": "Accelerate the transition to low-carbon buildings through ECBC compliance, mandatory energy-efficient design, and wider adoption of green building certifications.",
+      "source_page": "165"
+    },
+    {
+      "code": "BE-3",
+      "name": "Enable industrial clusters to transition to low-carbon operations through energy efficiency, cleaner fuels, electrification, process upgrades, and increased green-power uptake.",
+      "source_page": "165"
+    },
+    {
+      "code": "BE-4",
+      "name": "Accelerate the shift to PNG, electric, and other clean-fuel systems across residential and commercial users by 2040.",
+      "source_page": "165"
+    },
+    {
+      "code": "BE-5",
+      "name": "Build institutional and community capacity through awareness programmes, sensitisation workshops, and technical training.",
+      "source_page": "166"
+    }
+  ],
+  "actions": "See /data/actions/actions.json filtered by sector = 'Energy and Buildings' (23 action records: BE-1-1 to BE-5-4)",
+  "citizen_actions": [
+    {
+      "title": "Install rooftop solar panels where possible",
+      "source_page": "13"
+    },
+    {
+      "title": "Use energy-efficient appliances and LED lighting",
+      "source_page": "13"
+    },
+    {
+      "title": "Reduce unnecessary electricity consumption",
+      "source_page": "13"
+    },
+    {
+      "title": "Choose public transport, cycling, or walking",
+      "source_page": "13"
+    },
+    {
+      "title": "Adopt electric vehicles and clean energy solutions",
+      "source_page": "13"
+    },
+    {
+      "title": "Support and participate in local sustainability initiatives",
+      "source_page": "13"
+    }
+  ],
+  "source": {
+    "document": "PCMC Climate Action Plan 2026",
+    "pages": [
+      "157-176"
+    ],
+    "section": "15. Energy & Buildings"
+  }
+}

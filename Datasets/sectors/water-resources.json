@@ -1,0 +1,217 @@
+{
+  "sector": "Water Resource Management",
+  "overview": "Three internal sub-sectors: (a) Water Sourcing/Supply & Groundwater Management, (b) Municipal Wastewater Management, (c) Urban Drainage and Urban Flooding.",
+  "current_situation": "Primary water source Pawana Dam (550 MLD) + Andra Dam (80 MLD) + MIDC (20 MLD). Water demand projected to rise from 666 MLD (2025) to 1,709 MLD by 2041. Non-Revenue Water > 40%. Sewage generation projected to reach 1,272.39 MLD by 2040 (projected population 9,617,435). Drainage: ~228 km nalla network (153 km major, 93 km minor); ~61 open nallas into Indrayani river (8 polluted), ~38 into Pawana river; 88 piped + 60+ natural outfalls into Mula/Mutha rivers.",
+  "baseline_data": [
+    {
+      "metric": "Pawana Dam water supply",
+      "value": 550,
+      "unit": "MLD",
+      "year": null,
+      "source_page": "258"
+    },
+    {
+      "metric": "Andra Dam water supply",
+      "value": 80,
+      "unit": "MLD",
+      "year": null,
+      "source_page": "258"
+    },
+    {
+      "metric": "MIDC water supply",
+      "value": 20,
+      "unit": "MLD",
+      "year": null,
+      "source_page": "258"
+    },
+    {
+      "metric": "Water demand (2025)",
+      "value": 666,
+      "unit": "MLD",
+      "year": 2025,
+      "source_page": "263"
+    },
+    {
+      "metric": "Projected water demand (2041)",
+      "value": 1709,
+      "unit": "MLD",
+      "year": 2041,
+      "source_page": "263"
+    },
+    {
+      "metric": "Non-Revenue Water",
+      "value": 40,
+      "unit": "% (more than)",
+      "year": null,
+      "source_page": "259"
+    },
+    {
+      "metric": "Projected sewage generation (2040)",
+      "value": 1272.39,
+      "unit": "MLD",
+      "year": 2040,
+      "source_page": "278"
+    },
+    {
+      "metric": "Nalla network - major",
+      "value": 153,
+      "unit": "km",
+      "year": null,
+      "source_page": "285"
+    },
+    {
+      "metric": "Nalla network - minor",
+      "value": 93,
+      "unit": "km",
+      "year": null,
+      "source_page": "285"
+    },
+    {
+      "metric": "Stormwater drains",
+      "value": 600,
+      "unit": "km",
+      "year": null,
+      "source_page": "283"
+    },
+    {
+      "metric": "Sewer pipelines",
+      "value": 1600,
+      "unit": "km",
+      "year": null,
+      "source_page": "283"
+    }
+  ],
+  "challenges": [
+    "Non-Revenue Water > 40%; 24x7 water-supply pilot initiated but not implemented",
+    "No city-level aquifer maps or groundwater extraction data available yet",
+    "Groundwater over-exploitation, especially in areas like Pimple Saudagar",
+    "Poorly planned sewer network lacking design norms/hydraulic calculations",
+    "6 piped outfalls discharge untreated sewage directly into the Indrayani river",
+    "Land constraints for new STPs; old STPs cannot meet NGT/MPCB/CPCB standards",
+    "Encroachment on nallas causing monsoon spillover; haphazard riverside development"
+  ],
+  "climate_risks": [
+    "Flooding during heavy rainfall",
+    "Water shortages",
+    "Groundwater depletion"
+  ],
+  "existing_initiatives": [
+    "Nigdi Water Treatment Plant (phased commissioning)",
+    "24x7 water supply pilot project initiated (not yet implemented citywide)",
+    "PCMC map of groundwater recharge areas"
+  ],
+  "strategies": [
+    {
+      "code": "WSM-1",
+      "name": "Develop a city-wide climate-resilient water-supply master plan.",
+      "source_page": "263",
+      "sub_sector": "Water Supply & Groundwater"
+    },
+    {
+      "code": "WSM-2",
+      "name": "Conduct participatory aquifer mapping and develop an Aquifer Management Plan.",
+      "source_page": "263",
+      "sub_sector": "Water Supply & Groundwater"
+    },
+    {
+      "code": "WSM-3",
+      "name": "Implement demand management, NRW reduction, and water conservation measures.",
+      "source_page": "263",
+      "sub_sector": "Water Supply & Groundwater"
+    },
+    {
+      "code": "WWM-1",
+      "name": "Expand sewerage coverage and upgrade sewerage network infrastructure.",
+      "source_page": "278",
+      "sub_sector": "Wastewater Management"
+    },
+    {
+      "code": "WWM-2",
+      "name": "Expand sewage treatment capacity and enhance treatment quality.",
+      "source_page": "278",
+      "sub_sector": "Wastewater Management"
+    },
+    {
+      "code": "WWM-3",
+      "name": "Implement wastewater recycling/reuse (WWRR) plan - target >=100 MLD reuse by 2035.",
+      "source_page": "278",
+      "sub_sector": "Wastewater Management"
+    },
+    {
+      "code": "WWM-4",
+      "name": "Integrate renewable energy at plant premises; resource recovery.",
+      "source_page": "278",
+      "sub_sector": "Wastewater Management"
+    },
+    {
+      "code": "WWM-5",
+      "name": "Deploy real-time monitoring, PLC & SCADA across all STPs.",
+      "source_page": "278",
+      "sub_sector": "Wastewater Management"
+    },
+    {
+      "code": "UD-1",
+      "name": "Map, restore and retain natural nalla systems integrated with rivers/lakes.",
+      "source_page": "287",
+      "sub_sector": "Drainage & Flooding"
+    },
+    {
+      "code": "UD-2",
+      "name": "Identify and map river outfalls; pollution abatement measures.",
+      "source_page": "287",
+      "sub_sector": "Drainage & Flooding"
+    },
+    {
+      "code": "UD-3",
+      "name": "Map, plan and integrate Blue-Green Infrastructure (BGI) / sponge-city concept.",
+      "source_page": "287",
+      "sub_sector": "Drainage & Flooding"
+    },
+    {
+      "code": "UD-4",
+      "name": "Identify flood hotspots, map, validate, implement mitigation measures.",
+      "source_page": "287",
+      "sub_sector": "Drainage & Flooding"
+    },
+    {
+      "code": "UD-5",
+      "name": "Raise awareness and behavioural change to reduce pollution of water bodies.",
+      "source_page": "287",
+      "sub_sector": "Drainage & Flooding"
+    }
+  ],
+  "actions": "See /data/actions/actions.json filtered by sector = 'Water Resource Management' (26 action records)",
+  "citizen_actions": [
+    {
+      "title": "Repair leaky taps",
+      "source_page": "11"
+    },
+    {
+      "title": "Take shorter showers or bucket bath",
+      "source_page": "11"
+    },
+    {
+      "title": "Use washing machine on full capacity",
+      "source_page": "11"
+    },
+    {
+      "title": "Ensure taps are off when not required",
+      "source_page": "11"
+    },
+    {
+      "title": "Install rainwater harvesting systems",
+      "source_page": "11"
+    },
+    {
+      "title": "Establish waste-water treatment at housing societies/hotels/commercial complexes",
+      "source_page": "11"
+    }
+  ],
+  "source": {
+    "document": "PCMC Climate Action Plan 2026",
+    "pages": [
+      "258-294"
+    ],
+    "section": "19. Water Resource Management"
+  }
+}

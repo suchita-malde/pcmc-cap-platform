@@ -1,0 +1,272 @@
+[
+  {
+    "title": "CAP Vision",
+    "description": "To accelerate Pimpri-Chinchwad city's journey towards a low-carbon, climate-resilient, inclusive and vibrant city by mainstreaming climate action into urban planning and development, enhancing quality of life, and contributing to India's national and global climate commitments, with a goal to achieve Net Zero by 2050.",
+    "value": null,
+    "unit": "",
+    "year": 2050,
+    "source_document": "PCMC Climate Action Plan 2026",
+    "source_page": "56-57",
+    "source_section": "1.6 Vision, Objectives & Net-Zero Strategy"
+  },
+  {
+    "title": "CAP Objectives",
+    "description": "Objectives of the Pimpri Chinchwad CAP are presented as Figure 20, which is an image/graphic in the source PDF. The itemised text of each objective was not extractable as text.",
+    "value": null,
+    "unit": "",
+    "year": null,
+    "source_document": "PCMC Climate Action Plan 2026",
+    "source_page": "57",
+    "source_section": "1.6 Vision, Objectives & Net-Zero Strategy (Figure 20)"
+  },
+  {
+    "title": "Net Zero Target Year",
+    "description": "PCMC has set an internal Net Zero target aligned with national/global commitments.",
+    "value": 2050,
+    "unit": "year",
+    "year": 2050,
+    "source_document": "PCMC Climate Action Plan 2026",
+    "source_page": "56-57; 154",
+    "source_section": "1.6 Vision, Objectives & Net-Zero Strategy"
+  },
+  {
+    "title": "India National Net Zero Target (context, not PCMC-specific)",
+    "description": "Under the Paris Agreement, India aims to reduce emissions intensity by 45% by 2030 (from 2005 baseline) and achieve net-zero by 2070, per the 'Panchamrit' strategy.",
+    "value": 2070,
+    "unit": "year",
+    "year": 2070,
+    "source_document": "PCMC Climate Action Plan 2026",
+    "source_page": "25",
+    "source_section": "Executive Summary - Background"
+  },
+  {
+    "title": "Baseline GHG Emissions (2025)",
+    "description": "Estimated total GHG emissions for Pimpri-Chinchwad city in the baseline year.",
+    "value": 36.1,
+    "unit": "lakh tonnes CO2e",
+    "year": 2025,
+    "source_document": "PCMC Climate Action Plan 2026",
+    "source_page": "33; 148-149",
+    "source_section": "Executive Summary - GHG Emissions Inventory"
+  },
+  {
+    "title": "Per-Capita GHG Emissions (2025)",
+    "description": "Baseline GHG emissions divided by population (33.14 lakh).",
+    "value": 1.09,
+    "unit": "tCO2e per person",
+    "year": 2025,
+    "source_document": "PCMC Climate Action Plan 2026",
+    "source_page": "33",
+    "source_section": "Executive Summary - GHG Emissions Inventory"
+  },
+  {
+    "title": "GHG Emissions by Source - Built Environment & Energy",
+    "description": "Largest contributor to city GHG emissions per the Executive Summary GHG inventory breakdown.",
+    "value": 64,
+    "unit": "%",
+    "year": 2025,
+    "source_document": "PCMC Climate Action Plan 2026",
+    "source_page": "33",
+    "source_section": "Executive Summary - GHG Emissions Inventory"
+  },
+  {
+    "title": "GHG Emissions by Source - On-road Transportation",
+    "description": "Second largest contributor to city GHG emissions per the Executive Summary breakdown.",
+    "value": 27,
+    "unit": "%",
+    "year": 2025,
+    "source_document": "PCMC Climate Action Plan 2026",
+    "source_page": "33",
+    "source_section": "Executive Summary - GHG Emissions Inventory"
+  },
+  {
+    "title": "GHG Emissions by Source - Waste Sector (total)",
+    "description": "Waste sector total, comprising solid waste management (6%) and wastewater (3%), per Executive Summary.",
+    "value": 9,
+    "unit": "%",
+    "year": 2025,
+    "source_document": "PCMC Climate Action Plan 2026",
+    "source_page": "33",
+    "source_section": "Executive Summary - GHG Emissions Inventory"
+  },
+  {
+    "title": "GHG Emissions - BAU Scenario 2050",
+    "description": "Business-As-Usual projected emissions for 2050, assuming no new policy interventions.",
+    "value": 91.6,
+    "unit": "lakh tonnes CO2e",
+    "year": 2050,
+    "source_document": "PCMC Climate Action Plan 2026",
+    "source_page": "34",
+    "source_section": "Executive Summary - Scenario Analysis"
+  },
+  {
+    "title": "GHG Emissions - BAU Scenario 2070",
+    "description": "Business-As-Usual projected emissions for 2070.",
+    "value": 189.1,
+    "unit": "lakh tonnes CO2e",
+    "year": 2070,
+    "source_document": "PCMC Climate Action Plan 2026",
+    "source_page": "34",
+    "source_section": "Executive Summary - Scenario Analysis"
+  },
+  {
+    "title": "GHG Emissions - Ambitious/Net-Zero Scenario Reduction by 2050",
+    "description": "Under the ambitious/Net-Zero scenario, this % of BAU-2050 emissions (91.6 lakh tCO2e) is targeted to be reduced by 2050.",
+    "value": 92,
+    "unit": "%",
+    "year": 2050,
+    "source_document": "PCMC Climate Action Plan 2026",
+    "source_page": "34",
+    "source_section": "Executive Summary - Scenario Analysis"
+  },
+  {
+    "title": "Residual Emissions under Net-Zero Scenario (2050)",
+    "description": "Emissions remaining after the 92% reduction under the ambitious scenario.",
+    "value": 7.5,
+    "unit": "lakh tonnes CO2e",
+    "year": 2050,
+    "source_document": "PCMC Climate Action Plan 2026",
+    "source_page": "34",
+    "source_section": "Executive Summary - Scenario Analysis"
+  },
+  {
+    "title": "Priority Sectors Identified",
+    "description": "Six priority sectors identified from the Vulnerability Assessment and GHG inventory for adaptation/mitigation strategy development: Energy and Buildings, Urban Mobility, Solid Waste Management (Municipal Waste Management), Urban Greening and Heat Mitigation, Water Resource Management, Air Quality.",
+    "value": 6,
+    "unit": "count",
+    "year": null,
+    "source_document": "PCMC Climate Action Plan 2026",
+    "source_page": "154",
+    "source_section": "14. Priority Sector Identification"
+  },
+  {
+    "title": "City Population (Census 2011)",
+    "description": "Historical population figure used for some baseline calculations.",
+    "value": 17.28,
+    "unit": "lakh",
+    "year": 2011,
+    "source_document": "PCMC Climate Action Plan 2026",
+    "source_page": "25",
+    "source_section": "Executive Summary - About Pimpri Chinchwad"
+  },
+  {
+    "title": "City Population (2025 estimate, used for per-capita GHG calc)",
+    "description": "Population estimate used in the GHG per-capita calculation.",
+    "value": 33.14,
+    "unit": "lakh",
+    "year": 2025,
+    "source_document": "PCMC Climate Action Plan 2026",
+    "source_page": "33",
+    "source_section": "Executive Summary - GHG Emissions Inventory"
+  },
+  {
+    "title": "City Area",
+    "description": "Total geographic area under PCMC.",
+    "value": 173.12,
+    "unit": "sq. km",
+    "year": null,
+    "source_document": "PCMC Climate Action Plan 2026",
+    "source_page": "25",
+    "source_section": "Executive Summary - About Pimpri Chinchwad"
+  },
+  {
+    "title": "PCMC Climate Action Cell - Establishment",
+    "description": "City Climate Action Cells were mandated under a Maharashtra Government Resolution (25 July 2024); PCMC's Climate Action Cell was established via PCMC General Body Resolution No. 4354 of 11 October 2024.",
+    "value": null,
+    "unit": "",
+    "year": 2024,
+    "source_document": "Illustrated, Simple Guide to PCMC's Climate Action Plan",
+    "source_page": "7",
+    "source_section": "PCMC Climate Action Cell"
+  },
+  {
+    "title": "Governance Structure - City Climate Action Cell (CCAC)",
+    "description": "Governance anchored by the City Climate Action Cell (CCAC) and a high-level CCAC Committee; the City Transformation Office (CTO) serves as Secretariat to the CCAC.",
+    "value": null,
+    "unit": "",
+    "year": null,
+    "source_document": "PCMC Climate Action Plan 2026",
+    "source_page": "53",
+    "source_section": "1.4.7 Leadership & Team"
+  },
+  {
+    "title": "Mitigation Definition (per CAP)",
+    "description": "Reducing greenhouse gas emissions through energy efficiency, renewable energy adoption, sustainable mobility, waste-to-resource solutions, and low-carbon urban infrastructure.",
+    "value": null,
+    "unit": "",
+    "year": null,
+    "source_document": "PCMC Climate Action Plan 2026",
+    "source_page": "52",
+    "source_section": "1.4.2 Key Pillars"
+  },
+  {
+    "title": "Adaptation Definition (per CAP)",
+    "description": "Enhancing the city's capacity to anticipate, absorb, and recover from climate shocks such as heatwaves, flooding, and water stress.",
+    "value": null,
+    "unit": "",
+    "year": null,
+    "source_document": "PCMC Climate Action Plan 2026",
+    "source_page": "52",
+    "source_section": "1.4.2 Key Pillars"
+  },
+  {
+    "title": "City Nickname",
+    "description": "Pimpri Chinchwad is referred to as the 'Detroit of the East' due to its manufacturing/industrial base.",
+    "value": null,
+    "unit": "",
+    "year": null,
+    "source_document": "PCMC Climate Action Plan 2026",
+    "source_page": "25",
+    "source_section": "Executive Summary - About Pimpri Chinchwad"
+  },
+  {
+    "title": "City Rank Among Maharashtra CAP Cities",
+    "description": "Pimpri Chinchwad is the 5th city in Maharashtra to prepare a Climate Action Plan.",
+    "value": 5,
+    "unit": "rank",
+    "year": null,
+    "source_document": "Illustrated, Simple Guide to PCMC's Climate Action Plan",
+    "source_page": "6",
+    "source_section": "Why Climate Action Plan?"
+  },
+  {
+    "title": "Major Climate Risks Identified",
+    "description": "Key risks identified for Pimpri Chinchwad: changes in rainfall patterns, flooding during heavy rainfall, water shortages, groundwater depletion, increased storms/cyclones, extreme heat/heatwaves, changes in seasonal patterns, changes in disease patterns.",
+    "value": null,
+    "unit": "",
+    "year": null,
+    "source_document": "Illustrated, Simple Guide to PCMC's Climate Action Plan",
+    "source_page": "6",
+    "source_section": "Why Climate Action Plan? - Climate Risks"
+  },
+  {
+    "title": "Other Environmental Risk Factors",
+    "description": "As Maharashtra's fastest-growing urban/industrial centre, PCMC also faces growing waste generation, loss of green spaces, traffic congestion, increasing air pollution.",
+    "value": null,
+    "unit": "",
+    "year": null,
+    "source_document": "Illustrated, Simple Guide to PCMC's Climate Action Plan",
+    "source_page": "6",
+    "source_section": "Why Climate Action Plan? - Other Environment Risks"
+  },
+  {
+    "title": "Rise in Global Average Temperature Since Pre-Industrial Era",
+    "description": "Cited in the citizen booklet as context for climate change causes/impacts.",
+    "value": 1.4,
+    "unit": "°C",
+    "year": null,
+    "source_document": "Illustrated, Simple Guide to PCMC's Climate Action Plan",
+    "source_page": "4",
+    "source_section": "Climate Change: Causes and Impacts"
+  },
+  {
+    "title": "Rise in Pimpri Chinchwad Annual Mean Temperature (50-year trend)",
+    "description": "Local temperature trend cited under the Rising Heat sector page.",
+    "value": 1,
+    "unit": "°C over ~50 years",
+    "year": null,
+    "source_document": "Illustrated, Simple Guide to PCMC's Climate Action Plan",
+    "source_page": "8",
+    "source_section": "Rising Heat"
+  }
+]

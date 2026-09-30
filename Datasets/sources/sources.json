@@ -1,0 +1,18 @@
+[
+  {
+    "source_id": "DOC_A",
+    "document": "PCMC Climate Action Plan 2026",
+    "type": "Primary technical source",
+    "total_pages": 376,
+    "file_name": "PimpriChinchwad-ClimateActionPlan2026.pdf",
+    "notes": "Chapters used: Executive Summary (p.25-57), GHG Inventory & Priority Sectors (p.146-156), Sector chapters 15-20 (p.157-313), Financing (p.332-340), M&E/KPIs (p.341-353)."
+  },
+  {
+    "source_id": "DOC_B",
+    "document": "Illustrated, Simple Guide to PCMC's Climate Action Plan",
+    "type": "Citizen-facing simplified source",
+    "total_pages": 16,
+    "file_name": "PCMC_CAP_booklet_16_page_English_low_res.pdf",
+    "notes": "One page per sector, June 2026, developed by CEE with UNICEF/AIILSG support. Used for citizen-action wording and cross-checking Doc A figures."
+  }
+]

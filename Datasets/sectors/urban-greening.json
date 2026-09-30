@@ -1,0 +1,123 @@
+{
+  "sector": "Urban Greening and Heat Mitigation",
+  "overview": "Covers the current state of open spaces and urban greening in PCMC, ties in previous urban heat analysis, and recommends greening/heat-reduction measures. Discussed jointly since green cover directly affects heat mitigation.",
+  "current_situation": "Per URDPFI norm, 10-12 sq.m. open space/person is required. PCMC currently has only 1.12 sq.m./person (gardens/playgrounds/recreational = 4% / 378 Ha of city area, based on 2025 population estimate of 33.84 lakh). Total DP area ~17,312 Ha (59% developed, 41% undeveloped). Recreational land ~2% of total city area, concentrated in the city centre.",
+  "baseline_data": [
+    {
+      "metric": "Current per-capita open/green space",
+      "value": 1.12,
+      "unit": "sq.m./person",
+      "year": 2025,
+      "source_page": "235"
+    },
+    {
+      "metric": "URDPFI recommended per-capita open space",
+      "value": "10-12",
+      "unit": "sq.m./person",
+      "year": null,
+      "source_page": "235"
+    },
+    {
+      "metric": "Gardens/playgrounds/recreational area share of city",
+      "value": 4,
+      "unit": "% (378 Ha)",
+      "year": null,
+      "source_page": "235"
+    },
+    {
+      "metric": "Total Development Plan area",
+      "value": 17312,
+      "unit": "hectares",
+      "year": null,
+      "source_page": "235"
+    },
+    {
+      "metric": "Developed area share",
+      "value": 59,
+      "unit": "%",
+      "year": null,
+      "source_page": "235"
+    }
+  ],
+  "challenges": [
+    "Gap between demand and availability of green spaces (need ~11.8 sq. km citywide per URDPFI)",
+    "Lack of landscape restoration approach; several gardens poorly maintained",
+    "Weak ward-level relationship data between vegetation and Urban Heat Island effect",
+    "No ward-level biodiversity registers (only city-level register exists)",
+    "Need to prioritise native-species plantation over generic greening"
+  ],
+  "climate_risks": [
+    "50% of the city faces extreme heat (per Doc B)"
+  ],
+  "existing_initiatives": [
+    "PCMC Paryavaran Sanskar Udyan - biodiversity park with native vegetation",
+    "City-level biodiversity inventory prepared by PCMC",
+    "Major parks/recreational spaces incl. Bird Valley Park, Akurdi (list not exhaustive in source)"
+  ],
+  "strategies": [
+    {
+      "code": "UG-1",
+      "name": "Establish a baseline for per-capita open/green space, raise to URDPFI standard of 10-12 sq.m./person by 2035.",
+      "source_page": "247"
+    },
+    {
+      "code": "UG-2",
+      "name": "Identify and verify heat hotspots, analyse contributing factors, take measures to reduce heat.",
+      "source_page": "247"
+    },
+    {
+      "code": "UG-3",
+      "name": "Map, plan and integrate Blue-Green Infrastructure (BGI) in a phase-wise manner.",
+      "source_page": "247"
+    },
+    {
+      "code": "UG-4",
+      "name": "Develop Sponge Streets & Green Mobility Corridors (Harit Setu Integration).",
+      "source_page": "247"
+    },
+    {
+      "code": "UG-5",
+      "name": "Restore, maintain and enhance the city's biodiversity and ecosystem.",
+      "source_page": "247"
+    },
+    {
+      "code": "UG-6",
+      "name": "Create a comprehensive capacity-building and awareness programme.",
+      "source_page": "247"
+    }
+  ],
+  "actions": "See /data/actions/actions.json filtered by sector = 'Urban Greening and Heat Mitigation' (12 action records)",
+  "citizen_actions": [
+    {
+      "title": "Tree plantation drives with community and senior citizens' clubs",
+      "source_page": "9"
+    },
+    {
+      "title": "Tree audits",
+      "source_page": "9"
+    },
+    {
+      "title": "Mini-nurseries through Eco Clubs",
+      "source_page": "9"
+    },
+    {
+      "title": "Participate in biodiversity conservation using digital tools and biodiversity register",
+      "source_page": "9"
+    },
+    {
+      "title": "Participate in greening awareness campaigns",
+      "source_page": "9"
+    },
+    {
+      "title": "Support plantation of native species",
+      "source_page": "9"
+    }
+  ],
+  "source": {
+    "document": "PCMC Climate Action Plan 2026",
+    "pages": [
+      "235-257"
+    ],
+    "section": "18. Urban Greening and Heat Mitigation"
+  }
+}

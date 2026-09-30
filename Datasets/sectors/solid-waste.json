@@ -1,0 +1,150 @@
+{
+  "sector": "Solid Waste Management",
+  "overview": "Covers generation, collection, transportation, and processing of municipal solid waste; classified into Wet/Biodegradable, Dry/Non-Biodegradable, and Recyclable waste categories.",
+  "current_situation": "Total waste generation ~1,389-1,451 TPD (2025), ~407 g/capita/day. 95-100% segregation at source, 100% door-to-door collection, 100% grievance redressal (ESR 2024-25). 4,432 personnel deployed across the SWM chain. SWM sector GHG emissions = 2,00,000 tCO2e (2025).",
+  "baseline_data": [
+    {
+      "metric": "Total municipal solid waste generation",
+      "value": 1389,
+      "unit": "TPD",
+      "year": 2025,
+      "source_page": "214"
+    },
+    {
+      "metric": "Per-capita waste generation",
+      "value": 407,
+      "unit": "grams/day",
+      "year": "2024-25",
+      "source_page": "214"
+    },
+    {
+      "metric": "SWM sector GHG emissions",
+      "value": 200000,
+      "unit": "tCO2e",
+      "year": 2025,
+      "source_page": "214"
+    },
+    {
+      "metric": "Segregation at source",
+      "value": "95-100",
+      "unit": "%",
+      "year": "2024-25",
+      "source_page": "214"
+    },
+    {
+      "metric": "Waste-to-Energy plant design capacity",
+      "value": 600,
+      "unit": "TPD (RDF)",
+      "year": null,
+      "source_page": "224"
+    },
+    {
+      "metric": "Wet-waste processing capacity (composting + Bio-CNG)",
+      "value": 560,
+      "unit": "TPD",
+      "year": null,
+      "source_page": "224"
+    },
+    {
+      "metric": "Projected MRF input by 2034",
+      "value": 1432,
+      "unit": "TPD",
+      "year": 2034,
+      "source_page": "224"
+    },
+    {
+      "metric": "Projected WtE input by 2034",
+      "value": 1590,
+      "unit": "TPD",
+      "year": 2034,
+      "source_page": "224"
+    },
+    {
+      "metric": "Sanitary waste going to landfill untreated",
+      "value": 10,
+      "unit": "%",
+      "year": "2024-25",
+      "source_page": "224"
+    }
+  ],
+  "challenges": [
+    "Waste generation growth outpacing infrastructure (all currently routed to Moshi depot)",
+    "Insufficient processing capacity at MRF and mechanised windrow composting plants",
+    "Waste-to-Energy plant underperforming due to high calorific value of RDF",
+    "Wet-waste processing capacity inadequate for projected future demand",
+    "Need for additional infrastructure incl. ~150 TPD STP sludge-to-biofuel processing",
+    "Environmental pollution (air/water/soil) from processing-capacity gaps",
+    "10% of sanitary waste landfilled without scientific processing",
+    "Data discrepancies across reported waste quantities and facility capacities"
+  ],
+  "climate_risks": [],
+  "existing_initiatives": [
+    "Waste-to-Energy plant at Moshi garbage depot (14 MW electricity generation)",
+    "50 TPD bio-methanation plant (hotel/restaurant waste to biogas/bio-CNG)",
+    "5 TPD plastic-to-fuel plant (since 2010, BVG Pvt. Ltd., 20-year PPP)",
+    "Material Recovery Facility (MRF) - 1,000 TPD capacity",
+    "Domestic Hazardous Waste Plant - 8 TPD",
+    "Construction & Debris Processing - 200 tonnes/hr"
+  ],
+  "strategies": [
+    {
+      "code": "SWM-1",
+      "name": "Create and execute a long-term, detailed plan to promote circularity in SWM and enhance climate resilience.",
+      "source_page": "225"
+    },
+    {
+      "code": "SWM-2",
+      "name": "Enhance source segregation to improve downstream processing across all categories.",
+      "source_page": "225"
+    },
+    {
+      "code": "SWM-3",
+      "name": "Transition to cleaner fuels in waste transportation and fast-track biomining.",
+      "source_page": "225"
+    },
+    {
+      "code": "SWM-4",
+      "name": "Use data and technology to modernise SWM (GIS, IoT bins, dashboards, AI route optimisation).",
+      "source_page": "225"
+    },
+    {
+      "code": "SWM-5",
+      "name": "Leverage the carbon-credit market by monetising emission reductions from composting, bio-methanation, landfill diversion, WtE.",
+      "source_page": "225"
+    }
+  ],
+  "actions": "See /data/actions/actions.json filtered by sector = 'Solid Waste Management' (10 action records)",
+  "citizen_actions": [
+    {
+      "title": "Avoid littering",
+      "source_page": "15"
+    },
+    {
+      "title": "Segregate waste daily",
+      "source_page": "15"
+    },
+    {
+      "title": "Compost kitchen waste",
+      "source_page": "15"
+    },
+    {
+      "title": "Reduce single-use plastic",
+      "source_page": "15"
+    },
+    {
+      "title": "Handover e-waste to authorized collectors",
+      "source_page": "15"
+    },
+    {
+      "title": "Adopt Reduce-Reuse-Recycle-Recover lifestyle",
+      "source_page": "15"
+    }
+  ],
+  "source": {
+    "document": "PCMC Climate Action Plan 2026",
+    "pages": [
+      "214-234"
+    ],
+    "section": "17. Solid Waste Management"
+  }
+}
