@@ -14,164 +14,294 @@ export default function MapData() {
   const [selectedLayer, setSelectedLayer] = useState(mapLayers[0]);
 
   return (
-    <div>
-      <div style={{ marginBottom: "28px" }}>
-        <div
-          style={{
-            display: "inline-block",
-            padding: "6px 10px",
-            borderRadius: "20px",
-            backgroundColor: "#e8f3e9",
-            color: "#2f7d4a",
-            fontSize: "12px",
-            fontWeight: "700",
-            marginBottom: "10px",
-          }}
-        >
-          CLIMATE MAP DATA
-        </div>
-
-        <h1
-          style={{
-            margin: "0 0 8px",
-            color: "#173b2a",
-          }}
-        >
-          Map Data
-        </h1>
-
-        <p style={{ color: "#607565" }}>
-          Manage verified information used for climate-related map layers.
-        </p>
-      </div>
-
+    <div
+      style={{
+        minHeight: "100vh",
+        background: "#F5F7F6",
+        padding: "32px 34px 60px",
+        boxSizing: "border-box",
+      }}
+    >
       <div
         style={{
-          display: "flex",
-          gap: "20px",
-          alignItems: "flex-start",
-          flexWrap: "wrap",
+          maxWidth: "1380px",
+          margin: "0 auto",
         }}
       >
-        <div
+        {/* Page Header */}
+        <section
           style={{
-            width: "280px",
-            padding: "18px",
-            backgroundColor: "#ffffff",
-            border: "1px solid #d9e5d8",
-            borderRadius: "12px",
-            boxShadow: "0 4px 12px rgba(31, 78, 48, 0.06)",
-            boxSizing: "border-box",
+            marginBottom: "34px",
           }}
         >
-          <h2
+          <div
             style={{
-              margin: "0 0 16px",
-              color: "#173b2a",
-              fontSize: "19px",
+              display: "inline-flex",
+              alignItems: "center",
+              padding: "7px 13px",
+              borderRadius: "20px",
+              background: "#E8F3E9",
+              color: "#2F7D4A",
+              fontSize: "11px",
+              fontWeight: "800",
+              letterSpacing: "0.6px",
+              marginBottom: "15px",
             }}
           >
-            Map Layers
-          </h2>
+            CLIMATE MAP DATA
+          </div>
 
-          {mapLayers.map((layer) => {
-            const isSelected = selectedLayer === layer;
+          <h1
+            style={{
+              margin: "0 0 10px",
+              color: "#394F49",
+              fontSize: "40px",
+              lineHeight: "1.2",
+              fontWeight: "750",
+              letterSpacing: "-0.5px",
+            }}
+          >
+            Map Data
+          </h1>
 
-            return (
-              <button
-                key={layer}
-                type="button"
-                onClick={() => setSelectedLayer(layer)}
+          <p
+            style={{
+              margin: 0,
+              maxWidth: "720px",
+              color: "#65743A",
+              fontSize: "16px",
+              lineHeight: "1.7",
+            }}
+          >
+            Manage verified information used for climate-related map layers.
+          </p>
+        </section>
+
+        {/* Map Management Layout */}
+        <section
+          style={{
+            display: "grid",
+            gridTemplateColumns: "330px minmax(0, 1fr)",
+            gap: "22px",
+            alignItems: "stretch",
+          }}
+        >
+          {/* Map Layers Card */}
+          <div
+            style={{
+              position: "relative",
+              background: "#FFFFFF",
+              border: "1px solid #DCE3DD",
+              borderRadius: "16px",
+              boxShadow: "0 4px 14px rgba(57, 79, 73, 0.07)",
+              overflow: "hidden",
+              padding: "25px",
+              boxSizing: "border-box",
+            }}
+          >
+            {/* Green Top Border */}
+            <div
+              style={{
+                position: "absolute",
+                top: 0,
+                left: 0,
+                right: 0,
+                height: "5px",
+                background: "#65743A",
+              }}
+            />
+
+            <h2
+              style={{
+                margin: "0 0 7px",
+                color: "#394F49",
+                fontSize: "24px",
+                lineHeight: "1.3",
+                fontWeight: "750",
+              }}
+            >
+              Map Layers
+            </h2>
+
+            <p
+              style={{
+                margin: "0 0 20px",
+                color: "#65743A",
+                fontSize: "14px",
+                lineHeight: "1.6",
+              }}
+            >
+              Select a climate map layer to manage its information.
+            </p>
+
+            {/* Layer Buttons */}
+            <div>
+              {mapLayers.map((layer) => {
+                const isSelected = selectedLayer === layer;
+
+                return (
+                  <button
+                    key={layer}
+                    type="button"
+                    onClick={() => setSelectedLayer(layer)}
+                    style={{
+                      display: "block",
+                      width: "100%",
+                      padding: "12px 13px",
+                      marginBottom: "9px",
+                      textAlign: "left",
+                      border: isSelected
+                        ? "1px solid #C9D6CB"
+                        : "1px solid #DCE3DD",
+                      borderRadius: "9px",
+                      backgroundColor: isSelected
+                        ? "#E8EEE3"
+                        : "#FFFFFF",
+                      color: isSelected
+                        ? "#394F49"
+                        : "#65743A",
+                      fontWeight: isSelected ? "750" : "600",
+                      fontSize: "13px",
+                      cursor: "pointer",
+                      boxSizing: "border-box",
+                      transition:
+                        "background 0.2s ease, border 0.2s ease, transform 0.2s ease",
+                    }}
+                    onMouseEnter={(e) => {
+                      if (!isSelected) {
+                        e.currentTarget.style.background =
+                          "#F5F7F6";
+                        e.currentTarget.style.borderColor =
+                          "#C9D6CB";
+                      }
+                    }}
+                    onMouseLeave={(e) => {
+                      if (!isSelected) {
+                        e.currentTarget.style.background =
+                          "#FFFFFF";
+                        e.currentTarget.style.borderColor =
+                          "#DCE3DD";
+                      }
+                    }}
+                  >
+                    {layer}
+                  </button>
+                );
+              })}
+            </div>
+          </div>
+
+          {/* Selected Layer Card */}
+          <div
+            style={{
+              position: "relative",
+              minHeight: "430px",
+              background: "#FFFFFF",
+              border: "1px solid #DCE3DD",
+              borderRadius: "16px",
+              boxShadow: "0 4px 14px rgba(57, 79, 73, 0.07)",
+              overflow: "hidden",
+              padding: "28px",
+              boxSizing: "border-box",
+            }}
+          >
+            {/* Green Top Border */}
+            <div
+              style={{
+                position: "absolute",
+                top: 0,
+                left: 0,
+                right: 0,
+                height: "5px",
+                background: "#65743A",
+              }}
+            />
+
+            <h2
+              style={{
+                margin: "0 0 18px",
+                color: "#394F49",
+                fontSize: "25px",
+                lineHeight: "1.3",
+                fontWeight: "750",
+              }}
+            >
+              {selectedLayer}
+            </h2>
+
+            {/* Data Placeholder */}
+            <div
+              style={{
+                minHeight: "300px",
+                display: "flex",
+                flexDirection: "column",
+                justifyContent: "center",
+                padding: "28px",
+                background: "#F5F7F6",
+                borderRadius: "12px",
+                boxSizing: "border-box",
+              }}
+            >
+              <div
                 style={{
-                  display: "block",
-                  width: "100%",
-                  padding: "11px 12px",
-                  marginBottom: "8px",
-                  textAlign: "left",
-                  border: isSelected
-                    ? "1px solid #8fbe99"
-                    : "1px solid #d9e5d8",
-                  borderRadius: "7px",
-                  backgroundColor: isSelected
-                    ? "#e8f3e9"
-                    : "#ffffff",
-                  color: isSelected ? "#23633b" : "#536456",
-                  fontWeight: isSelected ? "600" : "500",
-                  fontSize: "14px",
-                  cursor: "pointer",
-                  boxSizing: "border-box",
+                  width: "58px",
+                  height: "58px",
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  marginBottom: "19px",
+                  borderRadius: "14px",
+                  background: "#E8EEE3",
+                  fontSize: "28px",
+                  boxShadow:
+                    "inset 0 0 0 1px rgba(101, 116, 58, 0.06)",
                 }}
               >
-                {layer}
-              </button>
-            );
-          })}
-        </div>
+                🗺️
+              </div>
 
+              <strong
+                style={{
+                  display: "block",
+                  marginBottom: "7px",
+                  color: "#394F49",
+                  fontSize: "20px",
+                  lineHeight: "1.3",
+                  fontWeight: "750",
+                }}
+              >
+                Map data not entered yet
+              </strong>
+
+              <p
+                style={{
+                  margin: 0,
+                  color: "#65743A",
+                  fontSize: "14px",
+                  lineHeight: "1.6",
+                }}
+              >
+                Data to be updated.
+              </p>
+            </div>
+          </div>
+        </section>
+
+        {/* Bottom Admin Note */}
         <div
           style={{
-            flex: 1,
-            minWidth: "280px",
-            minHeight: "280px",
-            padding: "28px",
-            backgroundColor: "#ffffff",
-            border: "1px solid #d9e5d8",
+            marginTop: "30px",
+            padding: "17px 19px",
+            background: "#E8EEE3",
+            border: "1px solid #DCE3DD",
             borderRadius: "12px",
-            boxShadow: "0 4px 12px rgba(31, 78, 48, 0.06)",
-            boxSizing: "border-box",
+            color: "#394F49",
+            fontSize: "13px",
+            lineHeight: "1.6",
           }}
         >
-          <div
-            style={{
-              display: "inline-block",
-              padding: "5px 9px",
-              borderRadius: "16px",
-              backgroundColor: "#f3f7f1",
-              color: "#607565",
-              fontSize: "12px",
-              fontWeight: "600",
-              marginBottom: "12px",
-            }}
-          >
-            SELECTED LAYER
-          </div>
-
-          <h2
-            style={{
-              margin: "0 0 12px",
-              color: "#173b2a",
-            }}
-          >
-            {selectedLayer}
-          </h2>
-
-          <div
-            style={{
-              padding: "18px",
-              backgroundColor: "#f8faf7",
-              border: "1px dashed #b8cdbb",
-              borderRadius: "9px",
-            }}
-          >
-            <p
-              style={{
-                marginBottom: "8px",
-                color: "#536456",
-              }}
-            >
-              Map data for this layer has not been entered yet.
-            </p>
-
-            <p
-              style={{
-                margin: 0,
-                color: "#607565",
-                fontSize: "14px",
-              }}
-            >
-              Data to be updated.
-            </p>
-          </div>
+          <strong>Admin workspace:</strong>{" "}
+          Select a map layer to manage its climate-related information.
         </div>
       </div>
     </div>

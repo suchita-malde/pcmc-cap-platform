@@ -19,16 +19,25 @@ function App() {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path="/" element={<Navigate to="/login" />} />
 
+        {/* Login is the first page */}
+        <Route path="/" element={<Navigate to="/login" replace />} />
+
+        {/* Login page */}
         <Route path="/login" element={<Login />} />
 
+        {/* Everything below Login uses the Admin Layout */}
         <Route element={<AuthGuard />}>
           <Route element={<AdminLayout />}>
+
             <Route path="/dashboard" element={<Dashboard />} />
 
             <Route path="/sectors" element={<Sectors />} />
-            <Route path="/sectors/:sectorId/edit" element={<SectorEdit />} />
+
+            <Route
+              path="/sectors/:sectorId/edit"
+              element={<SectorEdit />}
+            />
 
             <Route path="/projects" element={<Projects />} />
 
@@ -43,8 +52,10 @@ function App() {
             <Route path="/suggestions" element={<SuggestionsInbox />} />
 
             <Route path="/admin-settings" element={<AdminSettings />} />
+
           </Route>
         </Route>
+
       </Routes>
     </BrowserRouter>
   );
