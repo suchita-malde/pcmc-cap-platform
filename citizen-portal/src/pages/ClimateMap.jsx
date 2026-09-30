@@ -15,6 +15,9 @@ import floodRiskAreas from "../data/flood-risk";
 import heatRiskAreas from "../data/heat-risk";
 import greenSpaces from "../data/green-spaces";
 import pcmcGIS from "../data/pcmc-gis";
+import wasteFacilities from "../data/waste-facilities";
+import stpLocations from "../data/stp-locations";
+import climateProjects from "../data/climate-projects";
 
 export default function ClimateMap() {
 
@@ -164,14 +167,16 @@ export default function ClimateMap() {
             <h3>Flood Risk Areas</h3>
 
             {floodRiskAreas.map((area) => (
-              <div key={area} className="flood-risk-area">
-                🌊 {area}
+              <div
+                key={area.name}
+                className="flood-risk-area"
+              >
+                🌊 {area.name}
               </div>
             ))}
 
             <small>
-              Named risk areas from the project infrastructure dataset.
-              Spatial geometry is not currently available in the source data.
+              Flood-risk locations from the climate map dataset.
             </small>
 
           </div>
@@ -183,14 +188,16 @@ export default function ClimateMap() {
             <h3>Heat Risk Areas</h3>
 
             {heatRiskAreas.map((area) => (
-              <div key={area} className="flood-risk-area">
-                🌡️ {area}
+              <div
+                key={area.name}
+                className="flood-risk-area"
+              >
+                🌡️ {area.name}
               </div>
             ))}
 
             <small>
-              Named risk areas from the project infrastructure dataset.
-              Spatial geometry is not currently available in the source data.
+              Heat-risk locations from the climate map dataset.
             </small>
 
           </div>
@@ -207,6 +214,143 @@ export default function ClimateMap() {
             attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>'
             url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
           />
+          {/* FLOOD RISK AREAS */}
+
+          {layers.floodRisk &&
+            floodRiskAreas.map((area) => (
+
+              <Marker
+                key={area.name}
+                position={area.coordinates}
+              >
+
+              <Popup>
+                <strong>🌊 {area.name}</strong>
+
+                <br />
+
+                Flood Risk / Waterlogging Area
+
+                <br />
+
+                Coordinates: {area.coordinates[0]}, {area.coordinates[1]}
+              </Popup>
+
+            </Marker>
+
+          ))}
+          {/* HEAT RISK AREAS */}
+
+          {layers.heatRisk &&
+            heatRiskAreas.map((area) => (
+
+              <Marker
+                key={area.name}
+                position={area.coordinates}
+              >
+                <Popup>
+                  <strong>🌡️ {area.name}</strong>
+
+                  <br />
+
+                  Heat Risk Area
+
+                  <br />
+
+                  Coordinates: {area.coordinates[0]}, {area.coordinates[1]}
+                </Popup>
+              </Marker>
+
+            ))
+          }
+          {/* WASTE INFRASTRUCTURE */}
+
+          {layers.waste &&
+            wasteFacilities.map((site) => (
+              <Marker
+                key={site.siteName}
+                position={site.coordinates}
+              >
+                <Popup>
+
+                  <strong>♻️ {site.siteName}</strong>
+
+                  <br /><br />
+
+                  <strong>Facilities:</strong>
+
+                  {site.facilities.map((facility) => (
+                    <div key={facility.name}>
+                      <br />
+                      <strong>{facility.name}</strong>
+                      <br />
+                      Type: {facility.type}
+                      <br />
+                      Capacity: {facility.capacityTPD} TPD
+                    </div>
+                  ))}
+
+                  <br />
+
+                  <small>
+                    Location: {site.location}
+                  </small>
+
+                </Popup>
+              </Marker>
+            ))
+          }
+
+          {/* WATER INFRASTRUCTURE / STPs */}
+
+          {layers.water &&
+            stpLocations.map((stp) => (
+            <Marker
+              key={stp.name}
+              position={stp.coordinates}
+            >
+              <Popup>
+                <strong>🚰 {stp.name}</strong>
+
+                <br />
+
+                Sewage Treatment Plant
+
+                <br />
+
+                Capacity: {stp.capacity} MLD
+              </Popup>
+            </Marker>
+            ))
+            }
+        
+          {/* PCMC CLIMATE PROJECTS */}
+
+          {layers.projects &&
+            climateProjects.map((project) => (
+              <Marker
+                key={project.name}
+                position={project.coordinates}
+              >
+                <Popup>
+                  <strong>🌱 {project.name}</strong>
+
+                  <br /><br />
+
+                  PCMC Climate Action Project
+
+                  <br />
+
+                  {project.description && (
+                    <>
+                      <br />
+                      {project.description}
+                    </>
+                  )}
+                </Popup>
+              </Marker>
+            ))
+          }
 
           {/* GREEN SPACES */}
 
@@ -214,7 +358,7 @@ export default function ClimateMap() {
             greenSpaces.map((place) => (
 
               <Marker
-                key={place.name}
+                key={place.id}
                 position={place.position}
               >
 
@@ -224,7 +368,7 @@ export default function ClimateMap() {
 
                   <br />
 
-                  Type: {place.type}
+                  Type: PCMC Garden
 
                   <br />
 
