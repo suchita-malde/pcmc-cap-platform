@@ -1,105 +1,180 @@
 import "./SectorPage.css";
 import { useParams, Link } from "react-router-dom";
 import sectors from "../data/sectors.json";
+import { translations } from "../data/translations";
 
-export default function SectorPage() {
+export default function SectorPage({ language }) {
   const { sectorId } = useParams();
+  const t = translations[language];
 
   const sector = sectors.find((item) => item.id === sectorId);
 
   if (!sector) {
     return (
-      <div className="sector-page">
-        <h1>Sector Not Found</h1>
-        <Link to="/">Back to Home</Link>
+      <div className="sector-not-found">
+        <h1>{t.sectorNotFound}</h1>
+        <Link to="/">{t.backToHome}</Link>
       </div>
     );
   }
 
+  const scenario =
+    language === "mr" && sector.currentScenarioMr
+      ? sector.currentScenarioMr
+      : sector.currentScenario;
+
+  const getMarathiActions = (type) => {
+    const actions = t.sectorActions?.[sectorId]?.[type];
+
+    return actions || [];
+  };
+
+  const plannedActions =
+    language === "mr"
+      ? getMarathiActions("planned") || sector.plannedActions
+      : sector.plannedActions;
+
+  const citizenActions =
+    language === "mr"
+      ? getMarathiActions("citizen") || sector.citizenActions
+      : sector.citizenActions;
+
   return (
     <div className="sector-page">
+      {/* hero */}
       <section className="sector-hero">
-        <div className="sector-page-icon">
-          {sector.icon}
+        <div className="sector-hero-content">
+          <div className="sector-page-icon">{sector.icon}</div>
+
+          <span className="sector-label">
+            {t.sectorLabel}
+          </span>
+
+          <h1>
+            {language === "mr"
+              ? {
+                  "rising-heat": t.risingHeat,
+                  "flooding-water-logging": t.flooding,
+                  "solid-waste-management": t.solidWaste,
+                  "green-city-biodiversity": t.greenCity,
+                  "sustainable-mobility": t.sustainableMobility,
+                  "renewable-energy": t.renewableEnergy,
+                  "water-security-conservation": t.waterConservation,
+                  "clean-air-healthy-life": t.cleanAir
+                }[sectorId]
+              : sector.title}
+          </h1>
+
+          <p>{t.sectorHeroText}</p>
         </div>
-
-        <h1>{sector.title}</h1>
-
-        <p>
-          Understand the current situation, planned actions, and how citizens
-          can contribute.
-        </p>
       </section>
 
-      <section className="sector-content">
-        <div className="sector-section">
-          <h2>What's Happening?</h2>
-          <p>{sector.currentScenario}</p>
+      {/* what's happening */}
+      <section className="sector-feature-section">
+        <div className="sector-feature-visual">
+          <div className="visual-circle">
+            <span>{sector.icon}</span>
+          </div>
+
+          <div className="visual-dots"></div>
         </div>
 
-        <div className="sector-section">
-          <h2>Why It Matters</h2>
+        <div className="sector-feature-text">
+          <span className="sector-number">01</span>
+          <h2>{t.whatsHappening}</h2>
+          <p>{scenario}</p>
+        </div>
+      </section>
+
+      {/* why it matters */}
+      <section className="sector-why-section">
+        <div className="sector-section-heading">
+          <span>02</span>
+          <h2>{t.whyItMatters}</h2>
+        </div>
+
+        <div className="why-content">
+          <div className="why-mark">“</div>
 
           <p>{sector.whyItMatters}</p>
         </div>
+      </section>
 
-        <div className="sector-section">
-          <h2>Where Is This Relevant?</h2>
-
-          {sector.relevantAreas ? (
-            <ul>
-              {sector.relevantAreas.map((area, index) => (
-                <li key={index}>{area}</li>
-              ))}
-            </ul>
-          ) : (
-            <p>
-              Location-based information will be displayed as verified city data
-              becomes available.
-            </p>
-          )}
-
-          <Link className="back-home" to="/climate-map">
-            Explore Climate Map →
-          </Link>
+      {/* planned actions */}
+      <section className="sector-actions-section">
+        <div className="sector-section-heading">
+          <span>03</span>
+          <h2>{t.plannedActions}</h2>
         </div>
 
-        <div className="sector-section">
-          <h2>Goals & Targets</h2>
+        <div className="action-list">
+          {plannedActions.map((action, index) => (
+            <div className="action-row" key={index}>
+              <span className="action-number">
+                {String(index + 1).padStart(2, "0")}
+              </span>
 
-          <p>
-            PCMC has identified sector-specific goals and actions under its
-            Climate Action Plan. Targets and measurable progress will be
-            displayed here as official data becomes available.
-          </p>
+              <span className="action-text">
+                {action}
+              </span>
+            </div>
+          ))}
+        </div>
+      </section>
 
-          <div className="target-placeholder">
-            <strong>Target data:</strong> To be updated with official PCMC data.
+      {/* citizen actions */}
+      <section className="citizen-section">
+        <div className="citizen-inner">
+          <div className="sector-section-heading light-heading">
+            <span>04</span>
+            <h2>{t.citizenActions}</h2>
+          </div>
+
+          <div className="citizen-actions-grid">
+            {citizenActions.map((action, index) => (
+              <div className="citizen-action" key={index}>
+                <span className="citizen-icon">
+                  {["🌱", "💧", "🌿", "🤝", "⚡"][index % 5]}
+                </span>
+
+                <p>{action}</p>
+              </div>
+            ))}
           </div>
         </div>
+      </section>
 
-        <div className="sector-section">
-          <h2>PCMC Planned Actions</h2>
-
-          <ul>
-            {sector.plannedActions.map((action, index) => (
-              <li key={index}>{action}</li>
-            ))}
-          </ul>
+      {/* relevant areas */}
+      <section className="sector-location-section">
+        <div className="sector-section-heading">
+          <span>05</span>
+          <h2>{t.relevantAreas}</h2>
         </div>
 
-        <div className="sector-section">
-          <h2>What Citizens Can Do</h2>
+        <div className="location-content">
+          <div className="location-list">
+            {sector.relevantAreas ? (
+              sector.relevantAreas.map((area,index) => (
+                <span key={index}>{area}</span>
+              ))
+            ) : (
+              <span>
+                {language === "mr" ? "संपूर्ण शहर" : "City-wide"}
+              </span>
+            )}
+          </div>
 
-          <ul>
-            {sector.citizenActions.map((action, index) => (
-              <li key={index}>{action}</li>
-            ))}
-          </ul>
+          <Link className="map-link" to="/climate-map">
+            {t.exploreClimateMap}
+            <span>→</span>
+          </Link>
         </div>
+      </section>
 
-        <Link className="back-home" to="/">
-          ← Back to Climate Issues
+      {/* bottom navigation */}
+      <section className="sector-bottom">
+        <Link to="/">
+          ← {t.backToClimateIssues}
         </Link>
       </section>
     </div>

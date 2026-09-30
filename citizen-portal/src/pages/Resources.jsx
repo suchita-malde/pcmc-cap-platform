@@ -1,122 +1,157 @@
 import "./Resources.css";
+import { translations } from "../data/translations";
 
-export default function Resources() {
+export default function Resources({ language }) {
+  const t = translations[language];
+
   return (
     <div className="resources-page">
 
       <section className="resources-hero">
-        <h1>Resources</h1>
 
-        <p>
-          Find useful guides, services, best practices and information
-          to support climate action in Pimpri-Chinchwad.
-        </p>
+        <div className="resources-hero-shape"></div>
+
+        <span className="resources-label">
+          PCMC • CLIMATE RESOURCES
+        </span>
+
+        <h1>{t.resourcesTitle}</h1>
+
+        <p>{t.resourcesDescription}</p>
+
       </section>
 
       <section className="resources-section">
-        <h2>Guides & Manuals</h2>
+
+        <div className="resources-heading">
+          <span>01</span>
+          <h2>{t.guidesManuals}</h2>
+        </div>
 
         <div className="resources-grid">
 
-          <div className="resource-card">
-            <h3>♻️ Waste Management</h3>
-            <p>
-              Guides and information on waste segregation, composting,
-              recycling and responsible waste management.
-            </p>
-            <span>Resources to be added</span>
+          <div className="resource-card waste-card">
+            <div className="resource-icon">♻️</div>
+
+            <h3>{t.resourceWaste}</h3>
+
+            <p>{t.resourceWasteText}</p>
+
+            <span>{t.resourcesToBeAdded}</span>
           </div>
 
-          <div className="resource-card">
-            <h3>💧 Water Conservation</h3>
-            <p>
-              Information on water conservation, rainwater harvesting,
-              groundwater recharge and water reuse.
-            </p>
-            <span>Resources to be added</span>
+          <div className="resource-card water-card">
+            <div className="resource-icon">💧</div>
+
+            <h3>{t.resourceWater}</h3>
+
+            <p>{t.resourceWaterText}</p>
+
+            <span>{t.resourcesToBeAdded}</span>
           </div>
 
-          <div className="resource-card">
-            <h3>☀️ Energy Efficiency</h3>
-            <p>
-              Information and best practices for reducing energy use
-              and adopting renewable energy.
-            </p>
-            <span>Resources to be added</span>
+          <div className="resource-card energy-card">
+            <div className="resource-icon">☀️</div>
+
+            <h3>{t.resourceEnergy}</h3>
+
+            <p>{t.resourceEnergyText}</p>
+
+            <span>{t.resourcesToBeAdded}</span>
           </div>
 
-          <div className="resource-card">
-            <h3>🌳 Green Spaces</h3>
-            <p>
-              Information about tree protection, plantation, green spaces
-              and nature-based solutions.
-            </p>
-            <span>Resources to be added</span>
-          </div>
+          <div className="resource-card green-card">
+            <div className="resource-icon">🌳</div>
 
-        </div>
-      </section>
+            <h3>{t.resourceGreen}</h3>
 
-      <section className="resources-section">
-        <h2>Schemes & Services</h2>
+            <p>{t.resourceGreenText}</p>
 
-        <div className="resource-wide-card">
-          <h3>🏛️ Citizen Services & Schemes</h3>
-
-          <p>
-            Verified information about relevant PCMC services,
-            government schemes and climate-related initiatives will
-            be provided here.
-          </p>
-
-          <span>Information to be added</span>
-        </div>
-      </section>
-
-      <section className="resources-section">
-        <h2>Best Practices</h2>
-
-        <div className="resources-grid">
-
-          <div className="resource-card">
-            <h3>🏠 Sustainable Homes</h3>
-            <p>
-              Practical approaches for saving energy, conserving water
-              and reducing household waste.
-            </p>
-          </div>
-
-          <div className="resource-card">
-            <h3>🚶 Sustainable Mobility</h3>
-            <p>
-              Information about walking, cycling, public transport and
-              shared mobility.
-            </p>
-          </div>
-
-          <div className="resource-card">
-            <h3>🌱 Community Action</h3>
-            <p>
-              Ideas and examples for neighbourhood-level climate action
-              and community participation.
-            </p>
+            <span>{t.resourcesToBeAdded}</span>
           </div>
 
         </div>
+
       </section>
 
-      <section className="resources-section">
-        <h2>Organizations & Support</h2>
+      <section className="schemes-section">
 
-        <div className="resource-wide-card">
-          <h3>🤝 Climate Action Support</h3>
+        <div className="resources-section-inner">
 
-          <p>
-            Verified organizations, experts and service providers
-            supporting climate-related activities will be listed here.
-          </p>
+          <div className="resources-heading light-heading">
+            <span>02</span>
+            <h2>{t.schemesServices}</h2>
+          </div>
 
-          <span>Information to be added</span>
+          <div className="scheme-card">
+
+            <div className="scheme-icon">🏛️</div>
+
+            <div>
+              <h3>{t.citizenServices}</h3>
+
+              <p>{t.citizenServicesText}</p>
+
+              <span>{t.informationToBeAdded}</span>
+            </div>
+
+          </div>
+
+        </div>
+
+      </section>
+
+      <section className="resources-section best-practices-section">
+
+        <div className="resources-heading">
+          <span>03</span>
+          <h2>{t.bestPractices}</h2>
+        </div>
+
+        <div className="resources-grid three-column">
+
+          <div className="resource-card practice-card">
+            <div className="resource-icon">🏠</div>
+
+            <h3>{t.sustainableHomes}</h3>
+
+            <p>{t.sustainableHomesText}</p>
+          </div>
+
+          <div className="resource-card practice-card">
+            <div className="resource-icon">🚶</div>
+
+            <h3>{t.sustainableMobility}</h3>
+
+            <p>{t.sustainableMobilityText}</p>
+          </div>
+
+          <div className="resource-card practice-card">
+            <div className="resource-icon">🌱</div>
+
+            <h3>{t.communityAction}</h3>
+
+            <p>{t.communityActionText}</p>
+          </div>
+
+        </div>
+
+      </section>
+
+      <section className="support-section">
+        <div className="support-heading">
+          <span>04</span>
+          <h2>{t.organizationsSupport}</h2>
+        </div>
+
+        <div className="support-content">
+          <div className="support-icon">🤝</div>
+
+          <div className="support-text">
+            <h3>{t.climateSupport}</h3>
+            <p>{t.climateSupportText}</p>
+            <span>{t.informationToBeAdded}</span>
+          </div>
         </div>
       </section>
 

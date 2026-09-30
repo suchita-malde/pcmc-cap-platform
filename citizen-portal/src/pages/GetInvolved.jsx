@@ -1,100 +1,121 @@
 import "./GetInvolved.css";
+import { translations } from "../data/translations";
 
-export default function GetInvolved() {
+export default function GetInvolved({ language }) {
+  const t = translations[language];
+
   return (
     <div className="involved-page">
 
       <section className="involved-hero">
-        <h1>Get Involved</h1>
+        <div className="hero-badge">PCMC • COMMUNITY</div>
 
-        <p>
-          Your ideas, participation and local actions can help shape
-          climate action in Pimpri-Chinchwad.
-        </p>
+        <h1>{t.involvedTitle}</h1>
+
+        <p>{t.involvedDescription}</p>
       </section>
 
-      <section className="involved-section">
-        <h2>Share Your Voice</h2>
+      <section className="involved-section voice-section">
+        <div className="section-heading">
+          <span>01</span>
+          <h2>{t.shareYourVoice}</h2>
+        </div>
 
         <div className="involved-grid">
 
-          <div className="involved-card">
-            <h3>💡 Share a Suggestion</h3>
+          <div className="involved-card suggestion-card">
+            <div className="card-icon">💡</div>
 
-            <p>
-              Have an idea for improving climate resilience or
-              sustainability in your neighbourhood?
-            </p>
+            <h3>{t.shareSuggestion}</h3>
 
-            <span>Suggestion form to be connected</span>
+            <p>{t.shareSuggestionText}</p>
+
+            <span>{t.suggestionForm}</span>
           </div>
 
-          <div className="involved-card">
-            <h3>❓ Ask a Query</h3>
+          <div className="involved-card query-card">
+            <div className="card-icon">❓</div>
 
-            <p>
-              Share a question or concern related to climate action
-              and your neighbourhood.
-            </p>
+            <h3>{t.askQuery}</h3>
 
-            <span>Query form to be connected</span>
+            <p>{t.askQueryText}</p>
+
+            <span>{t.queryForm}</span>
           </div>
 
         </div>
       </section>
 
-      <section className="involved-section">
-        <h2>Upcoming Events & Meetings</h2>
+      <section className="events-section">
+        <div className="events-inner">
 
-        <div className="event-placeholder">
-          <h3>📅 Climate Action Events</h3>
+          <div className="section-heading light-heading">
+            <span>02</span>
+            <h2>{t.upcomingEvents}</h2>
+          </div>
 
-          <p>
-            Upcoming climate-related events, meetings, workshops and
-            citizen engagement activities will be displayed here.
-          </p>
+          <div className="event-placeholder">
 
-          <span>Event information to be added</span>
+            <div className="event-icon">📅</div>
+
+            <div>
+              <h3>{t.climateEventsTitle}</h3>
+
+              <p>{t.climateEventsText}</p>
+
+              <span>{t.eventInformation}</span>
+            </div>
+
+          </div>
+
         </div>
       </section>
 
-      <section className="involved-section">
-        <h2>Community Participation</h2>
+      <section className="involved-section community-section">
+
+        <div className="section-heading">
+          <span>03</span>
+          <h2>{t.communityParticipation}</h2>
+        </div>
 
         <div className="involved-grid">
 
-          <div className="involved-card">
-            <h3>🌱 Join Local Activities</h3>
+          <div className="involved-card community-card">
+            <div className="card-icon">🌱</div>
 
-            <p>
-              Participate in activities such as plantation drives,
-              clean-up campaigns and community climate initiatives.
-            </p>
+            <h3>{t.joinLocalActivities}</h3>
+
+            <p>{t.joinLocalActivitiesText}</p>
           </div>
 
-          <div className="involved-card">
-            <h3>🤝 Volunteer</h3>
+          <div className="involved-card community-card">
+            <div className="card-icon">🤝</div>
 
-            <p>
-              Stay connected with opportunities to support climate
-              action in your community.
-            </p>
+            <h3>{t.volunteer}</h3>
 
-            <span>Registration details to be added</span>
+            <p>{t.volunteerText}</p>
+
+            <span>{t.registrationDetails}</span>
           </div>
 
         </div>
+
       </section>
 
-      <section className="involved-section registration-section">
-        <h2>Register for Climate Activities</h2>
+      <section className="registration-section">
 
-        <p>
-          Registration links for upcoming events and citizen
-          engagement activities will be provided here.
-        </p>
+        <div className="registration-content">
 
-        <span>Registration form to be connected</span>
+          <div className="registration-icon">🌍</div>
+
+          <h2>{t.registerActivities}</h2>
+
+          <p>{t.registerActivitiesText}</p>
+
+          <span>{t.registrationForm}</span>
+
+        </div>
+
       </section>
 
     </div>

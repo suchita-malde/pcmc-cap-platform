@@ -19,7 +19,10 @@ import wasteFacilities from "../data/waste-facilities";
 import stpLocations from "../data/stp-locations";
 import climateProjects from "../data/climate-projects";
 
-export default function ClimateMap() {
+import { translations } from "../data/translations";
+
+export default function ClimateMap({ language }) {
+  const t = translations[language];
 
   const [layers, setLayers] = useState({
     flooding: false,
@@ -46,19 +49,16 @@ export default function ClimateMap() {
     <div className="climate-map-page">
 
       <section className="map-header">
-        <h1>Climate Map</h1>
+        <h1>{t.climateMapTitle}</h1>
 
-        <p>
-          Explore climate-related information and infrastructure across
-          Pimpri-Chinchwad.
-        </p>
+        <p>{t.climateMapDescription}</p>
       </section>
 
       <section className="map-container">
 
         <div className="map-controls">
 
-          <h3>Map Layers</h3>
+          <h3>{t.mapLayers}</h3>
 
           <label>
             <input
@@ -66,7 +66,7 @@ export default function ClimateMap() {
               checked={layers.flooding}
               onChange={() => toggleLayer("flooding")}
             />
-            Flooding / Water Logging
+            {t.layerFlooding}
           </label>
 
           <label>
@@ -75,7 +75,7 @@ export default function ClimateMap() {
               checked={layers.heat}
               onChange={() => toggleLayer("heat")}
             />
-            Heat
+            {t.layerHeat}
           </label>
 
           <label>
@@ -84,7 +84,7 @@ export default function ClimateMap() {
               checked={layers.greenSpaces}
               onChange={() => toggleLayer("greenSpaces")}
             />
-            Green Spaces
+            {t.layerGreenSpaces}
           </label>
 
           <label>
@@ -93,7 +93,7 @@ export default function ClimateMap() {
               checked={layers.municipalBuildings}
               onChange={() => toggleLayer("municipalBuildings")}
             />
-            Municipal Buildings
+            {t.layerMunicipalBuildings}
           </label>
 
           <label>
@@ -102,7 +102,7 @@ export default function ClimateMap() {
               checked={layers.pedestrianStreets}
               onChange={() => toggleLayer("pedestrianStreets")}
             />
-            Pedestrian-Friendly Streets
+            {t.layerPedestrianStreets}
           </label>
 
           <label>
@@ -111,7 +111,7 @@ export default function ClimateMap() {
               checked={layers.floodRisk}
               onChange={() => toggleLayer("floodRisk")}
             />
-            Flood Risk Areas
+            {t.layerFloodRisk}
           </label>
 
           <label>
@@ -120,7 +120,7 @@ export default function ClimateMap() {
               checked={layers.heatRisk}
               onChange={() => toggleLayer("heatRisk")}
             />
-            Heat Risk Areas
+            {t.layerHeatRisk}
           </label>
 
           <label>
@@ -129,7 +129,7 @@ export default function ClimateMap() {
               checked={layers.water}
               onChange={() => toggleLayer("water")}
             />
-            Water Infrastructure
+            {t.layerWater}
           </label>
 
           <label>
@@ -138,7 +138,7 @@ export default function ClimateMap() {
               checked={layers.waste}
               onChange={() => toggleLayer("waste")}
             />
-            Waste Infrastructure
+            {t.layerWaste}
           </label>
 
           <label>
@@ -147,7 +147,7 @@ export default function ClimateMap() {
               checked={layers.mobility}
               onChange={() => toggleLayer("mobility")}
             />
-            Mobility
+            {t.layerMobility}
           </label>
 
           <label>
@@ -156,7 +156,7 @@ export default function ClimateMap() {
               checked={layers.projects}
               onChange={() => toggleLayer("projects")}
             />
-            PCMC Climate Projects
+            {t.layerProjects}
           </label>
 
         </div>
@@ -164,7 +164,7 @@ export default function ClimateMap() {
         {layers.floodRisk && (
           <div className="flood-risk-panel">
 
-            <h3>Flood Risk Areas</h3>
+            <h3>{t.floodRiskTitle}</h3>
 
             {floodRiskAreas.map((area) => (
               <div
@@ -176,7 +176,7 @@ export default function ClimateMap() {
             ))}
 
             <small>
-              Flood-risk locations from the climate map dataset.
+              {t.riskAreaNote}
             </small>
 
           </div>
@@ -185,7 +185,7 @@ export default function ClimateMap() {
         {layers.heatRisk && (
           <div className="flood-risk-panel">
 
-            <h3>Heat Risk Areas</h3>
+            <h3>{t.heatRiskTitle}</h3>
 
             {heatRiskAreas.map((area) => (
               <div
@@ -197,7 +197,7 @@ export default function ClimateMap() {
             ))}
 
             <small>
-              Heat-risk locations from the climate map dataset.
+              {t.riskAreaNote}
             </small>
 
           </div>
@@ -368,11 +368,11 @@ export default function ClimateMap() {
 
                   <br />
 
-                  Type: PCMC Garden
+                  {t.type}: {place.type}
 
                   <br />
 
-                  Pimpri-Chinchwad
+                  {t.pcmc}
 
                 </Popup>
 
@@ -405,7 +405,7 @@ export default function ClimateMap() {
                   <br />
 
                   <small>
-                    PCMC City GIS Feature ID: {place.featId}
+                    {t.pcmcGisFeatureId}: {place.featId}
                   </small>
 
                 </Popup>
@@ -430,11 +430,11 @@ export default function ClimateMap() {
 
                   <br />
 
-                  Type: Pedestrian-Friendly Street
+                  {t.type}: {t.pedestrianFriendlyStreet}
 
                   <br />
 
-                  Pimpri-Chinchwad
+                  {t.pcmc}
 
                 </Popup>
 

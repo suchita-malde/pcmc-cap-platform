@@ -41,12 +41,24 @@ function App() {
           path="/cap-overview"
           element={<CAPOverview language={language} />}
         />
-        <Route path="/climate-map" element={<ClimateMap />} />
-        <Route path="/sector/:sectorId" element={<SectorPage />} />
-        <Route path="/progress" element={<ProgressTracker />} />
-        <Route path="/actions" element={<CitizenActions />} />
-        <Route path="/resources" element={<Resources />} />
-        <Route path="/get-involved" element={<GetInvolved />} />
+        <Route path="/climate-map" element={<ClimateMap language={language} />} />
+        <Route
+          path="/sector/:sectorId"
+          element={<SectorPage language={language} />}
+        />
+        <Route
+          path="/progress"
+          element={<ProgressTracker language={language} />}
+        />
+        <Route path="/actions" element={<CitizenActions language={language} />} />
+        <Route
+          path="/resources"
+          element={<Resources language={language} />}
+        />
+        <Route
+          path="/get-involved"
+          element={<GetInvolved language={language} />}
+        />
       </Routes>
 
       <Footer language={language} />
