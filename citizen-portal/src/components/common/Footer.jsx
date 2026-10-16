@@ -66,6 +66,33 @@ export default function Footer({ language }) {
         <div className="footer-visual-line"></div>
       </div>
 
+      {/* social media and partner logos */}
+      <div className="footer-extras">
+        <div className="footer-social">
+          <h3>{t.footerSocialTitle}</h3>
+
+          <div className="footer-social-links">
+            <a href="#" aria-label="Instagram">Instagram</a>
+            <a href="#" aria-label="Facebook">Facebook</a>
+            <a href="#" aria-label="YouTube">YouTube</a>
+          </div>
+        </div>
+
+        <div className="footer-partners">
+          <h3>{t.footerPartnerTitle}</h3>
+
+          <div className="footer-partner-logos">
+            <div className="footer-logo">
+              <img src="/images/cee-logo.png" alt="CEE logo" />
+            </div>
+
+            <div className="footer-logo">
+              <img src="/images/pcmc-logo.jpg" alt="PCMC logo" />
+            </div>
+          </div>
+        </div>
+      </div>
+
       <div className="footer-bottom">
         <p>{t.footerCopyright}</p>
         <p>{t.footerPlatform}</p>

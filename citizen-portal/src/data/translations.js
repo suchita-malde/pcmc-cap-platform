@@ -11,6 +11,17 @@ export const translations = {
     marathi: "मराठी",
     english: "English",
 
+    ceeActivitiesLabel: "CEE IN ACTION",
+    ceeActivitiesTitle: "Initiatives & Activities",
+    ceeActivitiesDescription:
+      "Discover the activities, public meetings, and community initiatives supporting climate action in PCMC.",
+    ceePhotoPlaceholder: "Activity photo to be added",
+    ceeActivityTag: "COMMUNITY INITIATIVE",
+    ceeActivityPlaceholderTitle: "Activity details coming soon",
+    ceeActivityPlaceholderText:
+      "Information about this initiative, including its purpose and activities, will be added here.",
+    ceeActivitiesMore: "Learn More About CEE",
+
     homeTitle: "PCMC Climate Action Plan",
     homeTagline: "For all, through the participation of all",
     exploreClimateIssues: "Explore Climate Issues",
@@ -35,6 +46,8 @@ export const translations = {
     climateIssues: "Climate Issues",
     footerCopyright: "© 2026 PCMC Climate Action Plan",
     footerPlatform: "Citizen Climate Engagement Platform",
+    footerSocialTitle: "Connect With Us",
+    footerPartnerTitle: "In Collaboration With",
 
     //CAP Overview
     capHeroTitle: "PCMC Climate Action Plan",
@@ -292,6 +305,49 @@ export const translations = {
     backToHome: "Back to Home",
     locationDataToBeAdded:
       "Location-based information will be displayed as verified city data becomes available.",
+    
+    //About CEE  
+    aboutCEETab: "About CEE",
+    aboutCEELabel: "ABOUT THE ORGANISATION",
+    aboutCEEHeading: "About CEE",
+    aboutCEEIntro: "Learn about CEE, its environmental work, and its role in supporting climate action.",
+    aboutCEESectionLabel: "OUR ORGANISATION",
+    aboutCEESectionTitle: "Who We Are",
+    aboutCEEContentHeading: "Our Background",
+    aboutCEEContentPlaceholder: "Information about CEE's background, mission, and objectives will be added here.",
+    aboutCEEWorkLabel: "OUR WORK",
+    aboutCEEWorkHeading: "Environmental Initiatives",
+    aboutCEEWorkPlaceholderTitle: "Our Environmental Work",
+    aboutCEEWorkPlaceholderText: "Details of CEE's environmental programmes and initiatives will be added here.",
+    aboutCEEGalleryLabel: "IN PICTURES",
+    aboutCEEGalleryHeading: "Our Activities",
+    aboutCEEGalleryPlaceholder: "Photos and captions will be added here.",
+
+    //About Initiative 
+    aboutInitiativeTab: "About the Initiative",
+    aboutInitiativeLabel: "ABOUT THE INITIATIVE",
+    aboutInitiativeHeading: "A Shared Vision for Climate Action",
+    aboutInitiativeIntro: "Discover the purpose of this initiative and how citizen participation can support climate action in PCMC.",
+    aboutInitiativePurposeLabel: "OUR PURPOSE",
+    aboutInitiativePurposeHeading: "Why This Initiative Matters",
+    aboutInitiativePurposeTitle: "Building Climate Awareness",
+    aboutInitiativePurposeText: "Details about the initiative's objectives, goals, and intended impact will be added here.",
+    aboutInitiativeApproachLabel: "OUR APPROACH",
+    aboutInitiativeApproachHeading: "From Awareness to Action",
+    aboutInitiativeApproachTitle: "Working Together",
+    aboutInitiativeApproachText: "Information about public participation, community engagement, and how this platform supports the initiative will be added here.",
+
+    //Event Banner
+    eventBannerLabel: "UPCOMING EVENT",
+    eventBannerTitle: "Be Part of the Climate Conversation",
+    eventBannerDescription: "Join us to learn, share ideas, and take action for a more sustainable PCMC.",
+    eventBannerButton: "VIEW DETAILS",
+    eventPopupClose: "Close announcement",
+    eventPopupEyebrow: "SAVE THE DATE",
+    eventPopupTitle: "A Climate Event Is Coming!",
+    eventPopupDescription: "Event date, venue, poster, and registration details will be announced here.",
+    eventPopupButton: "GOT IT",
+    eventPopupMoreInfo: "More Info",
     },
 
   mr: {
@@ -305,6 +361,17 @@ export const translations = {
     getInvolved: "सहभागी व्हा",
     marathi: "मराठी",
     english: "English",
+
+    ceeActivitiesLabel: "CEE चे कार्य",
+    ceeActivitiesTitle: "उपक्रम आणि उपक्रमशील कार्य",
+    ceeActivitiesDescription:
+      "PCMC मधील हवामान कृतीला पाठिंबा देणारे उपक्रम, सार्वजनिक बैठका आणि सामुदायिक कार्य जाणून घ्या.",
+    ceePhotoPlaceholder: "उपक्रमाचे छायाचित्र येथे जोडले जाईल",
+    ceeActivityTag: "सामुदायिक उपक्रम",
+    ceeActivityPlaceholderTitle: "उपक्रमाची माहिती लवकरच",
+    ceeActivityPlaceholderText:
+      "या उपक्रमाचा उद्देश आणि त्याअंतर्गत होणाऱ्या कार्याची माहिती येथे जोडली जाईल.",
+    ceeActivitiesMore: "CEE विषयी अधिक जाणून घ्या",
 
     homeTitle: "पिंपरी-चिंचवड हवामान कृती आराखडा",
     homeTagline: "सर्वांसाठी, सर्वांच्या सहभागातून",
@@ -330,6 +397,9 @@ export const translations = {
     climateIssues: "हवामानविषयक समस्या",
     footerCopyright: "© २०२६ पिंपरी-चिंचवड हवामान कृती आराखडा",
     footerPlatform: "नागरिक हवामान सहभाग मंच",
+    footerSocialTitle: "आमच्याशी जोडले जा",
+    footerPartnerTitle: "सहकार्य",
+    
     capHeroTitle: "पिंपरी-चिंचवड हवामान कृती आराखडा",
     capHeroLabel: "पीसीएमसी • हवामान कृती आराखडा",
     capHeroHeading1: "आराखडा",
@@ -713,5 +783,47 @@ export const translations = {
         ]
       }
     },
+    //About CEE
+    aboutCEETab: "CEE विषयी",
+    aboutCEELabel: "संस्थेविषयी",
+    aboutCEEHeading: "CEE विषयी",
+    aboutCEEIntro: "CEE चे पर्यावरणविषयक कार्य आणि हवामान कृतीसाठीची भूमिका जाणून घ्या.",
+    aboutCEESectionLabel: "आमची संस्था",
+    aboutCEESectionTitle: "आमच्याविषयी",
+    aboutCEEContentHeading: "आमची पार्श्वभूमी",
+    aboutCEEContentPlaceholder: "CEE ची पार्श्वभूमी, ध्येय आणि उद्दिष्टांची माहिती येथे जोडली जाईल.",
+    aboutCEEWorkLabel: "आमचे कार्य",
+    aboutCEEWorkHeading: "पर्यावरणविषयक उपक्रम",
+    aboutCEEWorkPlaceholderTitle: "आमचे पर्यावरणविषयक कार्य",
+    aboutCEEWorkPlaceholderText: "CEE च्या पर्यावरणविषयक कार्यक्रमांची आणि उपक्रमांची माहिती येथे जोडली जाईल.",
+    aboutCEEGalleryLabel: "छायाचित्रांमधून",
+    aboutCEEGalleryHeading: "आमचे उपक्रम",
+    aboutCEEGalleryPlaceholder: "छायाचित्रे आणि त्यांची माहिती येथे जोडली जाईल.",
+
+    //About Initiative
+    aboutInitiativeTab: "उपक्रमाविषयी",
+    aboutInitiativeLabel: "उपक्रमाविषयी",
+    aboutInitiativeHeading: "हवामान कृतीसाठी सामायिक दृष्टिकोन",
+    aboutInitiativeIntro: "PCMC मधील हवामान कृतीसाठी नागरिकांचा सहभाग कसा महत्त्वाचा ठरू शकतो, हे जाणून घ्या.",
+    aboutInitiativePurposeLabel: "आमचा उद्देश",
+    aboutInitiativePurposeHeading: "हा उपक्रम का महत्त्वाचा आहे?",
+    aboutInitiativePurposeTitle: "हवामानविषयक जागरूकता",
+    aboutInitiativePurposeText: "या उपक्रमाची उद्दिष्टे, ध्येये आणि अपेक्षित परिणाम यांची माहिती येथे जोडली जाईल.",
+    aboutInitiativeApproachLabel: "आमची कार्यपद्धती",
+    aboutInitiativeApproachHeading: "जागरूकतेकडून कृतीकडे",
+    aboutInitiativeApproachTitle: "एकत्रित प्रयत्न",
+    aboutInitiativeApproachText: "लोकसहभाग, समुदायाचा सहभाग आणि हा प्लॅटफॉर्म उपक्रमाला कसा मदत करतो याची माहिती येथे जोडली जाईल.",
+    
+    //Event Banner
+    eventBannerLabel: "आगामी कार्यक्रम",
+    eventBannerTitle: "हवामानविषयक चर्चेत सहभागी व्हा",
+    eventBannerDescription: "शाश्वत PCMC साठी जाणून घ्या, कल्पना मांडा आणि कृतीत सहभागी व्हा.",
+    eventBannerButton: "तपशील पहा",
+    eventPopupClose: "सूचना बंद करा",
+    eventPopupEyebrow: "तारीख लक्षात ठेवा",
+    eventPopupTitle: "हवामानविषयक कार्यक्रम लवकरच!",
+    eventPopupDescription: "कार्यक्रमाची तारीख, ठिकाण, पोस्टर आणि नोंदणीची माहिती येथे जाहीर केली जाईल.",
+    eventPopupButton: "समजले",
+    eventPopupMoreInfo: "अधिक माहिती",
   }
 };

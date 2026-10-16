@@ -1,3 +1,4 @@
+
 import "./Navbar.css";
 import { NavLink, useLocation, useNavigate } from "react-router-dom";
 import { translations } from "../../data/translations";
@@ -6,6 +7,13 @@ export default function Navbar({ language, setLanguage }) {
   const navigate = useNavigate();
   const location = useLocation();
   const t = translations[language];
+
+  function scrollToTop() {
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth"
+    });
+  }
 
   function scrollToExplore() {
     if (location.pathname === "/") {
@@ -23,19 +31,33 @@ export default function Navbar({ language, setLanguage }) {
 
   return (
     <nav className="navbar">
-
-      <NavLink to="/" className="navbar-logo">
+      <NavLink
+        to="/"
+        className="navbar-logo"
+        onClick={scrollToTop}
+      >
         {language === "en" ? "PCMC" : "पिं.चिं.म.पा."}
       </NavLink>
 
       <div className="navbar-links">
-
-        <NavLink to="/" className={navClass}>
+        <NavLink to="/" className={navClass} onClick={scrollToTop}>
           {t.home}
         </NavLink>
 
-        <NavLink to="/cap-overview" className={navClass}>
+        <NavLink to="/cap-overview" className={navClass} onClick={scrollToTop}>
           {t.capOverview}
+        </NavLink>
+
+        <NavLink to="/about-cee" className={navClass} onClick={scrollToTop}>
+          {t.aboutCEETab}
+        </NavLink>
+
+        <NavLink
+          to="/about-initiative"
+          className={navClass}
+          onClick={scrollToTop}
+        >
+          {t.aboutInitiativeTab}
         </NavLink>
 
         <button
@@ -45,26 +67,29 @@ export default function Navbar({ language, setLanguage }) {
           {t.exploreIssues}
         </button>
 
-        <NavLink to="/climate-map" className={navClass}>
+        <NavLink to="/climate-map" className={navClass} onClick={scrollToTop}>
           {t.climateMap}
         </NavLink>
 
-        <NavLink to="/progress" className={navClass}>
+        <NavLink to="/progress" className={navClass} onClick={scrollToTop}>
           {t.progress}
         </NavLink>
 
-        <NavLink to="/actions" className={navClass}>
+        <NavLink to="/actions" className={navClass} onClick={scrollToTop}>
           {t.takeAction}
         </NavLink>
 
-        <NavLink to="/resources" className={navClass}>
+        <NavLink to="/resources" className={navClass} onClick={scrollToTop}>
           {t.resources}
         </NavLink>
 
-        <NavLink to="/get-involved" className={navClass}>
+        <NavLink
+          to="/get-involved"
+          className={navClass}
+          onClick={scrollToTop}
+        >
           {t.getInvolved}
         </NavLink>
-
       </div>
 
       <button
@@ -79,7 +104,6 @@ export default function Navbar({ language, setLanguage }) {
           {language === "en" ? "English" : "मराठी"}
         </span>
       </button>
-
     </nav>
   );
 }

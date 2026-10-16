@@ -30,7 +30,13 @@ export default function GetInvolved({ language }) {
 
             <p>{t.shareSuggestionText}</p>
 
-            <span>{t.suggestionForm}</span>
+            <a
+              href="YOUR_SUGGESTION_GOOGLE_FORM_URL"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              {t.suggestionForm}
+            </a>
           </div>
 
           <div className="involved-card query-card">
@@ -40,13 +46,19 @@ export default function GetInvolved({ language }) {
 
             <p>{t.askQueryText}</p>
 
-            <span>{t.queryForm}</span>
+            <a
+              href="YOUR_QUERY_GOOGLE_FORM_URL"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              {t.queryForm}
+            </a>
           </div>
 
         </div>
       </section>
 
-      <section className="events-section">
+      <section id="upcoming-events" className="events-section">
         <div className="events-inner">
 
           <div className="section-heading light-heading">

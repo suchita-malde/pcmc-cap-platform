@@ -33,25 +33,22 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 6px;
+  gap: 2px;
+  flex: 1;
+  min-width: 0;
 }
 
 .nav-link {
   position: relative;
-
-  padding: 10px 14px;
-
+  padding: 10px 8px;
   border: none;
-  background: transparent;
-
+  background: transparent;  
   font-family: var(--sans);
-  font-size: 15px;
+  font-size: 13px;
   font-weight: 500;
-
   color: var(--text-light);
-
   cursor: pointer;
-
+  white-space: nowrap;
   transition:
     color 0.2s ease,
     background 0.2s ease;
