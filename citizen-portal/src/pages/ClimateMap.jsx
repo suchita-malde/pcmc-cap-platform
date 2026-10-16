@@ -18,8 +18,8 @@ import pcmcGIS from "../data/pcmc-gis";
 import wasteFacilities from "../data/waste-facilities";
 import stpLocations from "../data/stp-locations";
 import climateProjects from "../data/climate-projects";
-
 import { translations } from "../data/translations";
+import mobilityStations from "../data/mobility";
 
 export default function ClimateMap({ language }) {
   const t = translations[language];
@@ -214,6 +214,21 @@ export default function ClimateMap({ language }) {
             attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>'
             url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
           />
+          {/* MOBILITY — must be inside MapContainer */}
+            {layers.mobility &&
+            mobilityStations.map((station) => (
+            <Marker
+              key={station.id}
+              position={station.position}
+            >
+            <Popup>
+              <strong>{station.name}</strong>
+              <br />
+              {station.category}
+              </Popup>
+            </Marker>
+            ))}
+            
           {/* FLOOD RISK AREAS */}
 
           {layers.floodRisk &&
@@ -441,6 +456,8 @@ export default function ClimateMap({ language }) {
               </Polyline>
 
             ))}
+          
+
 
         </MapContainer>
 
