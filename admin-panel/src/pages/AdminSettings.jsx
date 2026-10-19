@@ -1,267 +1,318 @@
+import { useState } from "react";
+
+const C = {
+  bg: "#F5F7F6",
+  dark: "#394F49",
+  green: "#65743A",
+  buttonDark: "#394F49",
+  buttonHover: "#2E7D4A",
+  white: "#FFFFFF",
+  border: "#DCE3DD",
+  muted: "#75817B",
+  lightGreen: "#E8EEE3",
+};
+
+const sections = [
+  {
+    title: "Backend & Data Sources",
+    icon: "🗄️",
+    status: "Configuration Required",
+    description:
+      "Manage backend connections and data sources used by the admin panel.",
+    details: [
+      "Configure the backend API connection.",
+      "Verify data source availability.",
+      "Check connection settings before enabling live data.",
+    ],
+  },
+  {
+    title: "Access & Security",
+    icon: "🔐",
+    status: "Review Settings",
+    description:
+      "Review access and security settings for the admin workspace.",
+    details: [
+      "Review administrator access permissions.",
+      "Verify authentication and authorization settings.",
+      "Ensure sensitive settings are handled securely.",
+    ],
+  },
+  {
+    title: "Data Import & Export",
+    icon: "📁",
+    status: "Available for Setup",
+    description:
+      "Manage options for importing and exporting administrative data.",
+    details: [
+      "Plan supported import file formats.",
+      "Validate data before importing.",
+      "Confirm export requirements and permissions.",
+    ],
+  },
+  {
+    title: "Platform Configuration",
+    icon: "⚙️",
+    status: "Configuration Required",
+    description:
+      "Review general platform settings and administrative preferences.",
+    details: [
+      "Review platform-wide configuration options.",
+      "Verify application preferences.",
+      "Confirm configuration changes before applying them.",
+    ],
+  },
+];
+
 export default function AdminSettings() {
+  const [expandedSection, setExpandedSection] = useState(null);
+
+  const cardStyle = {
+    background: C.white,
+    border: `1px solid ${C.border}`,
+    borderRadius: 14,
+    padding: 26,
+    boxShadow: "0 4px 14px rgba(57,79,73,0.05)",
+    transition: "transform 150ms ease, box-shadow 150ms ease",
+    boxSizing: "border-box",
+    minWidth: 0,
+  };
+
+  const handleCardEnter = (event) => {
+    event.currentTarget.style.transform = "translateY(-3px)";
+    event.currentTarget.style.boxShadow =
+      "0 8px 20px rgba(57,79,73,0.12)";
+  };
+
+  const handleCardLeave = (event) => {
+    event.currentTarget.style.transform = "translateY(0)";
+    event.currentTarget.style.boxShadow =
+      "0 4px 14px rgba(57,79,73,0.05)";
+  };
+
   return (
     <div
       style={{
-        minHeight: "100vh",
-        background: "#F5F7F6",
-        padding: "32px 34px 60px",
+        minHeight: "100%",
+        background: C.bg,
+        padding: "8px 4px 32px",
         boxSizing: "border-box",
       }}
     >
       <div
         style={{
-          maxWidth: "1380px",
+          maxWidth: 1380,
           margin: "0 auto",
+          width: "100%",
         }}
       >
-        {/* Page Header */}
-        <div style={{ marginBottom: "30px" }}>
-          <div
-            style={{
-              display: "inline-block",
-              padding: "7px 12px",
-              borderRadius: "20px",
-              background: "#E8F3E9",
-              color: "#2F7D4A",
-              fontSize: "11px",
-              fontWeight: "800",
-              letterSpacing: "0.5px",
-              marginBottom: "12px",
-            }}
-          >
-            ADMINISTRATION
-          </div>
-
+        {/* Page heading */}
+        <div style={{ marginBottom: 28 }}>
           <h1
             style={{
               margin: "0 0 8px",
-              color: "#394F49",
-              fontSize: "40px",
-              lineHeight: "1.2",
-              fontWeight: "750",
+              color: C.dark,
+              fontSize: 36,
+              fontWeight: 600,
+              letterSpacing: "-0.8px",
             }}
           >
-            Admin Settings & Data Management
+            Admin Settings
           </h1>
 
           <p
             style={{
               margin: 0,
-              color: "#65743A",
-              fontSize: "17px",
-              lineHeight: "1.6",
+              color: C.muted,
+              fontSize: 15,
+              lineHeight: 1.6,
             }}
           >
-            Manage administrative settings and prepare platform data for future
-            backend integration.
+            Manage configuration options and review your platform settings.
           </p>
         </div>
 
-        {/* Data Management Section */}
-        <section>
-          <div
+        {/* Settings section heading */}
+        <div style={{ marginBottom: 20 }}>
+          <h2
             style={{
-              display: "flex",
-              alignItems: "center",
-              gap: "10px",
-              marginBottom: "16px",
+              margin: "0 0 6px",
+              color: C.dark,
+              fontSize: 23,
+              fontWeight: 600,
             }}
           >
-            <span
-              style={{
-                width: "4px",
-                height: "24px",
-                background: "#65743A",
-                borderRadius: "2px",
-                display: "inline-block",
-              }}
-            />
+            Settings & Management
+          </h2>
 
-            <h2
-              style={{
-                margin: 0,
-                color: "#394F49",
-                fontSize: "22px",
-                lineHeight: "1.3",
-                fontWeight: "750",
-              }}
-            >
-              Data Management
-            </h2>
-          </div>
-
-          <div
+          <p
             style={{
-              maxWidth: "900px",
-              background: "#FFFFFF",
-              border: "1px solid #DCE3DD",
-              borderTop: "5px solid #65743A",
-              borderRadius: "16px",
-              boxShadow: "0 4px 14px rgba(57, 79, 73, 0.07)",
-              overflow: "hidden",
+              margin: 0,
+              color: C.muted,
+              fontSize: 14,
+              lineHeight: 1.6,
             }}
           >
-            {/* Card Header */}
-            <div
-              style={{
-                padding: "26px 28px",
-                borderBottom: "1px solid #E1E7E2",
-              }}
-            >
+            Review each section to see its configuration information.
+          </p>
+        </div>
+
+        {/* Two larger cards per row */}
+        <div
+          style={{
+            display: "grid",
+            gridTemplateColumns: "repeat(2, minmax(0, 1fr))",
+            gap: 22,
+            alignItems: "start",
+          }}
+        >
+          {sections.map((section) => {
+            const isExpanded = expandedSection === section.title;
+
+            return (
               <div
-                style={{
-                  width: "56px",
-                  height: "56px",
-                  display: "flex",
-                  alignItems: "center",
-                  justifyContent: "center",
-                  borderRadius: "14px",
-                  background: "#E8EEE3",
-                  fontSize: "25px",
-                  marginBottom: "16px",
-                }}
+                key={section.title}
+                style={cardStyle}
+                onMouseEnter={handleCardEnter}
+                onMouseLeave={handleCardLeave}
               >
-                ⚙️
-              </div>
-
-              <h3
-                style={{
-                  margin: "0 0 7px",
-                  color: "#394F49",
-                  fontSize: "22px",
-                  lineHeight: "1.3",
-                  fontWeight: "750",
-                }}
-              >
-                Data Management
-              </h3>
-
-              <p
-                style={{
-                  margin: 0,
-                  color: "#65743A",
-                  fontSize: "14px",
-                  lineHeight: "1.6",
-                }}
-              >
-                Manage the platform's administrative and data-management
-                functions.
-              </p>
-            </div>
-
-            {/* Card Content */}
-            <div
-              style={{
-                padding: "28px",
-              }}
-            >
-              {/* Backend Integration */}
-              <div
-                style={{
-                  padding: "18px",
-                  background: "#F5F7F6",
-                  border: "1px solid #DCE3DD",
-                  borderRadius: "11px",
-                  marginBottom: "20px",
-                }}
-              >
+                {/* Card heading */}
                 <div
                   style={{
                     display: "flex",
-                    alignItems: "center",
-                    gap: "10px",
-                    marginBottom: "8px",
+                    alignItems: "flex-start",
+                    gap: 15,
+                    marginBottom: 20,
                   }}
                 >
-                  <span
+                  <div
                     style={{
-                      width: "9px",
-                      height: "9px",
-                      borderRadius: "50%",
-                      background: "#65743A",
-                      display: "inline-block",
-                    }}
-                  />
-
-                  <strong
-                    style={{
-                      color: "#394F49",
-                      fontSize: "14px",
+                      width: 54,
+                      height: 54,
+                      minWidth: 54,
+                      borderRadius: 13,
+                      background: C.lightGreen,
+                      display: "flex",
+                      alignItems: "center",
+                      justifyContent: "center",
+                      fontSize: 24,
                     }}
                   >
-                    Backend Integration
-                  </strong>
+                    {section.icon}
+                  </div>
+
+                  <div style={{ flex: 1, minWidth: 0 }}>
+                    <h3
+                      style={{
+                        margin: "4px 0 10px",
+                        color: C.dark,
+                        fontSize: 19,
+                        fontWeight: 600,
+                        lineHeight: 1.4,
+                      }}
+                    >
+                      {section.title}
+                    </h3>
+
+                    <span
+                      style={{
+                        display: "inline-block",
+                        padding: "6px 10px",
+                        borderRadius: 7,
+                        background: C.lightGreen,
+                        color: C.green,
+                        fontSize: 12,
+                        fontWeight: 500,
+                        lineHeight: 1.5,
+                      }}
+                    >
+                      {section.status}
+                    </span>
+                  </div>
                 </div>
 
+                {/* Card description */}
                 <p
                   style={{
-                    margin: 0,
-                    color: "#65743A",
-                    fontSize: "13px",
-                    lineHeight: "1.6",
+                    margin: "0 0 22px",
+                    color: C.muted,
+                    fontSize: 15,
+                    lineHeight: 1.8,
                   }}
                 >
-                  Backend, database, import, export, and other data-management
-                  functions will be connected here when the backend is
-                  introduced.
+                  {section.description}
                 </p>
-              </div>
 
-              {/* Current Status */}
-              <div
-                style={{
-                  padding: "18px",
-                  background: "#F3F0E6",
-                  border: "1px solid #E2DDCC",
-                  borderRadius: "11px",
-                }}
-              >
-                <div
+                {/* Expandable details */}
+                {isExpanded && (
+                  <div
+                    style={{
+                      borderTop: `1px solid ${C.border}`,
+                      paddingTop: 18,
+                      marginBottom: 20,
+                    }}
+                  >
+                    <h4
+                      style={{
+                        margin: "0 0 12px",
+                        color: C.dark,
+                        fontSize: 15,
+                        fontWeight: 600,
+                      }}
+                    >
+                      Configuration Details
+                    </h4>
+
+                    <ul
+                      style={{
+                        margin: 0,
+                        paddingLeft: 21,
+                        color: C.muted,
+                        fontSize: 14,
+                        lineHeight: 1.9,
+                      }}
+                    >
+                      {section.details.map((detail) => (
+                        <li key={detail} style={{ marginBottom: 6 }}>
+                          {detail}
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                )}
+
+                {/* View / Hide Details button */}
+                <button
+                  type="button"
+                  onClick={() =>
+                    setExpandedSection(
+                      isExpanded ? null : section.title
+                    )
+                  }
                   style={{
-                    marginBottom: "6px",
-                    color: "#394F49",
-                    fontSize: "11px",
-                    fontWeight: "800",
-                    letterSpacing: "0.5px",
+                    width: "100%",
+                    padding: "18px 20px",
+                    borderRadius: 10,
+                    border: "none",
+                    background: C.buttonDark,
+                    color: C.white,
+                    fontSize: 15,
+                    fontWeight: 600,
+                    cursor: "pointer",
+                    transition: "background 150ms ease",
+                    boxSizing: "border-box",
+                  }}
+                  onMouseEnter={(event) => {
+                    event.currentTarget.style.background = C.buttonHover;
+                  }}
+                  onMouseLeave={(event) => {
+                    event.currentTarget.style.background = C.buttonDark;
                   }}
                 >
-                  CURRENT STATUS
-                </div>
-
-                <p
-                  style={{
-                    margin: 0,
-                    color: "#65743A",
-                    fontSize: "13px",
-                    lineHeight: "1.55",
-                  }}
-                >
-                  No backend data operations are available yet.
-                </p>
+                  {isExpanded ? "Hide Details ↑" : "View Details →"}
+                </button>
               </div>
-            </div>
-          </div>
-        </section>
-
-        {/* Admin Workspace Note */}
-        <div
-          style={{
-            maxWidth: "900px",
-            marginTop: "22px",
-            padding: "16px 18px",
-            background: "#E8EEE3",
-            border: "1px solid #DCE3DD",
-            borderRadius: "12px",
-            color: "#65743A",
-            fontSize: "13px",
-            lineHeight: "1.5",
-          }}
-        >
-          <strong style={{ color: "#394F49" }}>
-            Admin workspace:
-          </strong>{" "}
-          Data-management controls can be added here when the backend is
-          introduced.
+            );
+          })}
         </div>
       </div>
     </div>

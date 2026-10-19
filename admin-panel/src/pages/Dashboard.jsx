@@ -1,54 +1,54 @@
+
 import { Link } from "react-router-dom";
 
 const dashboardItems = [
   {
     title: "Sectors",
-    icon: "🌱",
-    description:
-      "Manage the climate action sectors and their information.",
+    description: "Manage climate action sectors and their priorities.",
     path: "/sectors",
+    icon: "🌿",
   },
   {
     title: "Projects",
-    icon: "📋",
-    description:
-      "Manage climate projects and implementation details.",
+    description: "Review and manage climate action projects.",
     path: "/projects",
+    icon: "📋",
   },
   {
-    title: "Progress",
-    icon: "📈",
-    description:
-      "Update and manage progress information for projects.",
+    title: "Progress & Targets",
+    description: "Track goals, targets, and progress updates.",
     path: "/progress",
+    icon: "📈",
   },
   {
     title: "Map Data",
-    icon: "🗺️",
-    description:
-      "Manage climate-related map and location information.",
+    description: "Explore climate layers and map information.",
     path: "/map-data",
+    icon: "🗺️",
   },
   {
     title: "Resources",
-    icon: "📚",
-    description:
-      "Manage documents, reports, and climate resources.",
+    description: "Manage reports, plans, and awareness materials.",
     path: "/resources",
+    icon: "📚",
   },
   {
     title: "Events",
-    icon: "📅",
-    description:
-      "Manage climate events and related information.",
+    description: "Manage climate action events and activities.",
     path: "/events",
+    icon: "📅",
   },
   {
     title: "Suggestions",
-    icon: "💬",
-    description:
-      "Review and manage suggestions submitted by citizens.",
+    description: "Review citizen suggestions when available.",
     path: "/suggestions",
+    icon: "💬",
+  },
+  {
+    title: "Admin Settings",
+    description: "Review administration and platform settings.",
+    path: "/admin-settings",
+    icon: "⚙️",
   },
 ];
 
@@ -56,327 +56,185 @@ export default function Dashboard() {
   return (
     <div
       style={{
-        minHeight: "100vh",
+        minHeight: "100%",
         background: "#F5F7F6",
-        padding: "32px 34px 60px",
-        boxSizing: "border-box",
+        padding: "8px 4px 32px",
+        color: "#394F49",
       }}
     >
-      <div
-        style={{
-          maxWidth: "1380px",
-          margin: "0 auto",
-        }}
-      >
-        {/* Dashboard Hero */}
-        <section
+      {/* Dashboard heading */}
+      <section style={{ marginBottom: "30px" }}>
+        <div
           style={{
-            position: "relative",
-            background:
-              "linear-gradient(135deg, #394F49 0%, #435A53 100%)",
+            display: "inline-block",
+            padding: "7px 13px",
             borderRadius: "20px",
-            padding: "38px 40px",
-            marginBottom: "34px",
-            boxShadow:
-              "0 8px 24px rgba(57, 79, 73, 0.13)",
-            overflow: "hidden",
+            background: "#E8F3E9",
+            color: "#2F7D4A",
+            fontSize: "11px",
+            fontWeight: "800",
+            letterSpacing: "0.6px",
+            marginBottom: "15px",
           }}
         >
-          {/* Decorative Shape */}
-          <div
-            style={{
-              position: "absolute",
-              width: "220px",
-              height: "220px",
-              right: "-70px",
-              top: "-90px",
-              borderRadius: "50%",
-              background:
-                "rgba(232, 238, 227, 0.08)",
-            }}
-          />
+          PCMC CLIMATE ACTION
+        </div>
 
-          <div
-            style={{
-              position: "absolute",
-              width: "140px",
-              height: "140px",
-              right: "100px",
-              bottom: "-80px",
-              borderRadius: "50%",
-              background:
-                "rgba(232, 238, 227, 0.06)",
-            }}
-          />
+        <h1
+          style={{
+            margin: "0 0 10px",
+            color: "#394F49",
+            fontSize: "36px",
+            lineHeight: "1.2",
+            fontWeight: "750",
+            letterSpacing: "-0.5px",
+          }}
+        >
+          Climate Action Dashboard
+        </h1>
 
-          <div
-            style={{
-              position: "relative",
-              zIndex: 1,
-            }}
-          >
-            {/* Badge */}
-            <div
-              style={{
-                display: "inline-flex",
-                alignItems: "center",
-                padding: "7px 13px",
-                borderRadius: "20px",
-                background: "#E8F3E9",
-                color: "#2F7D4A",
-                fontSize: "11px",
-                fontWeight: "800",
-                letterSpacing: "0.6px",
-                marginBottom: "15px",
-              }}
-            >
-              ADMIN PANEL
-            </div>
+        <p
+          style={{
+            maxWidth: "720px",
+            color: "#65743A",
+            fontSize: "15px",
+            lineHeight: "1.7",
+          }}
+        >
+          Manage climate action initiatives, projects, targets, resources,
+          and citizen engagement across PCMC.
+        </p>
+      </section>
 
-            <h1
-              style={{
-                margin: "0 0 10px",
-                color: "#FFFFFF",
-                fontSize: "40px",
-                lineHeight: "1.2",
-                fontWeight: "750",
-                letterSpacing: "-0.5px",
-              }}
-            >
-              Climate Action Dashboard
-            </h1>
-
-            <p
-              style={{
-                margin: 0,
-                maxWidth: "680px",
-                color: "#DDE7D8",
-                fontSize: "16px",
-                lineHeight: "1.7",
-              }}
-            >
-              Manage the PCMC Climate Action Plan from one
-              place.
-            </p>
-          </div>
-        </section>
-
-        {/* Section Heading */}
-        <section style={{ marginBottom: "20px" }}>
-          <div
+      {/* Dashboard navigation cards */}
+      <section
+        aria-label="Dashboard navigation"
+        style={{
+          display: "grid",
+          gridTemplateColumns:
+            "repeat(auto-fit, minmax(min(100%, 250px), 1fr))",
+          gap: "20px",
+        }}
+      >
+        {dashboardItems.map((item) => (
+          <Link
+            key={item.path}
+            to={item.path}
             style={{
               display: "flex",
-              alignItems: "center",
-              gap: "10px",
-              marginBottom: "7px",
+              flexDirection: "column",
+              alignItems: "flex-start",
+              minHeight: "205px",
+              padding: "24px",
+              background: "#FFFFFF",
+              border: "1px solid #DCE3DD",
+              borderRadius: "15px",
+              boxShadow: "0 4px 14px rgba(57, 79, 73, 0.06)",
+              color: "inherit",
+              textDecoration: "none",
+              overflow: "hidden",
+              transition:
+                "transform 150ms ease, box-shadow 150ms ease",
+            }}
+            onMouseEnter={(event) => {
+              event.currentTarget.style.transform = "translateY(-3px)";
+              event.currentTarget.style.boxShadow =
+                "0 8px 20px rgba(57, 79, 73, 0.12)";
+            }}
+            onMouseLeave={(event) => {
+              event.currentTarget.style.transform = "translateY(0)";
+              event.currentTarget.style.boxShadow =
+                "0 4px 14px rgba(57, 79, 73, 0.06)";
             }}
           >
+            {/* Thin green accent line */}
             <div
+              aria-hidden="true"
               style={{
-                width: "4px",
-                height: "24px",
-                borderRadius: "4px",
+                height: "4px",
                 background: "#65743A",
+                borderRadius: "15px 15px 0 0",
+                margin: "-24px -24px 22px",
+                width: "calc(100% + 48px)",
+                flexShrink: 0,
               }}
             />
 
+            {/* Card icon */}
+            <div
+              aria-hidden="true"
+              style={{
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                width: "50px",
+                height: "50px",
+                marginBottom: "18px",
+                borderRadius: "12px",
+                background: "#E8EEE3",
+                fontSize: "25px",
+                flexShrink: 0,
+              }}
+            >
+              {item.icon}
+            </div>
+
+            {/* Card title */}
             <h2
               style={{
-                margin: 0,
+                margin: "0 0 8px",
                 color: "#394F49",
-                fontSize: "24px",
-                lineHeight: "1.3",
+                fontSize: "19px",
+                lineHeight: "1.4",
                 fontWeight: "750",
               }}
             >
-              Management Areas
+              {item.title}
             </h2>
-          </div>
 
-          <p
-            style={{
-              margin: "0 0 0 14px",
-              color: "#65743A",
-              fontSize: "14px",
-              lineHeight: "1.5",
-            }}
-          >
-            Select an area to manage its information.
-          </p>
-        </section>
-
-        {/* Dashboard Cards */}
-        <div
-          style={{
-            display: "grid",
-            gridTemplateColumns:
-              "repeat(3, minmax(0, 1fr))",
-            gap: "22px",
-          }}
-        >
-          {dashboardItems.map((item) => (
-            <div
-              key={item.title}
+            {/* Card description */}
+            <p
               style={{
-                position: "relative",
-                display: "flex",
-                flexDirection: "column",
-                minHeight: "238px",
-                padding: "25px",
-                boxSizing: "border-box",
-                background: "#FFFFFF",
-                border: "1px solid #DCE3DD",
-                borderRadius: "16px",
-                boxShadow:
-                  "0 4px 14px rgba(57, 79, 73, 0.07)",
-                overflow: "hidden",
-                transition:
-                  "transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease",
-              }}
-              onMouseEnter={(e) => {
-                e.currentTarget.style.transform =
-                  "translateY(-5px)";
-                e.currentTarget.style.boxShadow =
-                  "0 12px 28px rgba(57, 79, 73, 0.13)";
-                e.currentTarget.style.borderColor =
-                  "#C9D6CB";
-              }}
-              onMouseLeave={(e) => {
-                e.currentTarget.style.transform =
-                  "translateY(0)";
-                e.currentTarget.style.boxShadow =
-                  "0 4px 14px rgba(57, 79, 73, 0.07)";
-                e.currentTarget.style.borderColor =
-                  "#DCE3DD";
+                margin: "0 0 18px",
+                color: "#65743A",
+                fontSize: "13px",
+                lineHeight: "1.7",
               }}
             >
-              {/* Green Top Border */}
-              <div
-                style={{
-                  position: "absolute",
-                  top: 0,
-                  left: 0,
-                  right: 0,
-                  height: "5px",
-                  background: "#65743A",
-                }}
-              />
+              {item.description}
+            </p>
 
-              {/* Icon */}
-              <div
-                style={{
-                  width: "58px",
-                  height: "58px",
-                  display: "flex",
-                  alignItems: "center",
-                  justifyContent: "center",
-                  marginBottom: "19px",
-                  borderRadius: "14px",
-                  background: "#E8EEE3",
-                  fontSize: "28px",
-                  boxShadow:
-                    "inset 0 0 0 1px rgba(101, 116, 58, 0.06)",
-                }}
-              >
-                {item.icon}
-              </div>
-
-              {/* Title */}
-              <h2
-                style={{
-                  margin: "0 0 9px",
-                  color: "#394F49",
-                  fontSize: "20px",
-                  lineHeight: "1.3",
-                  fontWeight: "750",
-                  letterSpacing: "-0.1px",
-                }}
-              >
-                {item.title}
-              </h2>
-
-              {/* Description */}
-              <p
-                style={{
-                  margin: 0,
-                  color: "#65743A",
-                  fontSize: "14px",
-                  lineHeight: "1.6",
-                }}
-              >
-                {item.description}
-              </p>
-
-              {/* Manage Button */}
-              <div
-                style={{
-                  marginTop: "auto",
-                  paddingTop: "22px",
-                }}
-              >
-                <Link
-                  to={item.path}
-                  style={{
-                    display: "inline-flex",
-                    alignItems: "center",
-                    justifyContent: "center",
-                    gap: "8px",
-                    padding: "10px 15px",
-                    borderRadius: "8px",
-                    background: "#394F49",
-                    color: "#FFFFFF",
-                    textDecoration: "none",
-                    fontSize: "12px",
-                    fontWeight: "750",
-                    transition:
-                      "background 0.2s ease, transform 0.2s ease",
-                  }}
-                  onMouseEnter={(e) => {
-                    e.currentTarget.style.background =
-                      "#65743A";
-                    e.currentTarget.style.transform =
-                      "translateX(2px)";
-                  }}
-                  onMouseLeave={(e) => {
-                    e.currentTarget.style.background =
-                      "#394F49";
-                    e.currentTarget.style.transform =
-                      "translateX(0)";
-                  }}
-                >
-                  Manage
-                  <span
-                    style={{
-                      fontSize: "14px",
-                      lineHeight: 1,
-                    }}
-                  >
-                    →
-                  </span>
-                </Link>
-              </div>
-            </div>
-          ))}
-        </div>
-
-        {/* Bottom Admin Note */}
-        <div
-          style={{
-            marginTop: "30px",
-            padding: "17px 19px",
-            background: "#E8EEE3",
-            border: "1px solid #DCE3DD",
-            borderRadius: "12px",
-            color: "#394F49",
-            fontSize: "13px",
-            lineHeight: "1.6",
-          }}
-        >
-          <strong>Admin workspace:</strong>{" "}
-          Use the sections above to manage climate action
-          information.
-        </div>
-      </div>
+            {/* View button */}
+            <span
+              style={{
+                display: "inline-flex",
+                alignItems: "center",
+                justifyContent: "center",
+                marginTop: "auto",
+                padding: "8px 22px",
+                border: "1px solid #385149",
+                borderRadius: "7px",
+                color: "#FFFFFF",
+                background: "#385149",
+                fontSize: "13px",
+                fontWeight: "750",
+                transition:
+                  "background 150ms ease, border-color 150ms ease",
+              }}
+              onMouseEnter={(event) => {
+                event.currentTarget.style.background = "#2F7D4A";
+                event.currentTarget.style.borderColor = "#2F7D4A";
+              }}
+              onMouseLeave={(event) => {
+                event.currentTarget.style.background = "#385149";
+                event.currentTarget.style.borderColor = "#385149";
+              }}
+            >
+              View
+            </span>
+          </Link>
+        ))}
+      </section>
     </div>
   );
 }

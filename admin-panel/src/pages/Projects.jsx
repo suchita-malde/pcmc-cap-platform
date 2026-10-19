@@ -1,95 +1,205 @@
+
 import { useState } from "react";
 import mockContent from "../data/mockContent.json";
 
+const sectors = Array.isArray(mockContent) ? mockContent : [];
+
+const initialForm = {
+  name: "",
+  sectorId: "",
+  status: "Draft",
+  description: "",
+};
+
+const inputStyle = {
+  display: "block",
+  width: "100%",
+  marginTop: "9px",
+  marginBottom: "22px",
+  padding: "12px 14px",
+  boxSizing: "border-box",
+  border: "1px solid #D2DCD4",
+  borderRadius: "9px",
+  background: "#FFFFFF",
+  color: "#394F49",
+  fontSize: "14px",
+  lineHeight: "1.55",
+  fontFamily: "inherit",
+  outlineColor: "#2F7D4A",
+};
+
+const labelStyle = {
+  display: "block",
+  color: "#394F49",
+  fontSize: "14px",
+  fontWeight: "700",
+};
+
+const primaryButtonStyle = {
+  display: "inline-flex",
+  alignItems: "center",
+  justifyContent: "center",
+  padding: "11px 19px",
+  border: "1px solid #385149",
+  borderRadius: "8px",
+  background: "#385149",
+  color: "#FFFFFF",
+  cursor: "pointer",
+  fontSize: "13px",
+  fontWeight: "750",
+  fontFamily: "inherit",
+  transition: "background 150ms ease, border-color 150ms ease",
+};
+
+const secondaryButtonStyle = {
+  ...primaryButtonStyle,
+  background: "#FFFFFF",
+  color: "#394F49",
+  border: "1px solid #D2DCD4",
+};
+
+function getSectorTitle(sectorId) {
+  return sectors.find((sector) => sector.id === sectorId)?.title || "No sector";
+}
+
 export default function Projects() {
   const [projects, setProjects] = useState([]);
+  const [form, setForm] = useState({ ...initialForm });
+  const [editingId, setEditingId] = useState(null);
+  const [message, setMessage] = useState("");
+  const [filterStatus, setFilterStatus] = useState("All");
 
-  const [form, setForm] = useState({
-    name: "",
-    sector: mockContent[0]?.id || "",
-    status: "Draft",
-  });
-
-  function handleChange(event) {
+  function updateField(event) {
     const { name, value } = event.target;
 
-    setForm({
-      ...form,
+    setForm((previous) => ({
+      ...previous,
       [name]: value,
-    });
+    }));
+
+    setMessage("");
   }
 
-  function handleSaveDraft(event) {
+  function resetForm() {
+    setForm({ ...initialForm });
+    setEditingId(null);
+    setMessage("");
+  }
+
+  function saveProject(event) {
     event.preventDefault();
 
     if (!form.name.trim()) {
+      setMessage("Please enter a project name.");
       return;
     }
 
-    const newProject = {
-      id: Date.now(),
-      name: form.name.trim(),
-      sector: form.sector,
-      status: form.status,
-    };
+    if (!form.sectorId) {
+      setMessage("Please select a sector.");
+      return;
+    }
 
-    setProjects([...projects, newProject]);
+    if (editingId !== null) {
+      setProjects((previous) =>
+        previous.map((project) =>
+          project.id === editingId
+            ? { ...project, ...form, name: form.name.trim() }
+            : project
+        )
+      );
+      setMessage("Project updated successfully for this session.");
+    } else {
+      const newProject = {
+        ...form,
+        name: form.name.trim(),
+        id: `${Date.now()}-${Math.random().toString(36).slice(2, 8)}`,
+      };
 
+      setProjects((previous) => [newProject, ...previous]);
+      setMessage("Project added successfully for this session.");
+    }
+
+    setForm({ ...initialForm });
+    setEditingId(null);
+  }
+
+  function editProject(project) {
     setForm({
-      name: "",
-      sector: mockContent[0]?.id || "",
-      status: "Draft",
+      name: project.name,
+      sectorId: project.sectorId,
+      status: project.status,
+      description: project.description || "",
+    });
+
+    setEditingId(project.id);
+    setMessage("");
+
+    document.getElementById("project-form")?.scrollIntoView({
+      behavior: "smooth",
+      block: "start",
     });
   }
 
-  const inputStyle = {
-    display: "block",
-    width: "100%",
-    marginTop: "9px",
-    marginBottom: "22px",
-    padding: "12px 13px",
-    boxSizing: "border-box",
-    border: "1px solid #DCE3DD",
-    borderRadius: "9px",
-    backgroundColor: "#FFFFFF",
-    color: "#394F49",
-    fontSize: "14px",
-    lineHeight: "1.5",
-    outline: "none",
-  };
+  function deleteProject(projectId) {
+    setProjects((previous) =>
+      previous.filter((project) => project.id !== projectId)
+    );
 
-  const labelStyle = {
-    display: "block",
-    color: "#394F49",
-    fontSize: "14px",
-    fontWeight: "700",
+    if (editingId === projectId) {
+      resetForm();
+    }
+
+    setMessage("Project removed from this frontend session.");
+  }
+
+  function changeProjectStatus(projectId, status) {
+    setProjects((previous) =>
+      previous.map((project) =>
+        project.id === projectId ? { ...project, status } : project
+      )
+    );
+
+    setMessage("Project status updated for this session.");
+  }
+
+  function handlePrimaryEnter(event) {
+    event.currentTarget.style.background = "#2F7D4A";
+    event.currentTarget.style.borderColor = "#2F7D4A";
+  }
+
+  function handlePrimaryLeave(event) {
+    event.currentTarget.style.background = "#385149";
+    event.currentTarget.style.borderColor = "#385149";
+  }
+
+  const visibleProjects =
+    filterStatus === "All"
+      ? projects
+      : projects.filter((project) => project.status === filterStatus);
+
+  const counts = {
+    total: projects.length,
+    draft: projects.filter((project) => project.status === "Draft").length,
+    published: projects.filter((project) => project.status === "Published")
+      .length,
+    archived: projects.filter((project) => project.status === "Archived").length,
   };
 
   return (
     <div
       style={{
-        minHeight: "100vh",
+        minHeight: "100%",
         background: "#F5F7F6",
-        padding: "32px 34px 60px",
+        padding: "8px 4px 32px",
         boxSizing: "border-box",
+        color: "#394F49",
       }}
     >
-      <div
-        style={{
-          maxWidth: "1380px",
-          margin: "0 auto",
-        }}
-      >
-        {/* Page Header */}
-        <section
-          style={{
-            marginBottom: "34px",
-          }}
-        >
+      <div style={{ maxWidth: "1380px", margin: "0 auto" }}>
+        <section style={{ marginBottom: "30px" }}>
           <div
             style={{
-              display: "inline-flex",
-              alignItems: "center",
+              display: "inline-block",
               padding: "7px 13px",
               borderRadius: "20px",
               background: "#E8F3E9",
@@ -107,7 +217,7 @@ export default function Projects() {
             style={{
               margin: "0 0 10px",
               color: "#394F49",
-              fontSize: "40px",
+              fontSize: "36px",
               lineHeight: "1.2",
               fontWeight: "750",
               letterSpacing: "-0.5px",
@@ -119,58 +229,114 @@ export default function Projects() {
           <p
             style={{
               margin: 0,
-              maxWidth: "680px",
+              maxWidth: "720px",
               color: "#65743A",
-              fontSize: "16px",
+              fontSize: "15px",
               lineHeight: "1.7",
             }}
           >
-            Manage climate projects and implementation details under the PCMC
-            Climate Action Plan.
+            Create and manage climate action projects, assign sectors, and
+            update project statuses.
           </p>
         </section>
 
-        {/* Add Project Card */}
         <section
+          aria-label="Project summary"
           style={{
-            position: "relative",
-            background: "#FFFFFF",
-            border: "1px solid #DCE3DD",
-            borderRadius: "16px",
-            boxShadow: "0 4px 14px rgba(57, 79, 73, 0.07)",
-            overflow: "hidden",
-            marginBottom: "34px",
+            display: "grid",
+            gridTemplateColumns: "repeat(auto-fit, minmax(min(100%, 180px), 1fr))",
+            gap: "16px",
+            marginBottom: "30px",
           }}
         >
-          {/* Green Top Border */}
-          <div
-            style={{
-              position: "absolute",
-              top: 0,
-              left: 0,
-              right: 0,
-              height: "5px",
-              background: "#65743A",
-            }}
-          />
+          {[
+            { label: "Total Projects", value: counts.total, icon: "📋" },
+            { label: "Draft", value: counts.draft, icon: "📝" },
+            { label: "Published", value: counts.published, icon: "🌿" },
+            { label: "Archived", value: counts.archived, icon: "📦" },
+          ].map((item) => (
+            <article
+              key={item.label}
+              style={{
+                padding: "20px",
+                background: "#FFFFFF",
+                border: "1px solid #DCE3DD",
+                borderRadius: "14px",
+                boxShadow: "0 4px 14px rgba(57,79,73,0.05)",
+                transition: "transform 150ms ease, box-shadow 150ms ease",
+              }}
+              onMouseEnter={(event) => {
+                event.currentTarget.style.transform = "translateY(-3px)";
+                event.currentTarget.style.boxShadow =
+                  "0 8px 20px rgba(57,79,73,0.12)";
+              }}
+              onMouseLeave={(event) => {
+                event.currentTarget.style.transform = "translateY(0)";
+                event.currentTarget.style.boxShadow =
+                  "0 4px 14px rgba(57,79,73,0.05)";
+              }}
+            >
+              <div style={{ fontSize: "22px", marginBottom: "12px" }}>
+                {item.icon}
+              </div>
+              <p
+                style={{
+                  margin: "0 0 6px",
+                  color: "#65743A",
+                  fontSize: "13px",
+                }}
+              >
+                {item.label}
+              </p>
+              <strong style={{ fontSize: "27px", color: "#394F49" }}>
+                {item.value}
+              </strong>
+            </article>
+          ))}
+        </section>
 
-          {/* Card Header */}
+        <section
+          id="project-form"
+          style={{
+            background: "#FFFFFF",
+            border: "1px solid #DCE3DD",
+            borderRadius: "15px",
+            boxShadow: "0 4px 14px rgba(57,79,73,0.06)",
+            overflow: "hidden",
+            marginBottom: "32px",
+          }}
+        >
+          <div style={{ height: "5px", background: "#65743A" }} />
+
           <div
             style={{
-              padding: "28px 28px 22px",
+              padding: "24px 28px",
               borderBottom: "1px solid #DCE3DD",
             }}
           >
-            <h2
+            <span
               style={{
-                margin: "0 0 7px",
-                color: "#394F49",
-                fontSize: "24px",
-                lineHeight: "1.3",
-                fontWeight: "750",
+                display: "inline-block",
+                padding: "6px 10px",
+                borderRadius: "20px",
+                background: "#E8EEE3",
+                color: "#65743A",
+                fontSize: "10px",
+                fontWeight: "800",
+                letterSpacing: "0.5px",
               }}
             >
-              Add Project
+              {editingId !== null ? "EDIT PROJECT" : "NEW PROJECT"}
+            </span>
+
+            <h2
+              style={{
+                margin: "12px 0 7px",
+                color: "#394F49",
+                fontSize: "23px",
+              }}
+            >
+              {editingId !== null ? "Edit Project" : "Add Project"}
             </h2>
 
             <p
@@ -178,43 +344,38 @@ export default function Projects() {
                 margin: 0,
                 color: "#65743A",
                 fontSize: "14px",
-                lineHeight: "1.6",
+                lineHeight: "1.7",
               }}
             >
-              Add a climate project and associate it with a sector.
+              Enter the project details below. All fields can be tested in
+              this frontend session.
             </p>
           </div>
 
-          {/* Form */}
-          <form
-            onSubmit={handleSaveDraft}
-            style={{
-              padding: "28px",
-            }}
-          >
+          <form onSubmit={saveProject} style={{ padding: "28px" }}>
             <label style={labelStyle}>
               Project Name
-
               <input
-                type="text"
                 name="name"
                 value={form.name}
-                onChange={handleChange}
-                placeholder="Enter project name..."
+                onChange={updateField}
+                placeholder="Enter project name"
+                required
                 style={inputStyle}
               />
             </label>
 
             <label style={labelStyle}>
               Sector
-
               <select
-                name="sector"
-                value={form.sector}
-                onChange={handleChange}
+                name="sectorId"
+                value={form.sectorId}
+                onChange={updateField}
+                required
                 style={inputStyle}
               >
-                {mockContent.map((sector) => (
+                <option value="">Select a sector</option>
+                {sectors.map((sector) => (
                   <option key={sector.id} value={sector.id}>
                     {sector.title}
                   </option>
@@ -224,11 +385,10 @@ export default function Projects() {
 
             <label style={labelStyle}>
               Status
-
               <select
                 name="status"
                 value={form.status}
-                onChange={handleChange}
+                onChange={updateField}
                 style={inputStyle}
               >
                 <option value="Draft">Draft</option>
@@ -237,161 +397,95 @@ export default function Projects() {
               </select>
             </label>
 
-            {/* Form Action */}
+            <label style={labelStyle}>
+              Project Description
+              <textarea
+                name="description"
+                value={form.description}
+                onChange={updateField}
+                placeholder="Describe the project, its objectives, and planned activities"
+                rows={4}
+                style={{ ...inputStyle, resize: "vertical", minHeight: "110px" }}
+              />
+            </label>
+
             <div
               style={{
-                paddingTop: "5px",
+                display: "flex",
+                gap: "10px",
+                flexWrap: "wrap",
                 borderTop: "1px solid #DCE3DD",
+                paddingTop: "22px",
               }}
             >
               <button
                 type="submit"
-                style={{
-                  display: "inline-flex",
-                  alignItems: "center",
-                  justifyContent: "center",
-                  gap: "8px",
-                  marginTop: "20px",
-                  padding: "10px 15px",
-                  border: "none",
-                  borderRadius: "8px",
-                  background: "#394F49",
-                  color: "#FFFFFF",
-                  cursor: "pointer",
-                  fontSize: "12px",
-                  fontWeight: "750",
-                  transition:
-                    "background 0.2s ease, transform 0.2s ease",
+                style={primaryButtonStyle}
+                onMouseEnter={handlePrimaryEnter}
+                onMouseLeave={handlePrimaryLeave}
+              >
+                {editingId !== null ? "Save Changes" : "Save Project"}
+              </button>
+
+              <button
+                type="button"
+                onClick={resetForm}
+                style={secondaryButtonStyle}
+                onMouseEnter={(event) => {
+                  event.currentTarget.style.background = "#E8EEE3";
+                  event.currentTarget.style.borderColor = "#65743A";
                 }}
-                onMouseEnter={(e) => {
-                  e.currentTarget.style.background = "#65743A";
-                  e.currentTarget.style.transform = "translateX(2px)";
-                }}
-                onMouseLeave={(e) => {
-                  e.currentTarget.style.background = "#394F49";
-                  e.currentTarget.style.transform = "translateX(0)";
+                onMouseLeave={(event) => {
+                  event.currentTarget.style.background = "#FFFFFF";
+                  event.currentTarget.style.borderColor = "#D2DCD4";
                 }}
               >
-                Save Draft
-                <span
-                  style={{
-                    fontSize: "14px",
-                    lineHeight: 1,
-                  }}
-                >
-                  →
-                </span>
+                {editingId !== null ? "Cancel Edit" : "Clear Form"}
               </button>
             </div>
+
+            {message && (
+              <p
+                role="status"
+                style={{
+                  margin: "20px 0 0",
+                  padding: "13px 15px",
+                  borderRadius: "9px",
+                  background: "#E8F3E9",
+                  border: "1px solid #CFE5D2",
+                  color: "#2F7D4A",
+                  fontSize: "13px",
+                  fontWeight: "700",
+                  lineHeight: "1.6",
+                }}
+              >
+                {message}
+              </p>
+            )}
           </form>
         </section>
 
-        {/* Projects Section */}
         <section>
-          {/* Section Heading */}
           <div
             style={{
+              display: "flex",
+              justifyContent: "space-between",
+              alignItems: "center",
+              gap: "16px",
+              flexWrap: "wrap",
               marginBottom: "20px",
             }}
           >
-            <div
-              style={{
-                display: "flex",
-                alignItems: "center",
-                gap: "10px",
-                marginBottom: "7px",
-              }}
-            >
-              <div
-                style={{
-                  width: "4px",
-                  height: "24px",
-                  borderRadius: "4px",
-                  background: "#65743A",
-                }}
-              />
-
+            <div>
               <h2
                 style={{
-                  margin: 0,
+                  margin: "0 0 8px",
                   color: "#394F49",
                   fontSize: "24px",
-                  lineHeight: "1.3",
-                  fontWeight: "750",
                 }}
               >
-                Projects
+                Project Records
               </h2>
-            </div>
-
-            <p
-              style={{
-                margin: "0 0 0 14px",
-                color: "#65743A",
-                fontSize: "14px",
-                lineHeight: "1.5",
-              }}
-            >
-              Projects currently available in this admin workspace.
-            </p>
-          </div>
-
-          {/* Empty State */}
-          {projects.length === 0 ? (
-            <div
-              style={{
-                position: "relative",
-                padding: "25px",
-                background: "#FFFFFF",
-                border: "1px solid #DCE3DD",
-                borderRadius: "16px",
-                boxShadow: "0 4px 14px rgba(57, 79, 73, 0.07)",
-                overflow: "hidden",
-              }}
-            >
-              {/* Green Top Border */}
-              <div
-                style={{
-                  position: "absolute",
-                  top: 0,
-                  left: 0,
-                  right: 0,
-                  height: "5px",
-                  background: "#65743A",
-                }}
-              />
-
-              <div
-                style={{
-                  width: "58px",
-                  height: "58px",
-                  display: "flex",
-                  alignItems: "center",
-                  justifyContent: "center",
-                  marginBottom: "19px",
-                  borderRadius: "14px",
-                  background: "#E8EEE3",
-                  fontSize: "28px",
-                  boxShadow:
-                    "inset 0 0 0 1px rgba(101, 116, 58, 0.06)",
-                }}
-              >
-                📋
-              </div>
-
-              <strong
-                style={{
-                  display: "block",
-                  marginBottom: "7px",
-                  color: "#394F49",
-                  fontSize: "20px",
-                  lineHeight: "1.3",
-                  fontWeight: "750",
-                }}
-              >
-                No projects added yet
-              </strong>
-
               <p
                 style={{
                   margin: 0,
@@ -400,168 +494,242 @@ export default function Projects() {
                   lineHeight: "1.6",
                 }}
               >
-                Data to be added.
+                {projects.length === 0
+                  ? "Your newly created projects will appear here."
+                  : `${projects.length} project${projects.length === 1 ? "" : "s"} in this session.`}
+              </p>
+            </div>
+
+            <select
+              aria-label="Filter projects by status"
+              value={filterStatus}
+              onChange={(event) => setFilterStatus(event.target.value)}
+              style={{
+                ...inputStyle,
+                width: "auto",
+                minWidth: "160px",
+                margin: 0,
+              }}
+            >
+              <option value="All">All statuses</option>
+              <option value="Draft">Draft</option>
+              <option value="Published">Published</option>
+              <option value="Archived">Archived</option>
+            </select>
+          </div>
+
+          {visibleProjects.length === 0 ? (
+            <div
+              style={{
+                padding: "34px 25px",
+                background: "#FFFFFF",
+                border: "1px solid #DCE3DD",
+                borderRadius: "15px",
+                textAlign: "center",
+                boxShadow: "0 4px 14px rgba(57,79,73,0.05)",
+              }}
+            >
+              <div style={{ fontSize: "32px", marginBottom: "12px" }}>
+                📋
+              </div>
+              <h3
+                style={{
+                  margin: "0 0 8px",
+                  color: "#394F49",
+                  fontSize: "19px",
+                }}
+              >
+                {projects.length === 0
+                  ? "No projects added yet"
+                  : "No projects match this filter"}
+              </h3>
+              <p
+                style={{
+                  maxWidth: "520px",
+                  margin: "0 auto",
+                  color: "#65743A",
+                  fontSize: "14px",
+                  lineHeight: "1.7",
+                }}
+              >
+                {projects.length === 0
+                  ? "Use the form above to add your first project and test the management controls."
+                  : "Choose another status to see more projects."}
               </p>
             </div>
           ) : (
-            /* Project Cards */
             <div
               style={{
                 display: "grid",
                 gridTemplateColumns:
-                  "repeat(3, minmax(0, 1fr))",
-                gap: "22px",
+                  "repeat(auto-fit, minmax(min(100%, 270px), 1fr))",
+                gap: "18px",
               }}
             >
-              {projects.map((project) => {
-                const sector = mockContent.find(
-                  (item) => item.id === project.sector
-                );
-
-                return (
+              {visibleProjects.map((project) => (
+                <article
+                  key={project.id}
+                  style={{
+                    display: "flex",
+                    flexDirection: "column",
+                    minWidth: 0,
+                    padding: "22px",
+                    background: "#FFFFFF",
+                    border: "1px solid #DCE3DD",
+                    borderRadius: "15px",
+                    boxShadow: "0 4px 14px rgba(57,79,73,0.06)",
+                    transition: "transform 150ms ease, box-shadow 150ms ease",
+                  }}
+                  onMouseEnter={(event) => {
+                    event.currentTarget.style.transform = "translateY(-3px)";
+                    event.currentTarget.style.boxShadow =
+                      "0 8px 20px rgba(57,79,73,0.12)";
+                  }}
+                  onMouseLeave={(event) => {
+                    event.currentTarget.style.transform = "translateY(0)";
+                    event.currentTarget.style.boxShadow =
+                      "0 4px 14px rgba(57,79,73,0.06)";
+                  }}
+                >
                   <div
-                    key={project.id}
+                    aria-hidden="true"
                     style={{
-                      position: "relative",
-                      display: "flex",
-                      flexDirection: "column",
-                      minHeight: "220px",
-                      padding: "25px",
-                      boxSizing: "border-box",
-                      background: "#FFFFFF",
-                      border: "1px solid #DCE3DD",
-                      borderRadius: "16px",
-                      boxShadow:
-                        "0 4px 14px rgba(57, 79, 73, 0.07)",
-                      overflow: "hidden",
-                      transition:
-                        "transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease",
+                      height: "4px",
+                      margin: "-22px -22px 20px",
+                      background: "#65743A",
+                      borderRadius: "15px 15px 0 0",
                     }}
-                    onMouseEnter={(e) => {
-                      e.currentTarget.style.transform =
-                        "translateY(-5px)";
-                      e.currentTarget.style.boxShadow =
-                        "0 12px 28px rgba(57, 79, 73, 0.13)";
-                      e.currentTarget.style.borderColor =
-                        "#C9D6CB";
-                    }}
-                    onMouseLeave={(e) => {
-                      e.currentTarget.style.transform =
-                        "translateY(0)";
-                      e.currentTarget.style.boxShadow =
-                        "0 4px 14px rgba(57, 79, 73, 0.07)";
-                      e.currentTarget.style.borderColor =
-                        "#DCE3DD";
+                  />
+
+                  <span
+                    style={{
+                      alignSelf: "flex-start",
+                      padding: "6px 10px",
+                      borderRadius: "20px",
+                      background:
+                        project.status === "Published"
+                          ? "#E8F3E9"
+                          : project.status === "Archived"
+                            ? "#ECEFED"
+                            : "#FFF4D9",
+                      color:
+                        project.status === "Published"
+                          ? "#2F7D4A"
+                          : project.status === "Archived"
+                            ? "#65716A"
+                            : "#8A6A1D",
+                      fontSize: "11px",
+                      fontWeight: "800",
                     }}
                   >
-                    {/* Green Top Border */}
-                    <div
-                      style={{
-                        position: "absolute",
-                        top: 0,
-                        left: 0,
-                        right: 0,
-                        height: "5px",
-                        background: "#65743A",
-                      }}
-                    />
+                    {project.status}
+                  </span>
 
-                    {/* Project Header */}
-                    <div
-                      style={{
-                        display: "flex",
-                        alignItems: "flex-start",
-                        justifyContent: "space-between",
-                        gap: "12px",
-                        marginBottom: "19px",
-                      }}
-                    >
-                      <h3
-                        style={{
-                          margin: 0,
-                          color: "#394F49",
-                          fontSize: "20px",
-                          lineHeight: "1.3",
-                          fontWeight: "750",
-                        }}
-                      >
-                        {project.name}
-                      </h3>
+                  <h3
+                    style={{
+                      margin: "15px 0 8px",
+                      color: "#394F49",
+                      fontSize: "19px",
+                      lineHeight: "1.4",
+                      overflowWrap: "anywhere",
+                    }}
+                  >
+                    {project.name}
+                  </h3>
 
-                      <span
-                        style={{
-                          flexShrink: 0,
-                          padding: "6px 10px",
-                          borderRadius: "20px",
-                          background: "#E8F3E9",
-                          color: "#2F7D4A",
-                          fontSize: "11px",
-                          fontWeight: "800",
-                          whiteSpace: "nowrap",
-                        }}
-                      >
-                        {project.status}
-                      </span>
-                    </div>
+                  <p
+                    style={{
+                      margin: "0 0 12px",
+                      color: "#65743A",
+                      fontSize: "13px",
+                      lineHeight: "1.6",
+                    }}
+                  >
+                    <strong>Sector:</strong>{" "}
+                    {getSectorTitle(project.sectorId)}
+                  </p>
 
-                    {/* Sector */}
-                    <div
+                  {project.description && (
+                    <p
                       style={{
-                        marginTop: "auto",
-                        padding: "13px 14px",
-                        background: "#F5F7F6",
-                        borderRadius: "9px",
+                        margin: "0 0 18px",
+                        color: "#65743A",
+                        fontSize: "13px",
+                        lineHeight: "1.7",
+                        whiteSpace: "pre-wrap",
+                        overflowWrap: "anywhere",
                       }}
                     >
-                      <p
-                        style={{
-                          margin: "0 0 5px",
-                          color: "#65743A",
-                          fontSize: "11px",
-                          fontWeight: "700",
-                          textTransform: "uppercase",
-                          letterSpacing: "0.4px",
-                        }}
-                      >
-                        Sector
-                      </p>
+                      {project.description}
+                    </p>
+                  )}
 
-                      <p
-                        style={{
-                          margin: 0,
-                          color: "#394F49",
-                          fontSize: "13px",
-                          lineHeight: "1.5",
-                          fontWeight: "650",
-                        }}
-                      >
-                        {sector ? sector.title : "Unknown sector"}
-                      </p>
-                    </div>
+                  <label
+                    style={{
+                      ...labelStyle,
+                      marginTop: "auto",
+                      fontSize: "12px",
+                    }}
+                  >
+                    Update Status
+                    <select
+                      value={project.status}
+                      onChange={(event) =>
+                        changeProjectStatus(project.id, event.target.value)
+                      }
+                      style={{
+                        ...inputStyle,
+                        marginBottom: "15px",
+                      }}
+                    >
+                      <option value="Draft">Draft</option>
+                      <option value="Published">Published</option>
+                      <option value="Archived">Archived</option>
+                    </select>
+                  </label>
+
+                  <div
+                    style={{
+                      display: "flex",
+                      gap: "9px",
+                      flexWrap: "wrap",
+                    }}
+                  >
+                    <button
+                      type="button"
+                      onClick={() => editProject(project)}
+                      style={primaryButtonStyle}
+                      onMouseEnter={handlePrimaryEnter}
+                      onMouseLeave={handlePrimaryLeave}
+                    >
+                      Edit
+                    </button>
+
+                    <button
+                      type="button"
+                      onClick={() => deleteProject(project.id)}
+                      style={{
+                        ...secondaryButtonStyle,
+                        color: "#9A3D35",
+                        borderColor: "#E5C9C5",
+                      }}
+                      onMouseEnter={(event) => {
+                        event.currentTarget.style.background = "#FFF0EE";
+                        event.currentTarget.style.borderColor = "#C76B61";
+                      }}
+                      onMouseLeave={(event) => {
+                        event.currentTarget.style.background = "#FFFFFF";
+                        event.currentTarget.style.borderColor = "#E5C9C5";
+                      }}
+                    >
+                      Delete
+                    </button>
                   </div>
-                );
-              })}
+                </article>
+              ))}
             </div>
           )}
         </section>
-
-        {/* Bottom Admin Note */}
-        <div
-          style={{
-            marginTop: "30px",
-            padding: "17px 19px",
-            background: "#E8EEE3",
-            border: "1px solid #DCE3DD",
-            borderRadius: "12px",
-            color: "#394F49",
-            fontSize: "13px",
-            lineHeight: "1.6",
-          }}
-        >
-          <strong>Admin workspace:</strong>{" "}
-          Use this section to manage climate projects and their associated
-          sectors.
-        </div>
       </div>
     </div>
   );

@@ -1,8 +1,27 @@
+
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
-const ADMIN_EMAIL = "admin@pcmc.gov.in";
-const ADMIN_PASSWORD = "admin123";
+const inputStyle = {
+  width: "100%",
+  marginTop: "8px",
+  padding: "12px 14px",
+  boxSizing: "border-box",
+  border: "1px solid #DCE3DD",
+  borderRadius: "8px",
+  outline: "none",
+  fontSize: "14px",
+  color: "#394F49",
+  background: "#FFFFFF",
+};
+
+const labelStyle = {
+  display: "block",
+  marginBottom: "18px",
+  color: "#394F49",
+  fontSize: "14px",
+  fontWeight: "700",
+};
 
 export default function Login() {
   const navigate = useNavigate();
@@ -14,23 +33,15 @@ export default function Login() {
   function handleSignIn(event) {
     event.preventDefault();
 
-    setError("");
-
     if (!email.trim() || !password.trim()) {
       setError("Please enter your email and password.");
       return;
     }
 
-    if (
-      email.trim().toLowerCase() !== ADMIN_EMAIL ||
-      password !== ADMIN_PASSWORD
-    ) {
-      setError("Incorrect email or password.");
-      return;
-    }
+    setError("");
 
-    localStorage.setItem("adminAuthenticated", "true");
-
+    // UI testing only. Replace with backend authentication
+    // before using this panel for real administrator access.
     navigate("/dashboard");
   }
 
@@ -62,15 +73,14 @@ export default function Login() {
           boxShadow: "0 8px 28px rgba(57, 79, 73, 0.08)",
         }}
       >
-        {/* Header */}
         <div style={{ marginBottom: "28px" }}>
           <div
             style={{
               display: "inline-block",
               padding: "7px 12px",
               borderRadius: "20px",
-              background: "#e8f3e9",
-              color: "#2f7d4a",
+              background: "#E8F3E9",
+              color: "#2F7D4A",
               fontSize: "12px",
               fontWeight: "800",
               letterSpacing: "0.5px",
@@ -104,19 +114,9 @@ export default function Login() {
           </p>
         </div>
 
-        {/* Login Form */}
         <form onSubmit={handleSignIn}>
-          <label
-            style={{
-              display: "block",
-              marginBottom: "18px",
-              color: "#394F49",
-              fontSize: "14px",
-              fontWeight: "700",
-            }}
-          >
+          <label style={labelStyle}>
             Email
-
             <input
               type="email"
               value={email}
@@ -126,31 +126,12 @@ export default function Login() {
               }}
               placeholder="Enter your email"
               autoComplete="email"
-              style={{
-                width: "100%",
-                marginTop: "8px",
-                padding: "12px 14px",
-                boxSizing: "border-box",
-                border: "1px solid #DCE3DD",
-                borderRadius: "8px",
-                outline: "none",
-                fontSize: "14px",
-                color: "#394F49",
-              }}
+              style={inputStyle}
             />
           </label>
 
-          <label
-            style={{
-              display: "block",
-              marginBottom: "18px",
-              color: "#394F49",
-              fontSize: "14px",
-              fontWeight: "700",
-            }}
-          >
+          <label style={labelStyle}>
             Password
-
             <input
               type="password"
               value={password}
@@ -160,22 +141,13 @@ export default function Login() {
               }}
               placeholder="Enter your password"
               autoComplete="current-password"
-              style={{
-                width: "100%",
-                marginTop: "8px",
-                padding: "12px 14px",
-                boxSizing: "border-box",
-                border: "1px solid #DCE3DD",
-                borderRadius: "8px",
-                outline: "none",
-                fontSize: "14px",
-                color: "#394F49",
-              }}
+              style={inputStyle}
             />
           </label>
 
           {error && (
             <div
+              role="alert"
               style={{
                 marginBottom: "18px",
                 padding: "11px 12px",

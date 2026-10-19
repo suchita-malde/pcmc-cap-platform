@@ -1,3 +1,4 @@
+
 import { useState } from "react";
 import { useParams, Link } from "react-router-dom";
 import mockContent from "../data/mockContent.json";
@@ -13,311 +14,313 @@ const sectorIcons = {
   "clean-air-healthy-life": "🌿",
 };
 
+function toDisplayText(value) {
+  if (Array.isArray(value)) return value.join("\n");
+  return typeof value === "string" ? value : "";
+}
+
+function getSectorFormData(sector) {
+  return {
+    title: sector.title || "",
+    currentScenario: toDisplayText(sector.currentScenario),
+    whyItMatters: toDisplayText(sector.whyItMatters),
+    relevantAreas: toDisplayText(sector.relevantAreas),
+    plannedActions: toDisplayText(sector.plannedActions),
+    citizenActions: toDisplayText(sector.citizenActions),
+  };
+}
+
+const inputStyle = {
+  display: "block",
+  width: "100%",
+  marginTop: "9px",
+  padding: "12px 14px",
+  boxSizing: "border-box",
+  border: "1px solid #D2DCD4",
+  borderRadius: "9px",
+  background: "#FFFFFF",
+  color: "#394F49",
+  fontSize: "14px",
+  lineHeight: "1.55",
+  fontFamily: "inherit",
+  outlineColor: "#2F7D4A",
+};
+
+const labelStyle = {
+  display: "block",
+  marginBottom: "23px",
+  color: "#394F49",
+  fontSize: "14px",
+  fontWeight: "700",
+};
+
+const textareaStyle = {
+  ...inputStyle,
+  resize: "vertical",
+  minHeight: "120px",
+};
+
+const pageStyle = {
+  minHeight: "100%",
+  background: "#F5F7F6",
+  padding: "8px 4px 32px",
+  boxSizing: "border-box",
+  color: "#394F49",
+};
+
+const formPanelStyle = {
+  background: "#FFFFFF",
+  border: "1px solid #DCE3DD",
+  borderRadius: "15px",
+  boxShadow: "0 4px 14px rgba(57, 79, 73, 0.06)",
+  overflow: "hidden",
+};
+
+const badgeStyle = {
+  display: "inline-block",
+  padding: "7px 13px",
+  borderRadius: "20px",
+  background: "#E8F3E9",
+  color: "#2F7D4A",
+  fontSize: "11px",
+  fontWeight: "800",
+  letterSpacing: "0.6px",
+};
+
+const backLinkStyle = {
+  display: "inline-block",
+  color: "#65743A",
+  textDecoration: "none",
+  fontSize: "13px",
+  fontWeight: "700",
+};
+
+const buttonStyle = {
+  display: "inline-flex",
+  alignItems: "center",
+  justifyContent: "center",
+  padding: "11px 19px",
+  border: "1px solid #385149",
+  borderRadius: "8px",
+  background: "#385149",
+  color: "#FFFFFF",
+  cursor: "pointer",
+  fontWeight: "750",
+  fontSize: "13px",
+  fontFamily: "inherit",
+  transition: "background 150ms ease, border-color 150ms ease",
+};
+
+const secondaryButtonStyle = {
+  ...buttonStyle,
+  background: "#FFFFFF",
+  color: "#394F49",
+  border: "1px solid #D2DCD4",
+};
+
 export default function SectorEdit() {
   const { sectorId } = useParams();
 
-  const sector = mockContent.find((item) => item.id === sectorId);
+  const sector = Array.isArray(mockContent)
+    ? mockContent.find((item) => String(item.id) === String(sectorId))
+    : null;
 
-  const [form, setForm] = useState({
-    title: sector?.title || "",
-    currentScenario: sector?.currentScenario || "",
-    whyItMatters: sector?.whyItMatters || "",
-    relevantAreas: sector?.relevantAreas || "",
-    plannedActions: sector?.plannedActions?.join("\n") || "",
-    citizenActions: sector?.citizenActions?.join("\n") || "",
-  });
+  const [formData, setFormData] = useState(() =>
+    sector ? getSectorFormData(sector) : null
+  );
 
-  const [saved, setSaved] = useState(false);
+  const [savedData, setSavedData] = useState(() =>
+    sector ? getSectorFormData(sector) : null
+  );
 
-  if (!sector) {
+  const [saveMessage, setSaveMessage] = useState("");
+  const [messageType, setMessageType] = useState("success");
+
+  if (!sector || !formData || !savedData) {
     return (
-      <div
-        style={{
-          minHeight: "100vh",
-          background: "#F5F7F6",
-          padding: "40px 34px",
-          boxSizing: "border-box",
-        }}
-      >
-        <div
+      <div style={pageStyle}>
+        <section
           style={{
-            maxWidth: "900px",
+            maxWidth: "720px",
             margin: "0 auto",
-            padding: "36px",
+            padding: "28px",
             background: "#FFFFFF",
             border: "1px solid #DCE3DD",
-            borderRadius: "18px",
-            boxShadow: "0 6px 20px rgba(57, 79, 73, 0.07)",
+            borderRadius: "15px",
           }}
         >
-          <div
-            style={{
-              display: "inline-flex",
-              padding: "7px 12px",
-              borderRadius: "20px",
-              background: "#F5EAEA",
-              color: "#8A4A4A",
-              fontSize: "11px",
-              fontWeight: "800",
-              letterSpacing: "0.5px",
-              marginBottom: "14px",
-            }}
-          >
-            ERROR
-          </div>
-
+          <span style={badgeStyle}>NOT FOUND</span>
           <h1
             style={{
-              margin: "0 0 10px",
-              color: "#394F49",
+              margin: "15px 0 10px",
               fontSize: "30px",
-              fontWeight: "750",
+              color: "#394F49",
             }}
           >
             Sector Not Found
           </h1>
-
-          <p
-            style={{
-              margin: "0 0 22px",
-              color: "#65743A",
-              fontSize: "14px",
-              lineHeight: "1.6",
-            }}
-          >
-            The requested sector does not exist.
+          <p style={{ color: "#65743A", lineHeight: "1.7" }}>
+            This sector could not be found in the current local catalogue.
           </p>
-
-          <Link
-            to="/sectors"
-            style={{
-              display: "inline-flex",
-              alignItems: "center",
-              gap: "8px",
-              padding: "10px 16px",
-              borderRadius: "8px",
-              background: "#394F49",
-              color: "#FFFFFF",
-              fontSize: "13px",
-              fontWeight: "750",
-              textDecoration: "none",
-            }}
-          >
+          <Link to="/sectors" style={backLinkStyle}>
             ← Back to Sectors
           </Link>
-        </div>
+        </section>
       </div>
     );
   }
 
-  function handleChange(event) {
+  const fields = [
+    {
+      name: "currentScenario",
+      label: "Current Scenario",
+      rows: 5,
+    },
+    {
+      name: "whyItMatters",
+      label: "Why It Matters",
+      rows: 5,
+    },
+    {
+      name: "relevantAreas",
+      label: "Relevant Areas",
+      rows: 4,
+    },
+    {
+      name: "plannedActions",
+      label: "Planned Actions",
+      rows: 5,
+    },
+    {
+      name: "citizenActions",
+      label: "Citizen Actions",
+      rows: 5,
+    },
+  ];
+
+  function handleFieldChange(event) {
     const { name, value } = event.target;
 
-    setForm({
-      ...form,
+    setFormData((previous) => ({
+      ...previous,
       [name]: value,
-    });
+    }));
 
-    setSaved(false);
+    setSaveMessage("");
   }
 
-  function handleSaveDraft(event) {
+  function handleSave(event) {
     event.preventDefault();
 
-    console.log("Sector draft:", {
-      id: sectorId,
-      ...form,
-    });
-
-    setSaved(true);
+    setSavedData({ ...formData });
+    setSaveMessage("Changes saved successfully for this frontend session.");
+    setMessageType("success");
   }
 
-  const inputStyle = {
-    display: "block",
-    width: "100%",
-    marginTop: "9px",
-    padding: "12px 14px",
-    boxSizing: "border-box",
-    border: "1px solid #D2DCD4",
-    borderRadius: "9px",
-    background: "#FFFFFF",
-    color: "#394F49",
-    fontSize: "14px",
-    lineHeight: "1.55",
-    outline: "none",
-    fontFamily: "inherit",
-    transition:
-      "border-color 0.2s ease, box-shadow 0.2s ease",
-  };
+  function handleReset() {
+    setFormData({ ...savedData });
+    setSaveMessage("Form restored to the last saved values.");
+    setMessageType("success");
+  }
 
-  const labelStyle = {
-    display: "block",
-    marginBottom: "23px",
-    color: "#394F49",
-    fontSize: "14px",
-    fontWeight: "700",
-  };
+  function handleMouseEnter(event) {
+    event.currentTarget.style.background = "#2F7D4A";
+    event.currentTarget.style.borderColor = "#2F7D4A";
+  }
+
+  function handleMouseLeave(event) {
+    event.currentTarget.style.background = "#385149";
+    event.currentTarget.style.borderColor = "#385149";
+  }
 
   return (
-    <div
-      style={{
-        minHeight: "100vh",
-        background: "#F5F7F6",
-        padding: "32px 34px 60px",
-        boxSizing: "border-box",
-      }}
-    >
-      <div
-        style={{
-          maxWidth: "1100px",
-          margin: "0 auto",
-        }}
-      >
-        {/* Back Link */}
-        <div style={{ marginBottom: "20px" }}>
-          <Link
-            to="/sectors"
-            style={{
-              display: "inline-flex",
-              alignItems: "center",
-              gap: "7px",
-              color: "#65743A",
-              textDecoration: "none",
-              fontSize: "13px",
-              fontWeight: "700",
-            }}
-          >
+    <div style={pageStyle}>
+      <div style={{ maxWidth: "1100px", margin: "0 auto" }}>
+        <div style={{ marginBottom: "22px" }}>
+          <Link to="/sectors" style={backLinkStyle}>
             ← Back to Sectors
           </Link>
         </div>
 
-        {/* Page Header */}
         <section
           style={{
             display: "flex",
             alignItems: "center",
             gap: "18px",
-            marginBottom: "28px",
             flexWrap: "wrap",
+            marginBottom: "30px",
           }}
         >
-          {/* Sector Icon */}
           <div
+            aria-hidden="true"
             style={{
-              width: "68px",
-              height: "68px",
+              width: "58px",
+              height: "58px",
               display: "flex",
               alignItems: "center",
               justifyContent: "center",
-              borderRadius: "17px",
+              borderRadius: "14px",
               background: "#E8EEE3",
-              border: "1px solid #DCE3DD",
-              fontSize: "32px",
+              fontSize: "28px",
               flexShrink: 0,
-              boxShadow:
-                "0 4px 12px rgba(57, 79, 73, 0.05)",
             }}
           >
-            {sectorIcons[sectorId] || "📌"}
+            {sectorIcons[sectorId] || "🌱"}
           </div>
 
           <div>
-            <div
-              style={{
-                display: "inline-flex",
-                padding: "6px 10px",
-                borderRadius: "20px",
-                background: "#E8F3E9",
-                color: "#2F7D4A",
-                fontSize: "11px",
-                fontWeight: "800",
-                letterSpacing: "0.5px",
-                marginBottom: "8px",
-              }}
-            >
-              SECTOR MANAGEMENT
-            </div>
-
+            <span style={badgeStyle}>CLIMATE SECTORS</span>
             <h1
               style={{
-                margin: "0 0 5px",
+                margin: "12px 0 10px",
                 color: "#394F49",
-                fontSize: "34px",
+                fontSize: "36px",
                 lineHeight: "1.2",
                 fontWeight: "750",
-                letterSpacing: "-0.3px",
+                letterSpacing: "-0.5px",
               }}
             >
               Edit Sector
             </h1>
-
             <p
               style={{
                 margin: 0,
                 color: "#65743A",
                 fontSize: "15px",
-                lineHeight: "1.5",
+                lineHeight: "1.7",
               }}
             >
-              Editing:{" "}
-              <strong style={{ color: "#394F49" }}>
-                {sector.title}
-              </strong>
+              Update the information for{" "}
+              <strong>{formData.title || "Untitled sector"}</strong>.
             </p>
           </div>
         </section>
 
-        {/* Main Form */}
-        <form
-          onSubmit={handleSaveDraft}
-          style={{
-            background: "#FFFFFF",
-            border: "1px solid #DCE3DD",
-            borderRadius: "18px",
-            boxShadow:
-              "0 6px 20px rgba(57, 79, 73, 0.07)",
-            overflow: "hidden",
-          }}
-        >
-          {/* Green Top Border */}
-          <div
-            style={{
-              height: "5px",
-              background: "#65743A",
-            }}
-          />
+        <section style={formPanelStyle}>
+          <div style={{ height: "5px", background: "#65743A" }} />
 
-          {/* Form Header */}
           <div
             style={{
               padding: "24px 28px",
               borderBottom: "1px solid #E1E7E2",
-              background: "#FFFFFF",
             }}
           >
-            <div
+            <span
               style={{
-                display: "inline-flex",
-                padding: "6px 10px",
-                marginBottom: "10px",
-                borderRadius: "20px",
+                ...badgeStyle,
                 background: "#E8EEE3",
                 color: "#65743A",
-                fontSize: "11px",
-                fontWeight: "800",
-                letterSpacing: "0.4px",
               }}
             >
               SECTOR DETAILS
-            </div>
+            </span>
 
             <h2
               style={{
-                margin: "0 0 6px",
+                margin: "12px 0 8px",
                 color: "#394F49",
-                fontSize: "21px",
-                lineHeight: "1.3",
-                fontWeight: "750",
+                fontSize: "23px",
+                lineHeight: "1.4",
               }}
             >
               Sector Information
@@ -327,29 +330,23 @@ export default function SectorEdit() {
               style={{
                 margin: 0,
                 color: "#65743A",
-                fontSize: "13px",
-                lineHeight: "1.6",
+                fontSize: "14px",
+                lineHeight: "1.7",
               }}
             >
-              Manage the information associated with this
-              climate sector.
+              Edit the fields below and save your changes to test the form.
             </p>
           </div>
 
-          {/* Form Content */}
-          <div
-            style={{
-              padding: "30px",
-            }}
-          >
-            {/* Sector ID */}
+          <form onSubmit={handleSave} style={{ padding: "28px" }}>
             <div
               style={{
-                marginBottom: "28px",
+                marginBottom: "26px",
                 padding: "15px 17px",
                 background: "#F5F7F6",
                 border: "1px solid #DCE3DD",
                 borderRadius: "10px",
+                fontSize: "14px",
               }}
             >
               <p
@@ -358,228 +355,109 @@ export default function SectorEdit() {
                   fontSize: "10px",
                   color: "#65743A",
                   fontWeight: "800",
-                  textTransform: "uppercase",
                   letterSpacing: "0.5px",
+                  textTransform: "uppercase",
                 }}
               >
                 Sector ID
               </p>
-
-              <strong
-                style={{
-                  display: "block",
-                  color: "#394F49",
-                  fontSize: "14px",
-                  fontWeight: "700",
-                }}
-              >
-                {sectorId}
-              </strong>
+              <strong>{sectorId}</strong>
             </div>
 
-            {/* Sector Title */}
             <label style={labelStyle}>
               Sector Title
-
               <input
                 type="text"
                 name="title"
-                value={form.title}
-                onChange={handleChange}
+                value={formData.title}
+                onChange={handleFieldChange}
+                required
                 style={inputStyle}
               />
             </label>
 
-            {/* Current Scenario */}
-            <label style={labelStyle}>
-              Current Scenario
+            {fields.map((field) => (
+              <label key={field.name} style={labelStyle}>
+                {field.label}
+                <textarea
+                  name={field.name}
+                  value={formData[field.name]}
+                  onChange={handleFieldChange}
+                  rows={field.rows}
+                  style={textareaStyle}
+                />
+              </label>
+            ))}
 
-              <textarea
-                name="currentScenario"
-                value={form.currentScenario}
-                onChange={handleChange}
-                rows="5"
-                placeholder="Enter the verified current scenario..."
-                style={{
-                  ...inputStyle,
-                  resize: "vertical",
-                  minHeight: "120px",
-                }}
-              />
-            </label>
-
-            {/* Why It Matters */}
-            <label style={labelStyle}>
-              Why It Matters
-
-              <textarea
-                name="whyItMatters"
-                value={form.whyItMatters}
-                onChange={handleChange}
-                rows="5"
-                placeholder="Enter why this sector matters..."
-                style={{
-                  ...inputStyle,
-                  resize: "vertical",
-                  minHeight: "120px",
-                }}
-              />
-            </label>
-
-            {/* Relevant Areas */}
-            <label style={labelStyle}>
-              Relevant Areas
-
-              <textarea
-                name="relevantAreas"
-                value={form.relevantAreas}
-                onChange={handleChange}
-                rows="4"
-                placeholder="Enter relevant areas, one per line..."
-                style={{
-                  ...inputStyle,
-                  resize: "vertical",
-                  minHeight: "100px",
-                }}
-              />
-            </label>
-
-            {/* Planned Actions */}
-            <label style={labelStyle}>
-              Planned Actions
-
-              <textarea
-                name="plannedActions"
-                value={form.plannedActions}
-                onChange={handleChange}
-                rows="5"
-                placeholder="Enter verified planned actions, one per line..."
-                style={{
-                  ...inputStyle,
-                  resize: "vertical",
-                  minHeight: "120px",
-                }}
-              />
-            </label>
-
-            {/* Citizen Actions */}
-            <label style={labelStyle}>
-              Citizen Actions
-
-              <textarea
-                name="citizenActions"
-                value={form.citizenActions}
-                onChange={handleChange}
-                rows="5"
-                placeholder="Enter verified citizen actions, one per line..."
-                style={{
-                  ...inputStyle,
-                  resize: "vertical",
-                  minHeight: "120px",
-                }}
-              />
-            </label>
-
-            {/* Actions */}
             <div
               style={{
                 display: "flex",
                 alignItems: "center",
                 gap: "12px",
                 flexWrap: "wrap",
-                marginTop: "6px",
+                marginTop: "8px",
                 paddingTop: "24px",
                 borderTop: "1px solid #E1E7E2",
               }}
             >
               <button
                 type="submit"
-                style={{
-                  display: "inline-flex",
-                  alignItems: "center",
-                  justifyContent: "center",
-                  gap: "7px",
-                  padding: "11px 19px",
-                  border: "none",
-                  borderRadius: "8px",
-                  background: "#394F49",
-                  color: "#FFFFFF",
-                  cursor: "pointer",
-                  fontWeight: "750",
-                  fontSize: "13px",
-                  transition:
-                    "background 0.2s ease, transform 0.2s ease",
+                style={buttonStyle}
+                onMouseEnter={handleMouseEnter}
+                onMouseLeave={handleMouseLeave}
+              >
+                Save Changes
+              </button>
+
+              <button
+                type="button"
+                onClick={handleReset}
+                style={secondaryButtonStyle}
+                onMouseEnter={(event) => {
+                  event.currentTarget.style.background = "#E8EEE3";
+                  event.currentTarget.style.borderColor = "#65743A";
                 }}
-                onMouseEnter={(e) => {
-                  e.currentTarget.style.background =
-                    "#65743A";
-                  e.currentTarget.style.transform =
-                    "translateY(-1px)";
-                }}
-                onMouseLeave={(e) => {
-                  e.currentTarget.style.background =
-                    "#394F49";
-                  e.currentTarget.style.transform =
-                    "translateY(0)";
+                onMouseLeave={(event) => {
+                  event.currentTarget.style.background = "#FFFFFF";
+                  event.currentTarget.style.borderColor = "#D2DCD4";
                 }}
               >
-                Save Draft
-                <span>→</span>
+                Reset Saved Values
               </button>
 
               <Link
                 to="/sectors"
                 style={{
-                  display: "inline-flex",
-                  alignItems: "center",
-                  justifyContent: "center",
-                  padding: "10px 18px",
-                  border: "1px solid #D2DCD4",
-                  borderRadius: "8px",
-                  background: "#FFFFFF",
-                  color: "#394F49",
-                  textDecoration: "none",
-                  fontSize: "13px",
-                  fontWeight: "700",
-                  transition:
-                    "background 0.2s ease, border-color 0.2s ease",
-                }}
-                onMouseEnter={(e) => {
-                  e.currentTarget.style.background =
-                    "#F5F7F6";
-                  e.currentTarget.style.borderColor =
-                    "#BFCBC1";
-                }}
-                onMouseLeave={(e) => {
-                  e.currentTarget.style.background =
-                    "#FFFFFF";
-                  e.currentTarget.style.borderColor =
-                    "#D2DCD4";
+                  ...backLinkStyle,
+                  padding: "10px 5px",
                 }}
               >
                 Cancel
               </Link>
-
-              {saved && (
-                <span
-                  style={{
-                    display: "inline-flex",
-                    alignItems: "center",
-                    gap: "6px",
-                    padding: "8px 11px",
-                    borderRadius: "8px",
-                    background: "#E8F3E9",
-                    color: "#2F7D4A",
-                    fontSize: "13px",
-                    fontWeight: "700",
-                  }}
-                >
-                  ✓ Draft saved locally.
-                </span>
-              )}
             </div>
-          </div>
-        </form>
+
+            {saveMessage && (
+              <p
+                role="status"
+                style={{
+                  margin: "22px 0 0",
+                  padding: "13px 15px",
+                  border: "1px solid #CFE5D2",
+                  borderRadius: "9px",
+                  background:
+                    messageType === "success" ? "#E8F3E9" : "#FFF8E7",
+                  color:
+                    messageType === "success" ? "#2F7D4A" : "#725D20",
+                  fontSize: "13px",
+                  lineHeight: "1.6",
+                  fontWeight: "700",
+                }}
+              >
+                {saveMessage}
+              </p>
+            )}
+          </form>
+        </section>
       </div>
     </div>
   );

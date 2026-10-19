@@ -1,37 +1,327 @@
-export default function SuggestionsInbox() {
+
+import { useEffect, useMemo, useState } from "react";
+
+const STORAGE_KEY = "pcmc_admin_suggestions";
+const DEMO_KEY = "pcmc_admin_suggestions_demo_seeded";
+
+const C = {
+  bg: "#F5F7F6",
+  dark: "#394F49",
+  fern: "#65743A",
+  sage: "#E8EEE3",
+  white: "#FFFFFF",
+  border: "#DCE3DD",
+  muted: "#75817B",
+  greenBg: "#E8F3E9",
+  greenText: "#2F7D4A",
+  amberBg: "#FFF1DF",
+  amberText: "#946200",
+  redBg: "#FDECEC",
+  red: "#B42318",
+};
+
+const statuses = ["New", "Under Review", "Responded", "Archived"];
+
+const demoSuggestions = [
+  {
+    id: "demo-1",
+    name: "Demo Citizen",
+    email: "citizen@example.com",
+    category: "Waterlogging",
+    subject: "Waterlogging near the main road",
+    message:
+      "Water tends to collect near the main road after heavy rainfall. Please consider checking the drainage in this area.",
+    location: "Sample location, Pune",
+    status: "New",
+    createdAt: "2026-10-14T09:30:00.000Z",
+    demo: true,
+  },
+  {
+    id: "demo-2",
+    name: "Demo Citizen",
+    email: "citizen@example.com",
+    category: "Green Spaces",
+    subject: "Request for more roadside trees",
+    message:
+      "Could the ward consider planting more trees along suitable roadside stretches to provide shade?",
+    location: "Sample ward, Pune",
+    status: "Under Review",
+    createdAt: "2026-10-12T11:15:00.000Z",
+    demo: true,
+  },
+  {
+    id: "demo-3",
+    name: "Demo Citizen",
+    email: "citizen@example.com",
+    category: "Waste Management",
+    subject: "Waste collection point needs attention",
+    message:
+      "The collection point in this sample report appears to need more regular cleaning.",
+    location: "Sample neighbourhood, Pune",
+    status: "Responded",
+    createdAt: "2026-10-10T08:00:00.000Z",
+    demo: true,
+  },
+];
+
+const buttonBase = {
+  border: "none",
+  borderRadius: "9px",
+  padding: "10px 13px",
+  fontSize: "12px",
+  fontWeight: 750,
+  fontFamily: "inherit",
+  cursor: "pointer",
+};
+
+const inputStyle = {
+  width: "100%",
+  boxSizing: "border-box",
+  padding: "11px 12px",
+  border: `1px solid ${C.border}`,
+  borderRadius: "9px",
+  background: C.white,
+  color: C.dark,
+  fontSize: "13px",
+  fontFamily: "inherit",
+  outlineColor: C.fern,
+};
+
+function loadSuggestions() {
+  try {
+    const raw = localStorage.getItem(STORAGE_KEY);
+
+    if (raw === null) return null;
+
+    const parsed = JSON.parse(raw);
+    if (!Array.isArray(parsed)) return [];
+
+    return parsed
+      .filter((item) => item && typeof item === "object")
+      .map((item) => ({
+        ...item,
+        id: String(item.id || `suggestion-${Math.random()}`),
+        name: String(item.name || "Citizen"),
+        email: String(item.email || ""),
+        category: String(item.category || "General"),
+        subject: String(item.subject || "Untitled suggestion"),
+        message: String(item.message || ""),
+        location: String(item.location || ""),
+        status: statuses.includes(item.status) ? item.status : "New",
+        createdAt: String(item.createdAt || ""),
+        demo: Boolean(item.demo),
+      }));
+  } catch {
+    return [];
+  }
+}
+
+function getInitialSuggestions() {
+  const saved = loadSuggestions();
+
+  if (saved !== null) return saved;
+
+  try {
+    const seeded = localStorage.getItem(DEMO_KEY) === "true";
+    return seeded ? [] : demoSuggestions;
+  } catch {
+    return demoSuggestions;
+  }
+}
+
+function statusColors(status) {
+  if (status === "Responded") {
+    return { background: C.greenBg, color: C.greenText };
+  }
+
+  if (status === "Under Review") {
+    return { background: C.amberBg, color: C.amberText };
+  }
+
+  if (status === "Archived") {
+    return { background: "#ECEFF1", color: "#52616B" };
+  }
+
+  return { background: C.sage, color: C.fern };
+}
+
+function formatDate(value) {
+  if (!value) return "Date unavailable";
+
+  const date = new Date(value);
+
+  if (Number.isNaN(date.getTime())) return "Date unavailable";
+
+  return new Intl.DateTimeFormat("en-IN", {
+    day: "numeric",
+    month: "short",
+    year: "numeric",
+  }).format(date);
+}
+
+function Panel({ children, style = {} }) {
   return (
-    <div
+    <section
       style={{
-        minHeight: "100vh",
-        background: "#F5F7F6",
-        padding: "32px 34px 60px",
+        position: "relative",
+        minWidth: 0,
+        padding: "20px",
+        background: C.white,
+        border: `1px solid ${C.border}`,
+        borderRadius: "14px",
+        boxShadow: "0 4px 14px rgba(57,79,73,0.05)",
         boxSizing: "border-box",
+        ...style,
       }}
     >
       <div
+        aria-hidden="true"
         style={{
-          maxWidth: "1380px",
-          margin: "0 auto",
+          position: "absolute",
+          top: 0,
+          left: 0,
+          right: 0,
+          height: "4px",
+          borderRadius: "14px 14px 0 0",
+          background: C.fern,
         }}
-      >
-        {/* Page Header */}
-        <section
-          style={{
-            marginBottom: "34px",
-          }}
-        >
+      />
+      {children}
+    </section>
+  );
+}
+
+function cardMouseEnter(event) {
+  event.currentTarget.style.transform = "translateY(-3px)";
+  event.currentTarget.style.boxShadow =
+    "0 8px 20px rgba(57,79,73,0.12)";
+}
+
+function cardMouseLeave(event) {
+  event.currentTarget.style.transform = "translateY(0)";
+  event.currentTarget.style.boxShadow =
+    "0 4px 14px rgba(57,79,73,0.05)";
+}
+
+export default function SuggestionsInbox() {
+  const [suggestions, setSuggestions] = useState(getInitialSuggestions);
+  const [selectedId, setSelectedId] = useState(null);
+  const [search, setSearch] = useState("");
+  const [filter, setFilter] = useState("All");
+  const [storageError, setStorageError] = useState(false);
+  const [notice, setNotice] = useState("");
+
+  useEffect(() => {
+    try {
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(suggestions));
+      localStorage.setItem(DEMO_KEY, "true");
+      setStorageError(false);
+    } catch {
+      setStorageError(true);
+    }
+  }, [suggestions]);
+
+  const filteredSuggestions = useMemo(() => {
+    const term = search.trim().toLowerCase();
+
+    return suggestions
+      .filter((item) => filter === "All" || item.status === filter)
+      .filter((item) => {
+        if (!term) return true;
+
+        return [
+          item.name,
+          item.email,
+          item.category,
+          item.subject,
+          item.message,
+          item.location,
+          item.status,
+        ].some((value) =>
+          String(value || "").toLowerCase().includes(term)
+        );
+      })
+      .sort((a, b) => {
+        const dateA = new Date(a.createdAt).getTime() || 0;
+        const dateB = new Date(b.createdAt).getTime() || 0;
+        return dateB - dateA;
+      });
+  }, [suggestions, search, filter]);
+
+  const selectedSuggestion =
+    suggestions.find((item) => item.id === selectedId) || null;
+
+  const newCount = suggestions.filter(
+    (item) => item.status === "New"
+  ).length;
+
+  const reviewCount = suggestions.filter(
+    (item) => item.status === "Under Review"
+  ).length;
+
+  const respondedCount = suggestions.filter(
+    (item) => item.status === "Responded"
+  ).length;
+
+  function updateStatus(id, status) {
+    setSuggestions((current) =>
+      current.map((item) =>
+        item.id === id ? { ...item, status } : item
+      )
+    );
+
+    setNotice(`Suggestion marked as ${status.toLowerCase()}.`);
+  }
+
+  function clearDemoData() {
+    const hasDemo = suggestions.some((item) => item.demo);
+
+    if (!hasDemo) {
+      setNotice("There are no demo entries to clear.");
+      return;
+    }
+
+    setSuggestions((current) => current.filter((item) => !item.demo));
+
+    setSelectedId((current) =>
+      suggestions.some((item) => item.id === current && item.demo)
+        ? null
+        : current
+    );
+
+    setNotice("Demo entries cleared.");
+  }
+
+  const statCards = [
+    { label: "Total Submissions", value: suggestions.length, icon: "💬" },
+    { label: "New", value: newCount, icon: "📩" },
+    { label: "Under Review", value: reviewCount, icon: "🔎" },
+    { label: "Responded", value: respondedCount, icon: "✓" },
+  ];
+
+  return (
+    <main
+      style={{
+        minHeight: "100%",
+        boxSizing: "border-box",
+        padding: "8px 4px 32px",
+        background: C.bg,
+        color: C.dark,
+      }}
+    >
+      <div style={{ maxWidth: "1380px", margin: "0 auto" }}>
+        <header style={{ marginBottom: "30px" }}>
           <div
             style={{
               display: "inline-flex",
-              alignItems: "center",
               padding: "7px 13px",
-              borderRadius: "20px",
-              background: "#E8F3E9",
-              color: "#2F7D4A",
-              fontSize: "11px",
-              fontWeight: "800",
-              letterSpacing: "0.6px",
               marginBottom: "15px",
+              borderRadius: "20px",
+              background: C.greenBg,
+              color: C.greenText,
+              fontSize: "11px",
+              fontWeight: 800,
+              letterSpacing: "0.6px",
             }}
           >
             CITIZEN FEEDBACK
@@ -40,136 +330,680 @@ export default function SuggestionsInbox() {
           <h1
             style={{
               margin: "0 0 10px",
-              color: "#394F49",
-              fontSize: "40px",
-              lineHeight: "1.2",
-              fontWeight: "750",
+              color: C.dark,
+              fontSize: "36px",
+              lineHeight: 1.2,
+              fontWeight: 750,
               letterSpacing: "-0.5px",
             }}
           >
-            Citizen Suggestions & Queries
+            Citizen Suggestions &amp; Queries
           </h1>
 
           <p
             style={{
               margin: 0,
               maxWidth: "760px",
-              color: "#65743A",
-              fontSize: "16px",
-              lineHeight: "1.7",
+              color: C.fern,
+              fontSize: "15px",
+              lineHeight: 1.7,
             }}
           >
-            Review suggestions and queries submitted through the
-            citizen-facing platform.
+            Review incoming feedback, track its status, and keep the inbox
+            organised.
           </p>
-        </section>
+        </header>
 
-        {/* Empty State */}
+        {storageError && (
+          <div
+            role="alert"
+            style={{
+              marginBottom: "18px",
+              padding: "13px 15px",
+              borderRadius: "10px",
+              background: C.redBg,
+              color: C.red,
+              fontSize: "13px",
+            }}
+          >
+            The browser could not save changes. They may not persist after
+            refreshing this page.
+          </div>
+        )}
+
+        {notice && (
+          <div
+            role="status"
+            style={{
+              display: "flex",
+              justifyContent: "space-between",
+              alignItems: "center",
+              gap: "12px",
+              marginBottom: "18px",
+              padding: "12px 14px",
+              borderRadius: "10px",
+              background: C.greenBg,
+              color: C.greenText,
+              fontSize: "13px",
+            }}
+          >
+            <span>{notice}</span>
+            <button
+              type="button"
+              onClick={() => setNotice("")}
+              aria-label="Dismiss message"
+              style={{
+                ...buttonBase,
+                padding: "4px 7px",
+                background: "transparent",
+                color: C.greenText,
+              }}
+            >
+              ✕
+            </button>
+          </div>
+        )}
+
         <section
+          aria-label="Suggestion summary"
           style={{
-            position: "relative",
-            maxWidth: "900px",
-            padding: "28px",
-            background: "#FFFFFF",
-            border: "1px solid #DCE3DD",
-            borderRadius: "16px",
-            boxShadow: "0 4px 14px rgba(57, 79, 73, 0.07)",
-            overflow: "hidden",
-            boxSizing: "border-box",
+            display: "grid",
+            gridTemplateColumns:
+              "repeat(auto-fit, minmax(min(100%, 180px), 1fr))",
+            gap: "16px",
+            marginBottom: "30px",
           }}
         >
-          {/* Green Top Border */}
-          <div
-            style={{
-              position: "absolute",
-              top: 0,
-              left: 0,
-              right: 0,
-              height: "5px",
-              background: "#65743A",
-            }}
-          />
+          {statCards.map((stat) => (
+            <article
+              key={stat.label}
+              style={{
+                padding: "20px",
+                background: C.white,
+                border: `1px solid ${C.border}`,
+                borderRadius: "14px",
+                boxShadow: "0 4px 14px rgba(57,79,73,0.05)",
+                boxSizing: "border-box",
+                transition: "transform 180ms ease, box-shadow 180ms ease",
+              }}
+              onMouseEnter={cardMouseEnter}
+              onMouseLeave={cardMouseLeave}
+            >
+              <div
+                style={{
+                  fontSize: "22px",
+                  marginBottom: "12px",
+                  lineHeight: 1,
+                }}
+              >
+                {stat.icon}
+              </div>
 
-          {/* Icon */}
-          <div
-            style={{
-              width: "58px",
-              height: "58px",
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "center",
-              marginBottom: "19px",
-              borderRadius: "14px",
-              background: "#E8EEE3",
-              fontSize: "28px",
-              boxShadow:
-                "inset 0 0 0 1px rgba(101, 116, 58, 0.06)",
-            }}
-          >
-            💬
-          </div>
+              <p
+                style={{
+                  margin: "0 0 12px",
+                  color: C.fern,
+                  fontSize: "13px",
+                  fontWeight: 400,
+                }}
+              >
+                {stat.label}
+              </p>
 
-          {/* Status Badge */}
-          <div
-            style={{
-              display: "inline-flex",
-              alignItems: "center",
-              padding: "5px 9px",
-              marginBottom: "12px",
-              borderRadius: "20px",
-              background: "#F5F7F6",
-              color: "#65743A",
-              fontSize: "11px",
-              fontWeight: "800",
-              letterSpacing: "0.3px",
-            }}
-          >
-            DATA SOURCE NOT CONNECTED
-          </div>
-
-          <h2
-            style={{
-              margin: "0 0 10px",
-              color: "#394F49",
-              fontSize: "24px",
-              lineHeight: "1.3",
-              fontWeight: "750",
-            }}
-          >
-            No submissions available
-          </h2>
-
-          <p
-            style={{
-              margin: 0,
-              color: "#65743A",
-              fontSize: "14px",
-              lineHeight: "1.65",
-            }}
-          >
-            Citizen submissions will appear here once the submission
-            data source is connected.
-          </p>
+              <div
+                style={{
+                  color: C.dark,
+                  fontSize: "27px",
+                  lineHeight: 1.2,
+                  fontWeight: 400,
+                  letterSpacing: 0,
+                }}
+              >
+                {stat.value}
+              </div>
+            </article>
+          ))}
         </section>
 
-        {/* Bottom Admin Note */}
         <div
           style={{
-            marginTop: "30px",
-            padding: "17px 19px",
-            background: "#E8EEE3",
-            border: "1px solid #DCE3DD",
-            borderRadius: "12px",
-            color: "#394F49",
-            fontSize: "13px",
-            lineHeight: "1.6",
+            display: "grid",
+            gridTemplateColumns:
+              "repeat(auto-fit, minmax(min(100%, 310px), 1fr))",
+            alignItems: "start",
+            gap: "20px",
           }}
         >
-          <strong>Admin workspace:</strong>{" "}
-          Citizen suggestions and queries will be managed here when
-          the submission data source is connected.
+          <Panel>
+            <div
+              style={{
+                display: "flex",
+                justifyContent: "space-between",
+                alignItems: "center",
+                flexWrap: "wrap",
+                gap: "10px",
+                marginBottom: "17px",
+              }}
+            >
+              <div>
+                <h2
+                  style={{
+                    margin: "0 0 5px",
+                    color: C.dark,
+                    fontSize: "21px",
+                  }}
+                >
+                  Inbox
+                </h2>
+                <p style={{ margin: 0, color: C.muted, fontSize: "12px" }}>
+                  {filteredSuggestions.length} result(s)
+                </p>
+              </div>
+
+              <button
+                type="button"
+                onClick={clearDemoData}
+                disabled={!suggestions.some((item) => item.demo)}
+                style={{
+                  ...buttonBase,
+                  background: C.sage,
+                  color: C.dark,
+                  opacity: suggestions.some((item) => item.demo) ? 1 : 0.5,
+                  cursor: suggestions.some((item) => item.demo)
+                    ? "pointer"
+                    : "not-allowed",
+                }}
+              >
+                Clear demo entries
+              </button>
+            </div>
+
+            <label
+              style={{
+                display: "grid",
+                gap: "7px",
+                marginBottom: "13px",
+                color: C.dark,
+                fontSize: "12px",
+                fontWeight: 700,
+              }}
+            >
+              Search submissions
+              <input
+                value={search}
+                onChange={(event) => setSearch(event.target.value)}
+                placeholder="Search subject, category, location..."
+                style={inputStyle}
+              />
+            </label>
+
+            <label
+              style={{
+                display: "grid",
+                gap: "7px",
+                marginBottom: "18px",
+                color: C.dark,
+                fontSize: "12px",
+                fontWeight: 700,
+              }}
+            >
+              Filter by status
+              <select
+                value={filter}
+                onChange={(event) => setFilter(event.target.value)}
+                style={inputStyle}
+              >
+                <option value="All">All statuses</option>
+                {statuses.map((status) => (
+                  <option key={status} value={status}>
+                    {status}
+                  </option>
+                ))}
+              </select>
+            </label>
+
+            {filteredSuggestions.length === 0 ? (
+              <div
+                style={{
+                  padding: "30px 16px",
+                  textAlign: "center",
+                  background: C.bg,
+                  border: `1px dashed ${C.border}`,
+                  borderRadius: "12px",
+                }}
+              >
+                <div style={{ fontSize: "28px", marginBottom: "10px" }}>
+                  💬
+                </div>
+                <strong style={{ color: C.dark, fontSize: "14px" }}>
+                  No submissions found
+                </strong>
+                <p
+                  style={{
+                    margin: "7px 0 0",
+                    color: C.muted,
+                    fontSize: "12px",
+                    lineHeight: 1.6,
+                  }}
+                >
+                  Try another search or status filter.
+                </p>
+              </div>
+            ) : (
+              <div style={{ display: "grid", gap: "10px" }}>
+                {filteredSuggestions.map((item) => {
+                  const selected = item.id === selectedId;
+
+                  return (
+                    <button
+                      key={item.id}
+                      type="button"
+                      onClick={() => {
+                        setSelectedId(item.id);
+                        setNotice("");
+                      }}
+                      aria-pressed={selected}
+                      style={{
+                        display: "block",
+                        width: "100%",
+                        boxSizing: "border-box",
+                        padding: "15px",
+                        border: `1px solid ${
+                          selected ? C.fern : C.border
+                        }`,
+                        borderRadius: "11px",
+                        background: selected ? "#F2F6EF" : C.white,
+                        textAlign: "left",
+                        color: C.dark,
+                        fontFamily: "inherit",
+                        cursor: "pointer",
+                        transition:
+                          "transform 150ms ease, box-shadow 150ms ease",
+                        boxShadow: "0 4px 14px rgba(57,79,73,0.05)",
+                      }}
+                      onMouseEnter={cardMouseEnter}
+                      onMouseLeave={cardMouseLeave}
+                    >
+                      <div
+                        style={{
+                          display: "flex",
+                          alignItems: "flex-start",
+                          justifyContent: "space-between",
+                          gap: "9px",
+                        }}
+                      >
+                        <strong
+                          style={{
+                            fontSize: "13px",
+                            lineHeight: 1.5,
+                            overflowWrap: "anywhere",
+                          }}
+                        >
+                          {item.subject}
+                        </strong>
+
+                        <span
+                          style={{
+                            ...statusColors(item.status),
+                            flexShrink: 0,
+                            padding: "5px 7px",
+                            borderRadius: "20px",
+                            fontSize: "10px",
+                            fontWeight: 800,
+                          }}
+                        >
+                          {item.status}
+                        </span>
+                      </div>
+
+                      <p
+                        style={{
+                          margin: "9px 0 7px",
+                          color: C.fern,
+                          fontSize: "11px",
+                        }}
+                      >
+                        {item.category} · {item.name}
+                      </p>
+
+                      <p
+                        style={{
+                          margin: 0,
+                          color: C.muted,
+                          fontSize: "12px",
+                          lineHeight: 1.6,
+                        }}
+                      >
+                        {item.message.slice(0, 105)}
+                        {item.message.length > 105 ? "…" : ""}
+                      </p>
+
+                      <div
+                        style={{
+                          display: "flex",
+                          justifyContent: "space-between",
+                          flexWrap: "wrap",
+                          gap: "8px",
+                          marginTop: "11px",
+                          color: C.muted,
+                          fontSize: "10px",
+                        }}
+                      >
+                        <span>{formatDate(item.createdAt)}</span>
+                        {item.demo && (
+                          <span
+                            style={{
+                              fontWeight: 800,
+                              color: C.amberText,
+                            }}
+                          >
+                            DEMO
+                          </span>
+                        )}
+                      </div>
+                    </button>
+                  );
+                })}
+              </div>
+            )}
+          </Panel>
+
+          <Panel>
+            {!selectedSuggestion ? (
+              <div
+                style={{
+                  padding: "34px 15px",
+                  textAlign: "center",
+                }}
+              >
+                <div style={{ fontSize: "34px", marginBottom: "12px" }}>
+                  👈
+                </div>
+                <h2
+                  style={{
+                    margin: "0 0 8px",
+                    color: C.dark,
+                    fontSize: "20px",
+                  }}
+                >
+                  Suggestion Details
+                </h2>
+                <p
+                  style={{
+                    maxWidth: "300px",
+                    margin: "0 auto",
+                    color: C.muted,
+                    fontSize: "13px",
+                    lineHeight: 1.7,
+                  }}
+                >
+                  Select an item from the inbox to read the full submission
+                  and update its status.
+                </p>
+              </div>
+            ) : (
+              <>
+                <div
+                  style={{
+                    display: "flex",
+                    justifyContent: "space-between",
+                    alignItems: "flex-start",
+                    gap: "12px",
+                    marginBottom: "18px",
+                  }}
+                >
+                  <div style={{ minWidth: 0 }}>
+                    <p
+                      style={{
+                        margin: "0 0 7px",
+                        color: C.fern,
+                        fontSize: "11px",
+                        fontWeight: 800,
+                        letterSpacing: "0.6px",
+                      }}
+                    >
+                      SUBMISSION DETAILS
+                    </p>
+
+                    <h2
+                      style={{
+                        margin: 0,
+                        color: C.dark,
+                        fontSize: "22px",
+                        lineHeight: 1.4,
+                        overflowWrap: "anywhere",
+                      }}
+                    >
+                      {selectedSuggestion.subject}
+                    </h2>
+                  </div>
+
+                  <button
+                    type="button"
+                    onClick={() => setSelectedId(null)}
+                    aria-label="Close submission details"
+                    style={{
+                      ...buttonBase,
+                      flexShrink: 0,
+                      background: C.bg,
+                      color: C.dark,
+                      padding: "7px 10px",
+                    }}
+                  >
+                    ✕
+                  </button>
+                </div>
+
+                {selectedSuggestion.demo && (
+                  <p
+                    style={{
+                      margin: "0 0 17px",
+                      padding: "9px 11px",
+                      borderRadius: "8px",
+                      background: C.amberBg,
+                      color: C.amberText,
+                      fontSize: "11px",
+                      lineHeight: 1.6,
+                    }}
+                  >
+                    Demo entry — not a real citizen submission.
+                  </p>
+                )}
+
+                <div
+                  style={{
+                    display: "grid",
+                    gridTemplateColumns:
+                      "repeat(auto-fit, minmax(min(100%, 125px), 1fr))",
+                    gap: "11px",
+                    marginBottom: "20px",
+                  }}
+                >
+                  {[
+                    ["Category", selectedSuggestion.category],
+                    ["Submitted", formatDate(selectedSuggestion.createdAt)],
+                    [
+                      "Location",
+                      selectedSuggestion.location || "Not provided",
+                    ],
+                  ].map(([label, value]) => (
+                    <div
+                      key={label}
+                      style={{
+                        padding: "12px",
+                        borderRadius: "9px",
+                        background: C.bg,
+                        minWidth: 0,
+                        overflowWrap: "anywhere",
+                      }}
+                    >
+                      <p
+                        style={{
+                          margin: "0 0 6px",
+                          color: C.muted,
+                          fontSize: "10px",
+                        }}
+                      >
+                        {label}
+                      </p>
+                      <strong
+                        style={{
+                          color: C.dark,
+                          fontSize: "12px",
+                          lineHeight: 1.5,
+                          overflowWrap: "anywhere",
+                        }}
+                      >
+                        {value}
+                      </strong>
+                    </div>
+                  ))}
+                </div>
+
+                <div style={{ marginBottom: "20px" }}>
+                  <h3
+                    style={{
+                      margin: "0 0 9px",
+                      color: C.dark,
+                      fontSize: "14px",
+                    }}
+                  >
+                    Citizen
+                  </h3>
+                  <p
+                    style={{
+                      margin: "0 0 5px",
+                      color: C.dark,
+                      fontSize: "13px",
+                    }}
+                  >
+                    {selectedSuggestion.name}
+                  </p>
+                  <p
+                    style={{
+                      margin: 0,
+                      color: C.muted,
+                      fontSize: "12px",
+                      overflowWrap: "anywhere",
+                    }}
+                  >
+                    {selectedSuggestion.email || "No email provided"}
+                  </p>
+                </div>
+
+                <div style={{ marginBottom: "22px" }}>
+                  <h3
+                    style={{
+                      margin: "0 0 9px",
+                      color: C.dark,
+                      fontSize: "14px",
+                    }}
+                  >
+                    Message
+                  </h3>
+                  <p
+                    style={{
+                      margin: 0,
+                      padding: "15px",
+                      borderRadius: "10px",
+                      background: C.bg,
+                      color: C.dark,
+                      fontSize: "13px",
+                      lineHeight: 1.8,
+                      whiteSpace: "pre-wrap",
+                      overflowWrap: "anywhere",
+                    }}
+                  >
+                    {selectedSuggestion.message || "No message provided."}
+                  </p>
+                </div>
+
+                <label
+                  style={{
+                    display: "grid",
+                    gap: "8px",
+                    color: C.dark,
+                    fontSize: "12px",
+                    fontWeight: 800,
+                  }}
+                >
+                  Update Status
+                  <select
+                    value={selectedSuggestion.status}
+                    onChange={(event) =>
+                      updateStatus(selectedSuggestion.id, event.target.value)
+                    }
+                    style={inputStyle}
+                  >
+                    {statuses.map((status) => (
+                      <option key={status} value={status}>
+                        {status}
+                      </option>
+                    ))}
+                  </select>
+                </label>
+
+                <div
+                  style={{
+                    display: "flex",
+                    flexWrap: "wrap",
+                    gap: "9px",
+                    marginTop: "16px",
+                  }}
+                >
+                  {selectedSuggestion.status !== "Under Review" && (
+                    <button
+                      type="button"
+                      onClick={() =>
+                        updateStatus(selectedSuggestion.id, "Under Review")
+                      }
+                      style={{
+                        ...buttonBase,
+                        background: C.amberBg,
+                        color: C.amberText,
+                      }}
+                    >
+                      Mark Under Review
+                    </button>
+                  )}
+
+                  {selectedSuggestion.status !== "Responded" && (
+                    <button
+                      type="button"
+                      onClick={() =>
+                        updateStatus(selectedSuggestion.id, "Responded")
+                      }
+                      style={{
+                        ...buttonBase,
+                        background: C.dark,
+                        color: C.white,
+                      }}
+                    >
+                      Mark Responded
+                    </button>
+                  )}
+
+                  {selectedSuggestion.status !== "Archived" && (
+                    <button
+                      type="button"
+                      onClick={() =>
+                        updateStatus(selectedSuggestion.id, "Archived")
+                      }
+                      style={{
+                        ...buttonBase,
+                        background: C.sage,
+                        color: C.dark,
+                      }}
+                    >
+                      Archive
+                    </button>
+                  )}
+                </div>
+              </>
+            )}
+          </Panel>
         </div>
       </div>
-    </div>
+    </main>
   );
 }

@@ -1,4 +1,5 @@
-import { useState } from "react";
+
+import { useEffect, useMemo, useState } from "react";
 
 const resourceCategories = [
   "Guidelines",
@@ -8,98 +9,252 @@ const resourceCategories = [
   "Other",
 ];
 
-export default function Resources() {
-  const [resources, setResources] = useState([]);
+const inputStyle = {
+  display: "block",
+  width: "100%",
+  marginTop: "9px",
+  marginBottom: "22px",
+  padding: "12px 13px",
+  boxSizing: "border-box",
+  border: "1px solid #DCE3DD",
+  borderRadius: "9px",
+  background: "#FFFFFF",
+  color: "#394F49",
+  fontSize: "14px",
+  lineHeight: "1.5",
+  outlineColor: "#385149",
+  fontFamily: "inherit",
+};
 
-  const [form, setForm] = useState({
-    title: "",
-    category: "Guidelines",
-    description: "",
-    source: "",
-    status: "Draft",
-  });
+const labelStyle = {
+  display: "block",
+  color: "#394F49",
+  fontSize: "14px",
+  fontWeight: "700",
+};
 
-  function handleChange(event) {
-    const { name, value } = event.target;
+const primaryButtonStyle = {
+  padding: "10px 16px",
+  border: "1px solid #385149",
+  borderRadius: "8px",
+  background: "#385149",
+  color: "#FFFFFF",
+  cursor: "pointer",
+  fontSize: "14px",
+  fontWeight: "600",
+  fontFamily: "inherit",
+  transition: "all 0.2s ease",
+};
 
-    setForm({
-      ...form,
-      [name]: value,
-    });
+const secondaryButtonStyle = {
+  ...primaryButtonStyle,
+  background: "#FFFFFF",
+  color: "#385149",
+};
+
+const STORAGE_KEY = "adminPanelResources";
+
+const initialForm = {
+  title: "",
+  category: "Guidelines",
+  description: "",
+  source: "",
+  status: "Draft",
+};
+
+function readResources() {
+  try {
+    const saved = localStorage.getItem(STORAGE_KEY);
+    if (!saved) return [];
+
+    const parsed = JSON.parse(saved);
+    return Array.isArray(parsed) ? parsed : [];
+  } catch {
+    return [];
+  }
+}
+
+function getStatusStyle(status) {
+  if (status === "Published") {
+    return { background: "#E8F3E9", color: "#2F7D4A" };
   }
 
-  function handleSaveDraft(event) {
+  if (status === "Archived") {
+    return { background: "#ECEFED", color: "#65716A" };
+  }
+
+  return { background: "#FFF4D9", color: "#8A6A1D" };
+}
+
+export default function Resources() {
+  const [resources, setResources] = useState(readResources);
+  const [form, setForm] = useState({ ...initialForm });
+  const [editingId, setEditingId] = useState(null);
+  const [search, setSearch] = useState("");
+  const [categoryFilter, setCategoryFilter] = useState("All");
+  const [statusFilter, setStatusFilter] = useState("All");
+  const [message, setMessage] = useState("");
+
+  useEffect(() => {
+    try {
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(resources));
+    } catch {
+      setMessage("Unable to save locally. Browser storage may be unavailable.");
+    }
+  }, [resources]);
+
+  const filteredResources = useMemo(() => {
+    const term = search.trim().toLowerCase();
+
+    return resources.filter((resource) => {
+      const title = (resource.title || "").toLowerCase();
+      const description = (resource.description || "").toLowerCase();
+      const source = (resource.source || "").toLowerCase();
+
+      const matchesSearch =
+        !term ||
+        title.includes(term) ||
+        description.includes(term) ||
+        source.includes(term);
+
+      const matchesCategory =
+        categoryFilter === "All" ||
+        resource.category === categoryFilter;
+
+      const matchesStatus =
+        statusFilter === "All" ||
+        resource.status === statusFilter;
+
+      return matchesSearch && matchesCategory && matchesStatus;
+    });
+  }, [resources, search, categoryFilter, statusFilter]);
+
+  function updateField(event) {
+    const { name, value } = event.target;
+    setForm((previous) => ({ ...previous, [name]: value }));
+    setMessage("");
+  }
+
+  function resetForm() {
+    setForm({ ...initialForm });
+    setEditingId(null);
+    setMessage("");
+  }
+
+  function saveResource(event) {
     event.preventDefault();
 
     if (!form.title.trim()) {
+      setMessage("Please enter a resource title.");
       return;
     }
 
-    const newResource = {
-      id: Date.now(),
+    const resourceData = {
       ...form,
       title: form.title.trim(),
+      description: form.description.trim(),
+      source: form.source.trim(),
     };
 
-    setResources([...resources, newResource]);
+    if (editingId !== null) {
+      setResources((previous) =>
+        previous.map((resource) =>
+          resource.id === editingId
+            ? { ...resource, ...resourceData }
+            : resource
+        )
+      );
+      setMessage("Resource updated successfully.");
+    } else {
+      setResources((previous) => [
+        {
+          ...resourceData,
+          id: `${Date.now()}-${Math.random().toString(36).slice(2, 8)}`,
+        },
+        ...previous,
+      ]);
+      setMessage("Resource added successfully.");
+    }
 
+    setForm({ ...initialForm });
+    setEditingId(null);
+  }
+
+  function editResource(resource) {
     setForm({
-      title: "",
-      category: "Guidelines",
-      description: "",
-      source: "",
-      status: "Draft",
+      title: resource.title || "",
+      category: resource.category || "Guidelines",
+      description: resource.description || "",
+      source: resource.source || "",
+      status: resource.status || "Draft",
+    });
+
+    setEditingId(resource.id);
+    setMessage("");
+
+    document.getElementById("resource-form")?.scrollIntoView({
+      behavior: "smooth",
+      block: "start",
     });
   }
 
-  const inputStyle = {
-    display: "block",
-    width: "100%",
-    marginTop: "9px",
-    marginBottom: "22px",
-    padding: "12px 13px",
-    boxSizing: "border-box",
-    border: "1px solid #D2DCD4",
-    borderRadius: "9px",
-    backgroundColor: "#FFFFFF",
-    color: "#394F49",
-    fontSize: "14px",
-    lineHeight: "1.5",
-    outline: "none",
+  function deleteResource(id) {
+    if (!window.confirm("Are you sure you want to delete this resource?")) {
+      return;
+    }
+
+    setResources((previous) =>
+      previous.filter((resource) => resource.id !== id)
+    );
+
+    if (editingId === id) {
+      setForm({ ...initialForm });
+      setEditingId(null);
+    }
+
+    setMessage("Resource deleted.");
+  }
+
+  function primaryEnter(event) {
+    event.currentTarget.style.background = "#2F7D4A";
+    event.currentTarget.style.borderColor = "#2F7D4A";
+  }
+
+  function primaryLeave(event) {
+    event.currentTarget.style.background = "#385149";
+    event.currentTarget.style.borderColor = "#385149";
+  }
+
+  const counts = {
+    total: resources.length,
+    published: resources.filter((item) => item.status === "Published").length,
+    drafts: resources.filter((item) => item.status === "Draft").length,
+    archived: resources.filter((item) => item.status === "Archived").length,
   };
 
-  const labelStyle = {
-    display: "block",
-    color: "#394F49",
-    fontSize: "14px",
-    fontWeight: "700",
-  };
+  const statCards = [
+    { label: "Total Resources", value: counts.total, icon: "📊" },
+    { label: "Published", value: counts.published, icon: "🌿" },
+    { label: "Drafts", value: counts.drafts, icon: "📝" },
+    { label: "Archived", value: counts.archived, icon: "✓" },
+  ];
 
   return (
     <div
       style={{
-        minHeight: "100vh",
+        minHeight: "100%",
         background: "#F5F7F6",
-        padding: "32px 34px 60px",
+        padding: "8px 4px 32px",
         boxSizing: "border-box",
+        color: "#394F49",
       }}
     >
-      <div
-        style={{
-          maxWidth: "1380px",
-          margin: "0 auto",
-        }}
-      >
-        {/* Page Header */}
-        <section
-          style={{
-            marginBottom: "34px",
-          }}
-        >
+      <div style={{ maxWidth: "1380px", margin: "0 auto" }}>
+        {/* Page heading */}
+        <section style={{ marginBottom: "30px" }}>
           <div
             style={{
-              display: "inline-flex",
-              alignItems: "center",
+              display: "inline-block",
               padding: "7px 13px",
               borderRadius: "20px",
               background: "#E8F3E9",
@@ -117,7 +272,7 @@ export default function Resources() {
             style={{
               margin: "0 0 10px",
               color: "#394F49",
-              fontSize: "40px",
+              fontSize: "36px",
               lineHeight: "1.2",
               fontWeight: "750",
               letterSpacing: "-0.5px",
@@ -131,18 +286,88 @@ export default function Resources() {
               margin: 0,
               maxWidth: "720px",
               color: "#65743A",
-              fontSize: "16px",
+              fontSize: "15px",
               lineHeight: "1.7",
             }}
           >
-            Manage verified climate action resources for the platform.
+            Manage climate guidelines, reports, plans, and awareness materials.
           </p>
         </section>
 
-        {/* Resource Form */}
+        {/* Summary cards — sized to match Progress */}
         <section
+          aria-label="Resource summary"
           style={{
-            position: "relative",
+            display: "grid",
+            gridTemplateColumns:
+              "repeat(auto-fit, minmax(min(100%, 180px), 1fr))",
+            gap: "16px",
+            marginBottom: "30px",
+          }}
+        >
+          {statCards.map((item) => (
+            <article
+              key={item.label}
+              style={{
+                padding: "20px",
+                boxSizing: "border-box",
+                background: "#FFFFFF",
+                border: "1px solid #DCE3DD",
+                borderRadius: "14px",
+                boxShadow: "0 4px 14px rgba(57,79,73,0.05)",
+                transition: "transform 180ms ease, box-shadow 180ms ease",
+              }}
+              onMouseEnter={(event) => {
+                event.currentTarget.style.transform = "translateY(-3px)";
+                event.currentTarget.style.boxShadow =
+                  "0 8px 20px rgba(57,79,73,0.12)";
+              }}
+              onMouseLeave={(event) => {
+                event.currentTarget.style.transform = "translateY(0)";
+                event.currentTarget.style.boxShadow =
+                  "0 4px 14px rgba(57,79,73,0.05)";
+              }}
+            >
+              <div
+                style={{
+                  fontSize: "22px",
+                  marginBottom: "12px",
+                  lineHeight: "1",
+                }}
+              >
+                {item.icon}
+              </div>
+
+              <p
+                style={{
+                  margin: "0 0 12px",
+                  color: "#65743A",
+                  fontSize: "13px",
+                  fontWeight: "400",
+                }}
+              >
+                {item.label}
+              </p>
+
+              <div
+                style={{
+                  color: "#394F49",
+                  fontSize: "27px",
+                  lineHeight: "1.2",
+                  fontWeight: "400",
+                  letterSpacing: "0",
+                }}
+              >
+                {item.value}
+              </div>
+            </article>
+          ))}
+        </section>
+
+        {/* Add or edit resource */}
+        <section
+          id="resource-form"
+          style={{
             background: "#FFFFFF",
             border: "1px solid #DCE3DD",
             borderRadius: "16px",
@@ -151,23 +376,12 @@ export default function Resources() {
             marginBottom: "34px",
           }}
         >
-          {/* Green Top Border */}
-          <div
-            style={{
-              position: "absolute",
-              top: 0,
-              left: 0,
-              right: 0,
-              height: "5px",
-              background: "#65743A",
-            }}
-          />
+          <div style={{ height: "5px", background: "#65743A" }} />
 
-          {/* Form Header */}
           <div
             style={{
-              padding: "28px 28px 22px",
-              borderBottom: "1px solid #E1E7E2",
+              padding: "24px 28px",
+              borderBottom: "1px solid #DCE3DD",
             }}
           >
             <h2
@@ -175,11 +389,9 @@ export default function Resources() {
                 margin: "0 0 7px",
                 color: "#394F49",
                 fontSize: "24px",
-                lineHeight: "1.3",
-                fontWeight: "750",
               }}
             >
-              Add Resource
+              {editingId !== null ? "Edit Resource" : "Add Resource"}
             </h2>
 
             <p
@@ -190,38 +402,29 @@ export default function Resources() {
                 lineHeight: "1.6",
               }}
             >
-              Add verified documents, reports, plans, and awareness
-              materials.
+              Add and manage climate-related resources.
             </p>
           </div>
 
-          {/* Form Body */}
-          <form
-            onSubmit={handleSaveDraft}
-            style={{
-              padding: "28px",
-            }}
-          >
+          <form onSubmit={saveResource} style={{ padding: "28px" }}>
             <label style={labelStyle}>
-              Resource Title
-
+              Resource Title *
               <input
-                type="text"
                 name="title"
                 value={form.title}
-                onChange={handleChange}
-                placeholder="Enter resource title..."
+                onChange={updateField}
+                required
+                placeholder="Resource title"
                 style={inputStyle}
               />
             </label>
 
             <label style={labelStyle}>
               Category
-
               <select
                 name="category"
                 value={form.category}
-                onChange={handleChange}
+                onChange={updateField}
                 style={inputStyle}
               >
                 {resourceCategories.map((category) => (
@@ -234,40 +437,33 @@ export default function Resources() {
 
             <label style={labelStyle}>
               Description
-
               <textarea
                 name="description"
                 value={form.description}
-                onChange={handleChange}
-                rows="5"
-                placeholder="Enter verified resource description..."
-                style={{
-                  ...inputStyle,
-                  resize: "vertical",
-                }}
+                onChange={updateField}
+                rows={5}
+                placeholder="Resource description"
+                style={{ ...inputStyle, resize: "vertical" }}
               />
             </label>
 
             <label style={labelStyle}>
               Source
-
               <input
-                type="text"
                 name="source"
                 value={form.source}
-                onChange={handleChange}
-                placeholder="Enter verified source..."
+                onChange={updateField}
+                placeholder="Source or reference"
                 style={inputStyle}
               />
             </label>
 
             <label style={labelStyle}>
               Status
-
               <select
                 name="status"
                 value={form.status}
-                onChange={handleChange}
+                onChange={updateField}
                 style={inputStyle}
               >
                 <option value="Draft">Draft</option>
@@ -276,305 +472,357 @@ export default function Resources() {
               </select>
             </label>
 
+            {message && (
+              <p
+                role="status"
+                style={{
+                  margin: "0 0 18px",
+                  padding: "12px 14px",
+                  border: "1px solid #D9E7D8",
+                  borderRadius: "9px",
+                  background: "#E8F3E9",
+                  color: "#2F7D4A",
+                  fontSize: "13px",
+                  lineHeight: "1.6",
+                }}
+              >
+                {message}
+              </p>
+            )}
+
             <div
               style={{
-                paddingTop: "22px",
-                borderTop: "1px solid #E1E7E2",
+                display: "flex",
+                gap: "10px",
+                flexWrap: "wrap",
+                borderTop: "1px solid #DCE3DD",
+                paddingTop: "20px",
               }}
             >
               <button
                 type="submit"
-                style={{
-                  display: "inline-flex",
-                  alignItems: "center",
-                  justifyContent: "center",
-                  gap: "8px",
-                  padding: "10px 15px",
-                  border: "none",
-                  borderRadius: "8px",
-                  backgroundColor: "#394F49",
-                  color: "#FFFFFF",
-                  cursor: "pointer",
-                  fontWeight: "750",
-                  fontSize: "12px",
-                  transition:
-                    "background 0.2s ease, transform 0.2s ease",
-                }}
-                onMouseEnter={(e) => {
-                  e.currentTarget.style.backgroundColor = "#65743A";
-                  e.currentTarget.style.transform = "translateX(2px)";
-                }}
-                onMouseLeave={(e) => {
-                  e.currentTarget.style.backgroundColor = "#394F49";
-                  e.currentTarget.style.transform = "translateX(0)";
-                }}
+                style={primaryButtonStyle}
+                onMouseEnter={primaryEnter}
+                onMouseLeave={primaryLeave}
               >
-                Save Draft
-                <span
-                  style={{
-                    fontSize: "14px",
-                    lineHeight: 1,
+                {editingId !== null ? "Update Resource" : "Save Resource"} →
+              </button>
+
+              {editingId !== null && (
+                <button
+                  type="button"
+                  onClick={resetForm}
+                  style={secondaryButtonStyle}
+                  onMouseEnter={(event) => {
+                    event.currentTarget.style.background = "#E8EEE3";
+                    event.currentTarget.style.borderColor = "#65743A";
+                  }}
+                  onMouseLeave={(event) => {
+                    event.currentTarget.style.background = "#FFFFFF";
+                    event.currentTarget.style.borderColor = "#385149";
                   }}
                 >
-                  →
-                </span>
-              </button>
+                  Cancel Edit
+                </button>
+              )}
             </div>
           </form>
         </section>
 
-        {/* Resources List */}
+        {/* Resource records */}
         <section>
           <div
             style={{
               display: "flex",
-              alignItems: "center",
-              gap: "10px",
-              marginBottom: "7px",
+              alignItems: "flex-end",
+              justifyContent: "space-between",
+              flexWrap: "wrap",
+              gap: "16px",
+              marginBottom: "20px",
             }}
           >
-            <div
-              style={{
-                width: "4px",
-                height: "24px",
-                borderRadius: "4px",
-                background: "#65743A",
-              }}
-            />
-
-            <h2
-              style={{
-                margin: 0,
-                color: "#394F49",
-                fontSize: "24px",
-                lineHeight: "1.3",
-                fontWeight: "750",
-              }}
-            >
-              Resources
-            </h2>
-          </div>
-
-          <p
-            style={{
-              margin: "0 0 20px 14px",
-              color: "#65743A",
-              fontSize: "14px",
-              lineHeight: "1.5",
-            }}
-          >
-            Resources currently available in this admin workspace.
-          </p>
-
-          {/* Empty State */}
-          {resources.length === 0 ? (
-            <div
-              style={{
-                position: "relative",
-                padding: "25px",
-                background: "#FFFFFF",
-                border: "1px solid #DCE3DD",
-                borderRadius: "16px",
-                boxShadow: "0 4px 14px rgba(57, 79, 73, 0.07)",
-                overflow: "hidden",
-              }}
-            >
-              {/* Green Top Border */}
-              <div
+            <div>
+              <h2
                 style={{
-                  position: "absolute",
-                  top: 0,
-                  left: 0,
-                  right: 0,
-                  height: "5px",
-                  background: "#65743A",
-                }}
-              />
-
-              <div
-                style={{
-                  width: "58px",
-                  height: "58px",
-                  display: "flex",
-                  alignItems: "center",
-                  justifyContent: "center",
-                  marginBottom: "19px",
-                  borderRadius: "14px",
-                  background: "#E8EEE3",
-                  fontSize: "28px",
-                  boxShadow:
-                    "inset 0 0 0 1px rgba(101, 116, 58, 0.06)",
-                }}
-              >
-                📚
-              </div>
-
-              <strong
-                style={{
-                  display: "block",
-                  marginBottom: "7px",
+                  margin: "0 0 8px",
                   color: "#394F49",
-                  fontSize: "20px",
-                  lineHeight: "1.3",
-                  fontWeight: "750",
+                  fontSize: "24px",
                 }}
               >
-                No resources added yet
-              </strong>
+                Resource Records
+              </h2>
 
-              <span
+              <p
                 style={{
+                  margin: 0,
                   color: "#65743A",
                   fontSize: "14px",
                   lineHeight: "1.6",
                 }}
               >
-                Data to be added.
-              </span>
+                View and manage your resource entries.
+              </p>
+            </div>
+
+            <span
+              style={{
+                color: "#394F49",
+                fontSize: "14px",
+                fontWeight: "400",
+              }}
+            >
+              {filteredResources.length} of {resources.length} resources
+            </span>
+          </div>
+
+          {/* Search and filters */}
+          <div
+            style={{
+              display: "grid",
+              gridTemplateColumns:
+                "repeat(auto-fit, minmax(min(100%, 200px), 1fr))",
+              gap: "12px",
+              padding: "20px",
+              background: "#FFFFFF",
+              border: "1px solid #DCE3DD",
+              borderRadius: "13px",
+              marginBottom: "20px",
+            }}
+          >
+            <input
+              aria-label="Search resources"
+              value={search}
+              onChange={(event) => setSearch(event.target.value)}
+              placeholder="Search resources..."
+              style={{ ...inputStyle, margin: 0 }}
+            />
+
+            <select
+              aria-label="Filter by category"
+              value={categoryFilter}
+              onChange={(event) => setCategoryFilter(event.target.value)}
+              style={{ ...inputStyle, margin: 0 }}
+            >
+              <option value="All">All Categories</option>
+              {resourceCategories.map((category) => (
+                <option key={category} value={category}>
+                  {category}
+                </option>
+              ))}
+            </select>
+
+            <select
+              aria-label="Filter by status"
+              value={statusFilter}
+              onChange={(event) => setStatusFilter(event.target.value)}
+              style={{ ...inputStyle, margin: 0 }}
+            >
+              <option value="All">All Statuses</option>
+              <option value="Draft">Draft</option>
+              <option value="Published">Published</option>
+              <option value="Archived">Archived</option>
+            </select>
+          </div>
+
+          {filteredResources.length === 0 ? (
+            <div
+              style={{
+                padding: "36px 25px",
+                background: "#FFFFFF",
+                border: "1px solid #DCE3DD",
+                borderRadius: "16px",
+                boxShadow: "0 4px 14px rgba(57, 79, 73, 0.07)",
+                textAlign: "center",
+              }}
+            >
+              <div style={{ fontSize: "30px", marginBottom: "12px" }}>
+                📚
+              </div>
+
+              <h3
+                style={{
+                  margin: "0 0 8px",
+                  color: "#394F49",
+                  fontSize: "20px",
+                }}
+              >
+                {resources.length === 0
+                  ? "No resources yet"
+                  : "No matching resources"}
+              </h3>
+
+              <p
+                style={{
+                  maxWidth: "540px",
+                  margin: "0 auto",
+                  color: "#65743A",
+                  fontSize: "14px",
+                  lineHeight: "1.7",
+                }}
+              >
+                {resources.length === 0
+                  ? "Add your first resource using the form above."
+                  : "Try changing your search or filters."}
+              </p>
             </div>
           ) : (
             <div
               style={{
                 display: "grid",
                 gridTemplateColumns:
-                  "repeat(2, minmax(0, 1fr))",
-                gap: "22px",
+                  "repeat(auto-fit, minmax(min(100%, 280px), 1fr))",
+                gap: "18px",
               }}
             >
-              {resources.map((resource) => (
-                <div
+              {filteredResources.map((resource) => (
+                <article
                   key={resource.id}
                   style={{
-                    position: "relative",
-                    minHeight: "238px",
-                    padding: "25px",
                     background: "#FFFFFF",
                     border: "1px solid #DCE3DD",
-                    borderRadius: "16px",
-                    boxShadow:
-                      "0 4px 14px rgba(57, 79, 73, 0.07)",
+                    borderRadius: "15px",
+                    boxShadow: "0 4px 14px rgba(57, 79, 73, 0.06)",
                     overflow: "hidden",
-                    boxSizing: "border-box",
+                    transition: "transform 150ms ease, box-shadow 150ms ease",
+                  }}
+                  onMouseEnter={(event) => {
+                    event.currentTarget.style.transform = "translateY(-3px)";
+                    event.currentTarget.style.boxShadow =
+                      "0 8px 20px rgba(57, 79, 73, 0.12)";
+                  }}
+                  onMouseLeave={(event) => {
+                    event.currentTarget.style.transform = "translateY(0)";
+                    event.currentTarget.style.boxShadow =
+                      "0 4px 14px rgba(57, 79, 73, 0.06)";
                   }}
                 >
-                  {/* Green Top Border */}
-                  <div
-                    style={{
-                      position: "absolute",
-                      top: 0,
-                      left: 0,
-                      right: 0,
-                      height: "5px",
-                      background: "#65743A",
-                    }}
-                  />
+                  <div style={{ height: "5px", background: "#65743A" }} />
 
-                  <div
-                    style={{
-                      display: "flex",
-                      alignItems: "flex-start",
-                      justifyContent: "space-between",
-                      gap: "12px",
-                      marginBottom: "16px",
-                    }}
-                  >
+                  <div style={{ padding: "22px" }}>
+                    <div
+                      style={{
+                        display: "flex",
+                        alignItems: "flex-start",
+                        justifyContent: "space-between",
+                        gap: "10px",
+                        flexWrap: "wrap",
+                        marginBottom: "14px",
+                      }}
+                    >
+                      <span
+                        style={{
+                          display: "inline-flex",
+                          padding: "6px 10px",
+                          borderRadius: "20px",
+                          background: "#E8F3E9",
+                          color: "#2F7D4A",
+                          fontSize: "11px",
+                          fontWeight: "700",
+                        }}
+                      >
+                        {resource.category}
+                      </span>
+
+                      <span
+                        style={{
+                          ...getStatusStyle(resource.status),
+                          display: "inline-flex",
+                          padding: "5px 9px",
+                          borderRadius: "20px",
+                          fontSize: "11px",
+                          fontWeight: "700",
+                        }}
+                      >
+                        {resource.status}
+                      </span>
+                    </div>
+
                     <h3
                       style={{
-                        margin: 0,
+                        margin: "0 0 10px",
                         color: "#394F49",
-                        fontSize: "20px",
-                        lineHeight: "1.3",
-                        fontWeight: "750",
-                        letterSpacing: "-0.1px",
+                        fontSize: "19px",
+                        overflowWrap: "anywhere",
                       }}
                     >
                       {resource.title}
                     </h3>
 
-                    <span
-                      style={{
-                        padding: "5px 9px",
-                        borderRadius: "20px",
-                        background: "#E8EEE3",
-                        color: "#65743A",
-                        fontSize: "11px",
-                        fontWeight: "800",
-                        whiteSpace: "nowrap",
-                      }}
-                    >
-                      {resource.status}
-                    </span>
-                  </div>
-
-                  <div
-                    style={{
-                      display: "inline-flex",
-                      marginBottom: "14px",
-                      padding: "5px 9px",
-                      borderRadius: "20px",
-                      background: "#F5F7F6",
-                      color: "#65743A",
-                      fontSize: "11px",
-                      fontWeight: "700",
-                    }}
-                  >
-                    {resource.category}
-                  </div>
-
-                  <div
-                    style={{
-                      padding: "13px 14px",
-                      marginBottom: "12px",
-                      background: "#F5F7F6",
-                      borderRadius: "9px",
-                    }}
-                  >
                     <p
                       style={{
-                        margin: 0,
-                        color: "#394F49",
-                        fontSize: "13px",
-                        lineHeight: "1.55",
+                        margin: "0 0 15px",
+                        color: "#65743A",
+                        fontSize: "14px",
+                        lineHeight: "1.7",
+                        whiteSpace: "pre-wrap",
+                        overflowWrap: "anywhere",
                       }}
                     >
-                      {resource.description ||
-                        "No description entered."}
+                      {resource.description || "No description provided."}
                     </p>
-                  </div>
 
-                  <p
-                    style={{
-                      margin: 0,
-                      color: "#65743A",
-                      fontSize: "13px",
-                      lineHeight: "1.5",
-                    }}
-                  >
-                    <strong>Source:</strong>{" "}
-                    {resource.source || "Source not entered."}
-                  </p>
-                </div>
+                    {resource.source && (
+                      <p
+                        style={{
+                          margin: "0 0 18px",
+                          color: "#65743A",
+                          fontSize: "13px",
+                          lineHeight: "1.6",
+                          overflowWrap: "anywhere",
+                        }}
+                      >
+                        <strong style={{ color: "#394F49" }}>
+                          Source:{" "}
+                        </strong>
+                        {resource.source}
+                      </p>
+                    )}
+
+                    <div
+                      style={{
+                        display: "flex",
+                        gap: "9px",
+                        flexWrap: "wrap",
+                        borderTop: "1px solid #DCE3DD",
+                        paddingTop: "16px",
+                      }}
+                    >
+                      <button
+                        type="button"
+                        onClick={() => editResource(resource)}
+                        style={primaryButtonStyle}
+                        onMouseEnter={primaryEnter}
+                        onMouseLeave={primaryLeave}
+                      >
+                        Edit
+                      </button>
+
+                      <button
+                        type="button"
+                        onClick={() => deleteResource(resource.id)}
+                        style={{
+                          ...secondaryButtonStyle,
+                          color: "#9A3D35",
+                          borderColor: "#E5C9C5",
+                        }}
+                        onMouseEnter={(event) => {
+                          event.currentTarget.style.background = "#FFF0EE";
+                          event.currentTarget.style.borderColor = "#C76B61";
+                        }}
+                        onMouseLeave={(event) => {
+                          event.currentTarget.style.background = "#FFFFFF";
+                          event.currentTarget.style.borderColor = "#E5C9C5";
+                        }}
+                      >
+                        Delete
+                      </button>
+                    </div>
+                  </div>
+                </article>
               ))}
             </div>
           )}
         </section>
-
-        {/* Bottom Admin Note */}
-        <div
-          style={{
-            marginTop: "30px",
-            padding: "17px 19px",
-            background: "#E8EEE3",
-            border: "1px solid #DCE3DD",
-            borderRadius: "12px",
-            color: "#394F49",
-            fontSize: "13px",
-            lineHeight: "1.6",
-          }}
-        >
-          <strong>Admin workspace:</strong>{" "}
-          Use this section to manage verified climate action resources.
-        </div>
       </div>
     </div>
   );
